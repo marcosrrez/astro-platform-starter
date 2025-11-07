@@ -1,0 +1,150 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "About Florecer Mind - Where Research Blooms into Wisdom";
+const description = "Learn about our mission to transform complex academic research into accessible, practical wisdom for everyday people and counselors.";
+---
+
+<Layout title={title} description={description}>
+    <div class="max-w-4xl mx-auto">
+        <!-- Mission Statement -->
+        <section class="mb-16">
+            <h1 class="mb-6 text-4xl font-bold text-primary sm:text-5xl">
+                Where Research Blooms into Wisdom
+            </h1>
+
+            <p class="mb-6 text-xl text-neutral-700 leading-relaxed">
+                We transform complex academic research from counseling, neuroscience, and cognitive science
+                into accessible, practical wisdom for everyday people and counselors.
+            </p>
+
+            <p class="text-lg text-neutral-700 leading-relaxed">
+                Our mission is to rescue valuable research from academic obscurity and help it flourish in real lives.
+            </p>
+        </section>
+
+        <!-- The Problem -->
+        <section class="mb-16 p-8 bg-neutral-100 rounded-lg border-l-4 border-primary">
+            <h2 class="mb-4 text-2xl font-bold text-primary">The Problem We're Solving</h2>
+            <p class="mb-4 text-neutral-700 leading-relaxed">
+                Groundbreaking research in psychology, neuroscience, and cognitive science is being published
+                every day. Studies that could transform how we understand ourselves, heal from trauma, build
+                resilience, and live more fulfilling lives.
+            </p>
+            <p class="text-neutral-700 leading-relaxed">
+                But this research often stays trapped in academic journals, written in technical language,
+                hidden behind paywalls, and inaccessible to the very people who could benefit from it most.
+            </p>
+        </section>
+
+        <!-- Our Approach -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-3xl font-bold text-primary">Our Approach</h2>
+
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-3 text-xl font-bold text-neutral-900">Evidence-Based</h3>
+                    <p class="text-neutral-700">
+                        Every insight we share is grounded in peer-reviewed research. We cite our sources and
+                        explain the methodology so you can trust what you're learning.
+                    </p>
+                </div>
+
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-3 text-xl font-bold text-neutral-900">Accessible</h3>
+                    <p class="text-neutral-700">
+                        We translate academic jargon into clear, conversational language. Complex concepts become
+                        understandable without losing their scientific accuracy.
+                    </p>
+                </div>
+
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-3 text-xl font-bold text-neutral-900">Practical</h3>
+                    <p class="text-neutral-700">
+                        Every research spotlight includes actionable takeaways. We bridge the gap between
+                        "interesting findings" and "what do I do with this information?"
+                    </p>
+                </div>
+
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-3 text-xl font-bold text-neutral-900">Inclusive</h3>
+                    <p class="text-neutral-700">
+                        Our content serves both everyday people seeking personal growth and counselors deepening
+                        their practice. Everyone benefits from understanding the science of human flourishing.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What We Cover -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-3xl font-bold text-primary">What We Cover</h2>
+
+            <div class="space-y-4">
+                <div class="p-6 bg-neutral-50 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Counseling & Therapy Research</h3>
+                    <p class="text-neutral-700">
+                        What makes therapy effective? How do different therapeutic approaches work? What does
+                        the science say about healing and growth?
+                    </p>
+                </div>
+
+                <div class="p-6 bg-neutral-50 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Neuroscience</h3>
+                    <p class="text-neutral-700">
+                        How does your brain change and adapt? What do we know about neuroplasticity, memory,
+                        emotion regulation, and stress response?
+                    </p>
+                </div>
+
+                <div class="p-6 bg-neutral-50 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Cognitive Science</h3>
+                    <p class="text-neutral-700">
+                        How do we think, learn, and make decisions? What insights can help us understand our
+                        mental processes and cognitive biases?
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Types -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-3xl font-bold text-primary">How We Share Knowledge</h2>
+
+            <div class="space-y-6">
+                <article class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900">Research Spotlights</h3>
+                    <p class="text-neutral-700">
+                        Weekly deep-dives into specific studies. We break down the findings, explain the
+                        implications, and provide practical applications for your life.
+                    </p>
+                </article>
+
+                <article class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900">Newsletter: Research Rescue Weekly</h3>
+                    <p class="text-neutral-700">
+                        Get evidence-based insights delivered to your inbox. Quick reads with actionable
+                        takeaways, no jargon, just practical wisdom.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="p-8 text-center rounded-lg bg-primary text-primary-content">
+            <h2 class="mb-4 text-3xl font-bold">Join Us in Making Research Bloom</h2>
+            <p class="mb-6 text-lg">
+                Whether you're seeking personal growth or professional development, you'll find
+                evidence-based wisdom that can transform your understanding and practice.
+            </p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <a href="/blog" class="btn btn-lg bg-white text-primary hover:bg-neutral-100">
+                    Explore Research
+                </a>
+                <a href="/newsletter" class="btn btn-lg btn-outline border-white text-white hover:bg-white/10">
+                    Subscribe to Newsletter
+                </a>
+            </div>
+        </section>
+    </div>
+</Layout>

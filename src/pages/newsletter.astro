@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Newsletter - Florecer Mind";
+const description = "Subscribe to Research Rescue Weekly - Evidence-based insights delivered to your inbox. No jargon, just practical wisdom from the latest research.";
+---
+
+<Layout title={title} description={description}>
+    <div class="max-w-3xl mx-auto">
+        <!-- Header -->
+        <section class="mb-12 text-center">
+            <h1 class="mb-6 text-4xl font-bold text-primary sm:text-5xl">
+                Research Rescue Weekly
+            </h1>
+            <p class="text-xl text-neutral-700 leading-relaxed">
+                Get evidence-based insights from counseling, neuroscience, and cognitive science
+                delivered to your inbox. No jargon, just practical wisdom.
+            </p>
+        </section>
+
+        <!-- Benefits -->
+        <section class="mb-12">
+            <div class="grid gap-6 md:grid-cols-2">
+                <div class="p-6 bg-neutral-100 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Weekly Research Spotlights</h3>
+                    <p class="text-neutral-700">
+                        Deep-dives into the latest studies, translated into clear, actionable insights.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-neutral-100 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Practical Applications</h3>
+                    <p class="text-neutral-700">
+                        Evidence-based techniques you can implement immediately in your life or practice.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-neutral-100 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Expert Analysis</h3>
+                    <p class="text-neutral-700">
+                        Thoughtful interpretation of research findings and their real-world implications.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-neutral-100 rounded-lg">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900">No Fluff</h3>
+                    <p class="text-neutral-700">
+                        Concise, valuable content that respects your time. Unsubscribe anytime.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Form -->
+        <section class="mb-12">
+            <div class="p-8 bg-primary/5 border-2 border-primary rounded-lg">
+                <h2 class="mb-6 text-2xl font-bold text-center text-primary">
+                    Subscribe to Research Rescue Weekly
+                </h2>
+
+                <!-- Placeholder form - Replace with your email service provider's form -->
+                <form class="max-w-md mx-auto space-y-4" action="#" method="POST">
+                    <div>
+                        <label for="name" class="block mb-2 text-sm font-medium text-neutral-900">
+                            First Name
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            required
+                            class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="Your first name"
+                        />
+                    </div>
+
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-neutral-900">
+                            Email Address
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                            placeholder="your@email.com"
+                        />
+                    </div>
+
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-neutral-900">
+                            I'm interested in: (optional)
+                        </label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" name="interest" value="personal-growth" class="mr-2" />
+                                <span class="text-neutral-700">Personal Growth & Development</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="interest" value="counseling" class="mr-2" />
+                                <span class="text-neutral-700">Counseling & Therapy Insights</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" name="interest" value="neuroscience" class="mr-2" />
+                                <span class="text-neutral-700">Neuroscience & Brain Health</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="w-full btn btn-primary btn-lg"
+                    >
+                        Subscribe Now
+                    </button>
+
+                    <p class="text-xs text-center text-neutral-600">
+                        We respect your privacy. Unsubscribe at any time.
+                    </p>
+                </form>
+
+                <!-- Integration Note -->
+                <div class="mt-8 p-4 bg-white border border-neutral-300 rounded-lg">
+                    <p class="text-sm text-neutral-700">
+                        <strong>Note:</strong> This is a placeholder form. To activate newsletter signups,
+                        integrate with your email service provider (ConvertKit, Mailchimp, etc.) by
+                        replacing the form action and adding your service's form endpoint.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- What to Expect -->
+        <section class="mb-12 p-8 bg-neutral-100 rounded-lg">
+            <h2 class="mb-4 text-2xl font-bold text-primary">What to Expect</h2>
+            <div class="space-y-3 text-neutral-700">
+                <p class="flex items-start">
+                    <span class="font-bold text-primary mr-2">→</span>
+                    <span><strong>Weekly emails</strong> every Monday morning with the latest research spotlight</span>
+                </p>
+                <p class="flex items-start">
+                    <span class="font-bold text-primary mr-2">→</span>
+                    <span><strong>5-minute reads</strong> packed with actionable insights</span>
+                </p>
+                <p class="flex items-start">
+                    <span class="font-bold text-primary mr-2">→</span>
+                    <span><strong>Occasional bonus content</strong> including research roundups and practitioner resources</span>
+                </p>
+                <p class="flex items-start">
+                    <span class="font-bold text-primary mr-2">→</span>
+                    <span><strong>Zero spam</strong> - your inbox is sacred, and we treat it that way</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Back to Site -->
+        <div class="text-center">
+            <a href="/" class="text-primary font-medium hover:underline">
+                ← Back to Home
+            </a>
+        </div>
+    </div>
+</Layout>

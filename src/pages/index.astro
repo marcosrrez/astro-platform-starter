@@ -1,21 +1,107 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ContextAlert from '../components/ContextAlert.astro';
-import Markdown from '../components/Markdown.astro';
 
-const explainer = `
-An Astro website can go way beyond static pages - on the right platform.
-
-Netlify supports not only [Streaming SSR](https://docs.astro.build/en/guides/server-side-rendering/#html-streaming) and fast [Edge Middleware](https://docs.astro.build/en/guides/middleware/), but also [on-demand revalidation](https://www.netlify.com/blog/cache-tags-and-purge-api-on-netlify/) and [stale-while-revalidate](https://www.netlify.com/blog/swr-and-fine-grained-cache-control/). 
-Any page or data can be rebuilt only when needed, without site visitors ever getting a performance hit.
-`;
+const title = "Florecer Mind - Where Research Blooms into Wisdom";
+const description = "Transform complex academic research into accessible, practical wisdom. Discover evidence-based insights from counseling, neuroscience, and cognitive science.";
 ---
 
-<Layout title="Welcome to Astro.">
-    <ContextAlert class="mb-4" />
-    <h1 class="mb-10">Netlify Platform Starter for Astro</h1>
-    <Markdown content={explainer} class="text-lg mb-10" />
-    <p class="mb-8">
-        <a href="https://docs.netlify.com/frameworks/astro/" class="btn btn-lg btn-primary sm:btn-wide">Read the Docs</a>
-    </p>
+<Layout title={title} description={description}>
+    <!-- Hero Section -->
+    <section class="py-12 sm:py-20">
+        <h1 class="mb-6 text-4xl font-bold text-primary sm:text-6xl">
+            Where Research<br />Blooms into Wisdom
+        </h1>
+        <p class="mb-8 text-lg leading-relaxed text-neutral-700 sm:text-xl max-w-3xl">
+            We transform complex academic research from counseling, neuroscience, and cognitive science
+            into accessible, practical wisdom for everyday people and counselors.
+            Rescuing valuable research from academic obscurity and helping it flourish in real lives.
+        </p>
+        <div class="flex flex-wrap gap-4">
+            <a href="/blog" class="btn btn-primary btn-lg">
+                Explore Research
+            </a>
+            <a href="/newsletter" class="btn btn-outline btn-lg">
+                Subscribe to Newsletter
+            </a>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-12 border-t border-neutral-300">
+        <div class="grid gap-8 md:grid-cols-3">
+            <div class="p-6 rounded-lg bg-neutral-100">
+                <h3 class="mb-3 text-xl font-bold text-primary">Research Spotlights</h3>
+                <p class="text-neutral-700">
+                    Weekly deep-dives into specific studies, making complex findings accessible and actionable.
+                </p>
+            </div>
+            <div class="p-6 rounded-lg bg-neutral-100">
+                <h3 class="mb-3 text-xl font-bold text-primary">Practical Applications</h3>
+                <p class="text-neutral-700">
+                    Evidence-based techniques and insights you can implement in your daily life.
+                </p>
+            </div>
+            <div class="p-6 rounded-lg bg-neutral-100">
+                <h3 class="mb-3 text-xl font-bold text-primary">Expert Insights</h3>
+                <p class="text-neutral-700">
+                    Valuable for both everyday people seeking growth and counselors deepening their practice.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Research (Placeholder) -->
+    <section class="py-12 border-t border-neutral-300">
+        <h2 class="mb-8 text-3xl font-bold text-primary">Latest Research Spotlights</h2>
+        <div class="space-y-6">
+            <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                <h3 class="mb-2 text-2xl font-bold text-neutral-900">
+                    <a href="/blog/neuroplasticity-daily-practices" class="hover:text-primary">
+                        How Daily Micro-Practices Reshape Your Brain
+                    </a>
+                </h3>
+                <p class="mb-4 text-neutral-600">
+                    New research reveals that small, consistent actions have more impact on neuroplasticity
+                    than we previously thought. Discover the science behind building lasting change.
+                </p>
+                <a href="/blog/neuroplasticity-daily-practices" class="text-primary font-medium hover:underline">
+                    Read More →
+                </a>
+            </article>
+
+            <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                <h3 class="mb-2 text-2xl font-bold text-neutral-900">
+                    <a href="/blog/cognitive-reappraisal-techniques" class="hover:text-primary">
+                        The Science of Reframing: Evidence-Based Cognitive Techniques
+                    </a>
+                </h3>
+                <p class="mb-4 text-neutral-600">
+                    Recent studies in cognitive science show how reframing thoughts can reduce anxiety and
+                    improve emotional regulation. Learn the research-backed methods that actually work.
+                </p>
+                <a href="/blog/cognitive-reappraisal-techniques" class="text-primary font-medium hover:underline">
+                    Read More →
+                </a>
+            </article>
+        </div>
+
+        <div class="mt-8 text-center">
+            <a href="/blog" class="btn btn-outline">
+                View All Research
+            </a>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA -->
+    <section class="py-12 border-t border-neutral-300">
+        <div class="p-8 text-center rounded-lg bg-primary text-primary-content">
+            <h2 class="mb-4 text-3xl font-bold">Join the Research Rescue Weekly</h2>
+            <p class="mb-6 text-lg">
+                Get evidence-based insights delivered to your inbox. No jargon, just practical wisdom.
+            </p>
+            <a href="/newsletter" class="btn btn-lg bg-white text-primary hover:bg-neutral-100">
+                Subscribe Now
+            </a>
+        </div>
+    </section>
 </Layout>
