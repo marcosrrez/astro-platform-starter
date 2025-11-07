@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const title = "Research Spotlights - Florecer Mind";
+const description = "Explore our latest research spotlights, transforming academic studies into practical wisdom for everyday life.";
+
+// Placeholder blog posts - these will be replaced with dynamic content or a CMS later
+const posts = [
+    {
+        slug: 'neuroplasticity-daily-practices',
+        title: 'How Daily Micro-Practices Reshape Your Brain',
+        excerpt: 'New research reveals that small, consistent actions have more impact on neuroplasticity than we previously thought. Discover the science behind building lasting change.',
+        date: '2024-01-15',
+        category: 'Neuroscience'
+    },
+    {
+        slug: 'cognitive-reappraisal-techniques',
+        title: 'The Science of Reframing: Evidence-Based Cognitive Techniques',
+        excerpt: 'Recent studies in cognitive science show how reframing thoughts can reduce anxiety and improve emotional regulation. Learn the research-backed methods that actually work.',
+        date: '2024-01-08',
+        category: 'Cognitive Science'
+    },
+    {
+        slug: 'therapeutic-alliance-research',
+        title: 'What Makes Therapy Work? New Insights on the Therapeutic Alliance',
+        excerpt: 'Groundbreaking research explores the key factors that make counseling effective, revealing surprising findings about the therapist-client relationship.',
+        date: '2024-01-01',
+        category: 'Counseling'
+    }
+];
+---
+
+<Layout title={title} description={description}>
+    <div class="max-w-4xl">
+        <h1 class="mb-6 text-4xl font-bold text-primary sm:text-5xl">
+            Research Spotlights
+        </h1>
+        <p class="mb-12 text-lg text-neutral-700 leading-relaxed">
+            Weekly deep-dives into academic research from counseling, neuroscience, and cognitive science.
+            Each spotlight transforms complex studies into accessible, actionable wisdom.
+        </p>
+
+        <!-- Blog Posts Grid -->
+        <div class="space-y-8">
+            {posts.map((post) => (
+                <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                    <div class="mb-3 flex items-center gap-4 text-sm text-neutral-600">
+                        <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium">
+                            {post.category}
+                        </span>
+                        <time datetime={post.date}>
+                            {new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            })}
+                        </time>
+                    </div>
+
+                    <h2 class="mb-3 text-2xl font-bold text-neutral-900">
+                        <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
+                            {post.title}
+                        </a>
+                    </h2>
+
+                    <p class="mb-4 text-neutral-700 leading-relaxed">
+                        {post.excerpt}
+                    </p>
+
+                    <a
+                        href={`/blog/${post.slug}`}
+                        class="inline-flex items-center text-primary font-medium hover:underline"
+                    >
+                        Read Full Research Spotlight →
+                    </a>
+                </article>
+            ))}
+        </div>
+
+        <!-- Newsletter CTA -->
+        <div class="mt-16 p-8 text-center rounded-lg bg-neutral-100 border border-neutral-300">
+            <h3 class="mb-3 text-2xl font-bold text-primary">Never Miss a Research Spotlight</h3>
+            <p class="mb-6 text-neutral-700">
+                Get weekly research insights delivered to your inbox. Evidence-based wisdom, no jargon.
+            </p>
+            <a href="/newsletter" class="btn btn-primary btn-lg">
+                Subscribe to Newsletter
+            </a>
+        </div>
+    </div>
+</Layout>
