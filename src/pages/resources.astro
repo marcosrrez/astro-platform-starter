@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Resources - Find Help & Learn More | Florecer Mind";
+const description = "Find mental health providers, therapy directories, and evidence-based resources to support your journey.";
+---
+
+<Layout title={title} description={description}>
+    <div class="max-w-4xl mx-auto">
+        <h1 class="mb-6 text-4xl font-bold text-primary sm:text-5xl">
+            Resources
+        </h1>
+        <p class="mb-12 text-lg text-neutral-700 leading-relaxed">
+            Whether you're seeking professional help or looking to deepen your understanding,
+            these evidence-based resources can support your journey.
+        </p>
+
+        <!-- Find a Therapist Section -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-3xl font-bold text-primary">Find a Therapist or Counselor</h2>
+
+            <div class="mb-8 p-6 bg-primary/10 border-l-4 border-primary rounded-r-lg">
+                <h3 class="mb-3 text-xl font-bold text-neutral-900">How to Choose the Right Therapist</h3>
+                <p class="mb-4 text-neutral-700 leading-relaxed">
+                    Research shows that the therapeutic relationship is one of the strongest predictors of
+                    positive outcomes. Here's what to look for:
+                </p>
+                <ul class="space-y-2 text-neutral-700">
+                    <li class="flex items-start">
+                        <span class="mr-2 text-primary font-bold">→</span>
+                        <span><strong>Licensed credentials</strong> - Look for LMFT, LCSW, LPC, PsyD, or PhD</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-primary font-bold">→</span>
+                        <span><strong>Specialized training</strong> - In areas relevant to your needs (trauma, anxiety, family therapy, etc.)</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-primary font-bold">→</span>
+                        <span><strong>Evidence-based approaches</strong> - CBT, DBT, EMDR, ACT, or other research-supported methods</span>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="mr-2 text-primary font-bold">→</span>
+                        <span><strong>Good fit</strong> - You feel heard, respected, and comfortable being vulnerable</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Therapy Directories -->
+            <div class="grid gap-6 md:grid-cols-2 mb-8">
+                <a
+                    href="https://www.psychologytoday.com/us/therapists"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="p-6 border-2 border-neutral-300 rounded-lg hover:border-primary hover:shadow-lg transition-all"
+                >
+                    <h3 class="mb-2 text-xl font-bold text-primary">Psychology Today</h3>
+                    <p class="mb-3 text-neutral-700">
+                        Comprehensive directory with detailed therapist profiles, specialties, and insurance information.
+                    </p>
+                    <span class="text-sm text-primary font-medium">Visit Directory →</span>
+                </a>
+
+                <a
+                    href="https://www.goodtherapy.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="p-6 border-2 border-neutral-300 rounded-lg hover:border-primary hover:shadow-lg transition-all"
+                >
+                    <h3 class="mb-2 text-xl font-bold text-primary">GoodTherapy</h3>
+                    <p class="mb-3 text-neutral-700">
+                        Find therapists committed to ethical, evidence-based practice with detailed approach descriptions.
+                    </p>
+                    <span class="text-sm text-primary font-medium">Visit Directory →</span>
+                </a>
+
+                <a
+                    href="https://www.opencounseling.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="p-6 border-2 border-neutral-300 rounded-lg hover:border-primary hover:shadow-lg transition-all"
+                >
+                    <h3 class="mb-2 text-xl font-bold text-primary">Open Counseling</h3>
+                    <p class="mb-3 text-neutral-700">
+                        Directory of affordable and free counseling services, including sliding scale options.
+                    </p>
+                    <span class="text-sm text-primary font-medium">Visit Directory →</span>
+                </a>
+
+                <a
+                    href="https://www.betterhelp.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="p-6 border-2 border-neutral-300 rounded-lg hover:border-primary hover:shadow-lg transition-all"
+                >
+                    <h3 class="mb-2 text-xl font-bold text-primary">BetterHelp</h3>
+                    <p class="mb-3 text-neutral-700">
+                        Online therapy platform connecting you with licensed therapists via video, phone, or messaging.
+                    </p>
+                    <span class="text-sm text-primary font-medium">Visit Platform →</span>
+                </a>
+            </div>
+
+            <!-- Local Resources for Northwest Arkansas -->
+            <div class="p-6 bg-neutral-100 rounded-lg border border-neutral-300">
+                <h3 class="mb-3 text-xl font-bold text-neutral-900">Northwest Arkansas Area</h3>
+                <p class="mb-4 text-neutral-700">
+                    For those in the Northwest Arkansas region, these resources can help you find local support:
+                </p>
+                <ul class="space-y-3">
+                    <li>
+                        <a
+                            href="https://www.samhsa.gov/find-help/national-helpline"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-primary hover:underline font-medium"
+                        >
+                            SAMHSA National Helpline
+                        </a>
+                        <p class="text-sm text-neutral-600">
+                            1-800-662-4357 - Free, confidential, 24/7 treatment referral service
+                        </p>
+                    </li>
+                    <li>
+                        <a
+                            href="https://www.psychologytoday.com/us/therapists/ar/bentonville"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="text-primary hover:underline font-medium"
+                        >
+                            Bentonville Area Therapists
+                        </a>
+                        <p class="text-sm text-neutral-600">
+                            Find licensed counselors and therapists in the Bentonville, AR area
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Crisis Resources -->
+        <section class="mb-16 p-6 bg-red-50 border-2 border-red-300 rounded-lg">
+            <h2 class="mb-4 text-2xl font-bold text-red-900">Crisis Support</h2>
+            <p class="mb-4 text-red-900">
+                If you're in crisis or experiencing thoughts of suicide, please reach out immediately:
+            </p>
+            <div class="space-y-3">
+                <div class="p-4 bg-white rounded-lg">
+                    <h3 class="font-bold text-red-900 mb-1">988 Suicide & Crisis Lifeline</h3>
+                    <p class="text-red-800 mb-2">Call or text <strong>988</strong></p>
+                    <p class="text-sm text-neutral-700">Free, confidential support 24/7 for people in distress</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg">
+                    <h3 class="font-bold text-red-900 mb-1">Crisis Text Line</h3>
+                    <p class="text-red-800 mb-2">Text <strong>HELLO</strong> to <strong>741741</strong></p>
+                    <p class="text-sm text-neutral-700">24/7 support via text message with trained crisis counselors</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Resources -->
+        <section class="mb-16">
+            <h2 class="mb-6 text-3xl font-bold text-primary">Learn More</h2>
+
+            <div class="space-y-6">
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900">Evidence-Based Mental Health Information</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a
+                                href="https://www.nimh.nih.gov/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary hover:underline font-medium"
+                            >
+                                National Institute of Mental Health (NIMH)
+                            </a>
+                            <p class="text-sm text-neutral-600">Research-based information on mental health conditions and treatments</p>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.apa.org/topics"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary hover:underline font-medium"
+                            >
+                                American Psychological Association
+                            </a>
+                            <p class="text-sm text-neutral-600">Expert resources on psychology topics and mental health</p>
+                        </li>
+                        <li>
+                            <a
+                                href="https://www.nami.org/Home"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary hover:underline font-medium"
+                            >
+                                National Alliance on Mental Illness (NAMI)
+                            </a>
+                            <p class="text-sm text-neutral-600">Support, education, and advocacy for individuals and families affected by mental illness</p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="p-6 border border-neutral-300 rounded-lg">
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900">Research & Education</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a
+                                href="https://greatergood.berkeley.edu/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary hover:underline font-medium"
+                            >
+                                Greater Good Science Center
+                            </a>
+                            <p class="text-sm text-neutral-600">Research-based insights on compassion, happiness, and social connection</p>
+                        </li>
+                        <li>
+                            <a
+                                href="https://positivepsychology.com/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="text-primary hover:underline font-medium"
+                            >
+                                PositivePsychology.com
+                            </a>
+                            <p class="text-sm text-neutral-600">Tools and resources grounded in positive psychology research</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Back to Blog CTA -->
+        <section class="p-8 text-center rounded-lg bg-primary/10 border border-primary">
+            <h3 class="mb-3 text-2xl font-bold text-primary">Explore Research-Based Insights</h3>
+            <p class="mb-6 text-neutral-700">
+                Discover how academic research can transform into practical wisdom for your daily life.
+            </p>
+            <a href="/blog" class="btn btn-primary btn-lg">
+                Read Research Spotlights
+            </a>
+        </section>
+    </div>
+</Layout>
