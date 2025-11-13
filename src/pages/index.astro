@@ -14,11 +14,11 @@ const latestPosts = allPosts
 
 <Layout title={title} description={description}>
     <!-- Hero Section -->
-    <section class="py-12 sm:py-20">
-        <h1 class="mb-6 text-4xl font-bold text-primary sm:text-6xl">
+    <section class="py-16 sm:py-24">
+        <h1 class="mb-8 optical-align">
             Where Research<br />Blooms into Wisdom
         </h1>
-        <p class="mb-8 text-lg leading-relaxed text-neutral-700 sm:text-xl max-w-3xl">
+        <p class="mb-10 text-xl leading-loose text-neutral-700 sm:text-2xl max-w-3xl font-sans">
             We transform complex academic research from counseling, neuroscience, and cognitive science
             into accessible, practical wisdom for everyday people and counselors.
             Rescuing valuable research from academic obscurity and helping it flourish in real lives.
@@ -27,45 +27,51 @@ const latestPosts = allPosts
             <a href="/blog" class="btn btn-primary btn-lg">
                 Explore Research
             </a>
-            <a href="/newsletter" class="btn btn-outline btn-lg">
+            <a href="/newsletter" class="btn btn-outline btn-lg border-2">
                 Subscribe to Newsletter
             </a>
         </div>
     </section>
 
+    <!-- Section divider -->
+    <div class="section-divider"></div>
+
     <!-- Mission Section -->
-    <section class="py-12 border-t border-neutral-300">
+    <section class="py-16">
         <div class="grid gap-8 md:grid-cols-3">
-            <div class="p-6 rounded-lg bg-neutral-100">
-                <h3 class="mb-3 text-xl font-bold text-primary">Research Spotlights</h3>
-                <p class="text-neutral-700">
+            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
+                <h3 class="mb-4 font-serif">Research Spotlights</h3>
+                <p class="text-neutral-700 leading-relaxed font-sans">
                     Weekly deep-dives into specific studies, making complex findings accessible and actionable.
                 </p>
             </div>
-            <div class="p-6 rounded-lg bg-neutral-100">
-                <h3 class="mb-3 text-xl font-bold text-primary">Practical Applications</h3>
-                <p class="text-neutral-700">
+            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
+                <h3 class="mb-4 font-serif">Practical Applications</h3>
+                <p class="text-neutral-700 leading-relaxed font-sans">
                     Evidence-based techniques and insights you can implement in your daily life.
                 </p>
             </div>
-            <div class="p-6 rounded-lg bg-neutral-100">
-                <h3 class="mb-3 text-xl font-bold text-primary">Expert Insights</h3>
-                <p class="text-neutral-700">
+            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
+                <h3 class="mb-4 font-serif">Expert Insights</h3>
+                <p class="text-neutral-700 leading-relaxed font-sans">
                     Valuable for both everyday people seeking growth and counselors deepening their practice.
                 </p>
             </div>
         </div>
     </section>
 
+    <!-- Section divider -->
+    <div class="section-divider"></div>
+
     <!-- Featured Research -->
-    <section class="py-12 border-t border-neutral-300">
-        <h2 class="mb-8 text-3xl font-bold text-primary">Latest Research Spotlights</h2>
+    <section class="py-16">
+        <h2 class="mb-10 font-serif">Latest Research Spotlights</h2>
         {latestPosts.length > 0 ? (
-            <div class="space-y-6">
+            <div class="space-y-8">
                 {latestPosts.map((post) => (
-                    <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
-                        <div class="mb-2 flex items-center gap-3 text-sm">
-                            <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium">
+                    <article class="p-8 border border-neutral-200 rounded-lg hover:border-primary card-hover">
+                        <div class="mb-4 flex items-center gap-3 text-sm font-sans">
+                            <span class="category-badge bg-secondary/20 text-primary">
                                 {post.data.category}
                             </span>
                             <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
@@ -76,50 +82,54 @@ const latestPosts = allPosts
                                 })}
                             </time>
                         </div>
-                        <h3 class="mb-2 text-2xl font-bold text-neutral-900">
-                            <a href={`/blog/${post.slug}`} class="hover:text-primary">
+                        <h3 class="mb-3 font-serif text-neutral-900">
+                            <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
                                 {post.data.title}
                             </a>
                         </h3>
-                        <p class="mb-4 text-neutral-600">
+                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans">
                             {post.data.description}
                         </p>
                         {post.data.tags && post.data.tags.length > 0 && (
-                            <div class="mb-4 flex flex-wrap gap-2">
+                            <div class="mb-5 flex flex-wrap gap-2">
                                 {post.data.tags.slice(0, 4).map((tag) => (
-                                    <span class="px-2 py-1 text-xs bg-neutral-200 text-neutral-700 rounded-full">
+                                    <span class="tag bg-neutral-100 text-neutral-700">
                                         #{tag}
                                     </span>
                                 ))}
                             </div>
                         )}
-                        <a href={`/blog/${post.slug}`} class="text-primary font-medium hover:underline">
-                            Read More →
+                        <a href={`/blog/${post.slug}`} class="font-medium font-sans inline-flex items-center group">
+                            Read More
+                            <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                         </a>
                     </article>
                 ))}
             </div>
         ) : (
-            <div class="p-8 text-center bg-neutral-100 rounded-lg">
-                <p class="text-neutral-700">New research spotlights coming soon!</p>
+            <div class="p-8 text-center bg-neutral-50 rounded-lg border border-neutral-200">
+                <p class="text-neutral-700 font-sans">New research spotlights coming soon!</p>
             </div>
         )}
 
-        <div class="mt-8 text-center">
-            <a href="/blog" class="btn btn-outline">
+        <div class="mt-10 text-center">
+            <a href="/blog" class="btn btn-outline border-2">
                 View All Research
             </a>
         </div>
     </section>
 
+    <!-- Section divider -->
+    <div class="section-divider"></div>
+
     <!-- Newsletter CTA -->
-    <section class="py-12 border-t border-neutral-300">
-        <div class="p-8 text-center rounded-lg bg-primary text-primary-content">
-            <h2 class="mb-4 text-3xl font-bold">Join the Research Rescue Weekly</h2>
-            <p class="mb-6 text-lg">
+    <section class="py-16">
+        <div class="p-12 text-center rounded-lg bg-primary text-primary-content">
+            <h2 class="mb-4 font-serif text-white">Join the Research Rescue Weekly</h2>
+            <p class="mb-8 text-lg font-sans text-white/90 max-w-2xl mx-auto">
                 Get evidence-based insights delivered to your inbox. No jargon, just practical wisdom.
             </p>
-            <a href="/newsletter" class="btn btn-lg bg-white text-primary hover:bg-neutral-100">
+            <a href="/newsletter" class="btn btn-lg bg-white text-primary hover:bg-neutral-100 border-0">
                 Subscribe Now
             </a>
         </div>
