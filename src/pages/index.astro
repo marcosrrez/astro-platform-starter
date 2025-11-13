@@ -1,8 +1,15 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 
 const title = "Florecer Mind - Where Research Blooms into Wisdom";
 const description = "Transform complex academic research into accessible, practical wisdom. Discover evidence-based insights from counseling, neuroscience, and cognitive science.";
+
+// Get latest blog posts for homepage
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+    .slice(0, 3); // Show top 3 latest posts
 ---
 
 <Layout title={title} description={description}>
@@ -50,40 +57,53 @@ const description = "Transform complex academic research into accessible, practi
         </div>
     </section>
 
-    <!-- Featured Research (Placeholder) -->
+    <!-- Featured Research -->
     <section class="py-12 border-t border-neutral-300">
         <h2 class="mb-8 text-3xl font-bold text-primary">Latest Research Spotlights</h2>
-        <div class="space-y-6">
-            <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
-                <h3 class="mb-2 text-2xl font-bold text-neutral-900">
-                    <a href="/blog/neuroplasticity-daily-practices" class="hover:text-primary">
-                        How Daily Micro-Practices Reshape Your Brain
-                    </a>
-                </h3>
-                <p class="mb-4 text-neutral-600">
-                    New research reveals that small, consistent actions have more impact on neuroplasticity
-                    than we previously thought. Discover the science behind building lasting change.
-                </p>
-                <a href="/blog/neuroplasticity-daily-practices" class="text-primary font-medium hover:underline">
-                    Read More →
-                </a>
-            </article>
-
-            <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
-                <h3 class="mb-2 text-2xl font-bold text-neutral-900">
-                    <a href="/blog/cognitive-reappraisal-techniques" class="hover:text-primary">
-                        The Science of Reframing: Evidence-Based Cognitive Techniques
-                    </a>
-                </h3>
-                <p class="mb-4 text-neutral-600">
-                    Recent studies in cognitive science show how reframing thoughts can reduce anxiety and
-                    improve emotional regulation. Learn the research-backed methods that actually work.
-                </p>
-                <a href="/blog/cognitive-reappraisal-techniques" class="text-primary font-medium hover:underline">
-                    Read More →
-                </a>
-            </article>
-        </div>
+        {latestPosts.length > 0 ? (
+            <div class="space-y-6">
+                {latestPosts.map((post) => (
+                    <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                        <div class="mb-2 flex items-center gap-3 text-sm">
+                            <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium">
+                                {post.data.category}
+                            </span>
+                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
+                                {post.data.pubDate.toLocaleDateString('en-US', {
+                                    month: 'long',
+                                    day: 'numeric',
+                                    year: 'numeric'
+                                })}
+                            </time>
+                        </div>
+                        <h3 class="mb-2 text-2xl font-bold text-neutral-900">
+                            <a href={`/blog/${post.slug}`} class="hover:text-primary">
+                                {post.data.title}
+                            </a>
+                        </h3>
+                        <p class="mb-4 text-neutral-600">
+                            {post.data.description}
+                        </p>
+                        {post.data.tags && post.data.tags.length > 0 && (
+                            <div class="mb-4 flex flex-wrap gap-2">
+                                {post.data.tags.slice(0, 4).map((tag) => (
+                                    <span class="px-2 py-1 text-xs bg-neutral-200 text-neutral-700 rounded-full">
+                                        #{tag}
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+                        <a href={`/blog/${post.slug}`} class="text-primary font-medium hover:underline">
+                            Read More →
+                        </a>
+                    </article>
+                ))}
+            </div>
+        ) : (
+            <div class="p-8 text-center bg-neutral-100 rounded-lg">
+                <p class="text-neutral-700">New research spotlights coming soon!</p>
+            </div>
+        )}
 
         <div class="mt-8 text-center">
             <a href="/blog" class="btn btn-outline">

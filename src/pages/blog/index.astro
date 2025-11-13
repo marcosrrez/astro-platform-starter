@@ -1,81 +1,219 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
 const title = "Research Spotlights - Florecer Mind";
 const description = "Explore our latest research spotlights, transforming academic studies into practical wisdom for everyday life.";
 
-// Placeholder blog posts - these will be replaced with dynamic content or a CMS later
-const posts = [
-    {
-        slug: 'neuroplasticity-daily-practices',
-        title: 'How Daily Micro-Practices Reshape Your Brain',
-        excerpt: 'New research reveals that small, consistent actions have more impact on neuroplasticity than we previously thought. Discover the science behind building lasting change.',
-        date: '2024-01-15',
-        category: 'Neuroscience'
-    },
-    {
-        slug: 'cognitive-reappraisal-techniques',
-        title: 'The Science of Reframing: Evidence-Based Cognitive Techniques',
-        excerpt: 'Recent studies in cognitive science show how reframing thoughts can reduce anxiety and improve emotional regulation. Learn the research-backed methods that actually work.',
-        date: '2024-01-08',
-        category: 'Cognitive Science'
-    },
-    {
-        slug: 'therapeutic-alliance-research',
-        title: 'What Makes Therapy Work? New Insights on the Therapeutic Alliance',
-        excerpt: 'Groundbreaking research explores the key factors that make counseling effective, revealing surprising findings about the therapist-client relationship.',
-        date: '2024-01-01',
-        category: 'Counseling'
-    }
-];
+// Get all blog posts and sort by date
+const allPosts = await getCollection('blog');
+const sortedPosts = allPosts.sort((a, b) =>
+    b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+// Get URL parameters for filtering
+const url = new URL(Astro.request.url);
+const selectedCategory = url.searchParams.get('category');
+const selectedTag = url.searchParams.get('tag');
+
+// Filter posts based on query parameters
+let filteredPosts = sortedPosts;
+if (selectedCategory) {
+    filteredPosts = filteredPosts.filter(post => post.data.category === selectedCategory);
+}
+if (selectedTag) {
+    filteredPosts = filteredPosts.filter(post => post.data.tags.includes(selectedTag));
+}
+
+// Get unique categories and tags for filters
+const categories = [...new Set(allPosts.map(post => post.data.category))];
+const allTags = [...new Set(allPosts.flatMap(post => post.data.tags))].sort();
+
+// Group common tags
+const audienceTags = allTags.filter(tag =>
+    ['parenting', 'for-counselors', 'relationships', 'work-stress'].includes(tag)
+);
+const topicTags = allTags.filter(tag =>
+    ['anxiety', 'depression', 'sleep', 'trauma', 'ADHD', 'resilience', 'children', 'teens', 'brain-health', 'habits'].includes(tag)
+);
+const otherTags = allTags.filter(tag =>
+    !audienceTags.includes(tag) && !topicTags.includes(tag)
+);
 ---
 
 <Layout title={title} description={description}>
-    <div class="max-w-4xl">
+    <div class="max-w-6xl mx-auto">
         <h1 class="mb-6 text-4xl font-bold text-primary sm:text-5xl">
             Research Spotlights
         </h1>
-        <p class="mb-12 text-lg text-neutral-700 leading-relaxed">
+        <p class="mb-8 text-lg text-neutral-700 leading-relaxed max-w-3xl">
             Weekly deep-dives into academic research from counseling, neuroscience, and cognitive science.
             Each spotlight transforms complex studies into accessible, actionable wisdom.
         </p>
 
-        <!-- Blog Posts Grid -->
-        <div class="space-y-8">
-            {posts.map((post) => (
-                <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
-                    <div class="mb-3 flex items-center gap-4 text-sm text-neutral-600">
-                        <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium">
-                            {post.category}
-                        </span>
-                        <time datetime={post.date}>
-                            {new Date(post.date).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                            })}
-                        </time>
-                    </div>
+        <!-- Filters Section -->
+        <div class="mb-12 p-6 bg-neutral-100 rounded-lg border border-neutral-300">
+            <h2 class="mb-4 text-xl font-bold text-neutral-900">Filter by:</h2>
 
-                    <h2 class="mb-3 text-2xl font-bold text-neutral-900">
-                        <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
-                            {post.title}
-                        </a>
-                    </h2>
-
-                    <p class="mb-4 text-neutral-700 leading-relaxed">
-                        {post.excerpt}
-                    </p>
-
+            <!-- Categories -->
+            <div class="mb-6">
+                <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">Categories</h3>
+                <div class="flex flex-wrap gap-2">
                     <a
-                        href={`/blog/${post.slug}`}
-                        class="inline-flex items-center text-primary font-medium hover:underline"
+                        href="/blog"
+                        class={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            !selectedCategory
+                                ? 'bg-primary text-white'
+                                : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                        }`}
                     >
-                        Read Full Research Spotlight →
+                        All
                     </a>
-                </article>
-            ))}
+                    {categories.map((category) => (
+                        <a
+                            href={`/blog?category=${encodeURIComponent(category)}`}
+                            class={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                                selectedCategory === category
+                                    ? 'bg-primary text-white'
+                                    : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                            }`}
+                        >
+                            {category}
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            <!-- Audience Tags -->
+            {audienceTags.length > 0 && (
+                <div class="mb-6">
+                    <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">For You</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {audienceTags.map((tag) => (
+                            <a
+                                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                                class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
+                                    selectedTag === tag
+                                        ? 'bg-secondary text-white'
+                                        : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                }`}
+                            >
+                                #{tag}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            <!-- Topic Tags -->
+            {topicTags.length > 0 && (
+                <div>
+                    <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">Topics</h3>
+                    <div class="flex flex-wrap gap-2">
+                        {topicTags.map((tag) => (
+                            <a
+                                href={`/blog?tag=${encodeURIComponent(tag)}`}
+                                class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
+                                    selectedTag === tag
+                                        ? 'bg-secondary text-white'
+                                        : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                }`}
+                            >
+                                #{tag}
+                            </a>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Clear Filters */}
+            {(selectedCategory || selectedTag) && (
+                <div class="mt-4 pt-4 border-t border-neutral-300">
+                    <a
+                        href="/blog"
+                        class="inline-flex items-center text-sm text-primary hover:underline font-medium"
+                    >
+                        ✕ Clear all filters
+                    </a>
+                </div>
+            )}
         </div>
+
+        <!-- Active Filter Display -->
+        {(selectedCategory || selectedTag) && (
+            <div class="mb-6 p-4 bg-primary/10 rounded-lg">
+                <p class="text-neutral-900">
+                    Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
+                    {selectedCategory && ` in ${selectedCategory}`}
+                    {selectedTag && ` tagged with #${selectedTag}`}
+                </p>
+            </div>
+        )}
+
+        <!-- Blog Posts Grid -->
+        {filteredPosts.length > 0 ? (
+            <div class="space-y-8">
+                {filteredPosts.map((post) => (
+                    <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm">
+                            <a
+                                href={`/blog?category=${encodeURIComponent(post.data.category)}`}
+                                class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium hover:bg-secondary/30"
+                            >
+                                {post.data.category}
+                            </a>
+                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
+                                {post.data.pubDate.toLocaleDateString('en-US', {
+                                    year: 'numeric',
+                                    month: 'long',
+                                    day: 'numeric'
+                                })}
+                            </time>
+                        </div>
+
+                        <h2 class="mb-3 text-2xl font-bold text-neutral-900">
+                            <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
+                                {post.data.title}
+                            </a>
+                        </h2>
+
+                        <p class="mb-4 text-neutral-700 leading-relaxed">
+                            {post.data.description}
+                        </p>
+
+                        {/* Tags */}
+                        {post.data.tags && post.data.tags.length > 0 && (
+                            <div class="mb-4 flex flex-wrap gap-2">
+                                {post.data.tags.map((tag) => (
+                                    <a
+                                        href={`/blog?tag=${encodeURIComponent(tag)}`}
+                                        class="px-2 py-1 text-xs bg-neutral-200 text-neutral-700 rounded-full hover:bg-primary hover:text-white transition-colors"
+                                    >
+                                        #{tag}
+                                    </a>
+                                ))}
+                            </div>
+                        )}
+
+                        <a
+                            href={`/blog/${post.slug}`}
+                            class="inline-flex items-center text-primary font-medium hover:underline"
+                        >
+                            Read Full Research Spotlight →
+                        </a>
+                    </article>
+                ))}
+            </div>
+        ) : (
+            <div class="p-8 text-center bg-neutral-100 rounded-lg">
+                <p class="text-lg text-neutral-700 mb-4">
+                    No articles found with the selected filters.
+                </p>
+                <a href="/blog" class="text-primary font-medium hover:underline">
+                    Clear filters and view all articles
+                </a>
+            </div>
+        )}
 
         <!-- Newsletter CTA -->
         <div class="mt-16 p-8 text-center rounded-lg bg-neutral-100 border border-neutral-300">
