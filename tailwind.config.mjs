@@ -17,7 +17,15 @@ export default {
                 neutral: colors.neutral
             },
             fontFamily: {
-                sans: ['Inter', ...defaultTheme.fontFamily.sans]
+                sans: ['Inter', ...defaultTheme.fontFamily.sans],
+                serif: ['Crimson Pro', ...defaultTheme.fontFamily.serif]
+            },
+            lineHeight: {
+                'relaxed': '1.75',
+                'loose': '1.8'
+            },
+            letterSpacing: {
+                'wide': '0.02em'
             }
         }
     },

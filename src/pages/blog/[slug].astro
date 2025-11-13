@@ -10,16 +10,16 @@ export async function getStaticPaths() {
     }));
 }
 
-const { entry } = Astro.props;
+const { entry} = Astro.props;
 const { Content } = await entry.render();
 ---
 
 <Layout title={entry.data.title} description={entry.data.description}>
-    <article class="max-w-3xl mx-auto">
+    <article class="max-w-4xl mx-auto">
         <!-- Article Header -->
-        <header class="mb-8">
-            <div class="mb-4 flex flex-wrap items-center gap-3 text-sm">
-                <span class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium">
+        <header class="mb-12">
+            <div class="mb-6 flex flex-wrap items-center gap-3 text-sm font-sans">
+                <span class="category-badge bg-secondary/20 text-primary">
                     {entry.data.category}
                 </span>
                 <time datetime={entry.data.pubDate.toISOString()} class="text-neutral-600">
@@ -31,122 +31,131 @@ const { Content } = await entry.render();
                 </time>
             </div>
 
-            <h1 class="mb-4 text-4xl font-bold text-primary sm:text-5xl leading-tight">
+            <h1 class="mb-6 optical-align">
                 {entry.data.title}
             </h1>
 
-            <p class="text-xl text-neutral-700 leading-relaxed">
+            <p class="text-xl text-neutral-700 leading-relaxed font-sans max-w-3xl">
                 {entry.data.description}
             </p>
 
             <!-- Tags -->
             {entry.data.tags && entry.data.tags.length > 0 && (
-                <div class="mt-6 flex flex-wrap gap-2">
+                <div class="mt-8 flex flex-wrap gap-2">
                     {entry.data.tags.map((tag) => (
                         <a
                             href={`/blog?tag=${encodeURIComponent(tag)}`}
-                            class="px-3 py-1 text-sm bg-neutral-200 text-neutral-700 rounded-full hover:bg-primary hover:text-white transition-colors"
+                            class="tag bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
                         >
                             #{tag}
                         </a>
                     ))}
                 </div>
             )}
+
+            <!-- Elegant divider -->
+            <div class="section-divider"></div>
         </header>
 
         <!-- Article Content -->
-        <div class="prose prose-lg max-w-none prose-headings:text-primary prose-a:text-primary prose-strong:text-neutral-900">
+        <div class="prose prose-lg max-w-none">
             <Content />
         </div>
 
         <!-- Sources & Resources Section -->
         {(entry.data.sources || entry.data.furtherReading || entry.data.relatedVideos) && (
-            <section class="mt-16 pt-8 border-t-2 border-neutral-300">
-                <h2 class="mb-6 text-2xl font-bold text-primary">Sources & Resources</h2>
+            <section class="mt-20 pt-12 border-t border-neutral-200">
+                <h2 class="mb-8 font-serif">Sources & Resources</h2>
 
                 <!-- Scientific Sources -->
                 {entry.data.sources && entry.data.sources.length > 0 && (
-                    <div class="mb-8">
-                        <h3 class="mb-4 text-xl font-bold text-neutral-900">Research Citations</h3>
-                        <ul class="space-y-3">
+                    <div class="mb-10">
+                        <h3 class="mb-6 font-serif text-neutral-900">Research Summary</h3>
+                        <div class="space-y-4 font-sans">
                             {entry.data.sources.map((source) => (
-                                <li class="pl-4 border-l-2 border-primary">
+                                <div class="pl-5 border-l-2 border-primary/30">
                                     <a
                                         href={source.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="text-primary hover:underline font-medium"
+                                        class="font-medium block mb-1"
                                     >
                                         {source.title}
                                     </a>
                                     {source.type && (
-                                        <span class="ml-2 text-xs text-neutral-600 uppercase">
-                                            [{source.type}]
+                                        <span class="text-xs text-neutral-600 uppercase tracking-wider">
+                                            {source.type}
                                         </span>
                                     )}
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
                 <!-- Further Reading -->
                 {entry.data.furtherReading && entry.data.furtherReading.length > 0 && (
-                    <div class="mb-8">
-                        <h3 class="mb-4 text-xl font-bold text-neutral-900">Further Reading</h3>
-                        <ul class="space-y-4">
+                    <div class="mb-10">
+                        <h3 class="mb-6 font-serif text-neutral-900">Further Reading</h3>
+                        <div class="space-y-5 font-sans">
                             {entry.data.furtherReading.map((reading) => (
-                                <li class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+                                <div class="p-5 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
                                     <a
                                         href={reading.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="text-primary hover:underline font-medium text-lg"
+                                        class="font-semibold text-lg block mb-2"
                                     >
                                         {reading.title}
                                     </a>
                                     {reading.description && (
-                                        <p class="mt-2 text-sm text-neutral-700">{reading.description}</p>
+                                        <p class="text-sm text-neutral-600 leading-relaxed">{reading.description}</p>
                                     )}
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
 
                 <!-- Related Videos -->
                 {entry.data.relatedVideos && entry.data.relatedVideos.length > 0 && (
-                    <div>
-                        <h3 class="mb-4 text-xl font-bold text-neutral-900">Related Videos</h3>
-                        <ul class="space-y-3">
+                    <div class="mb-10">
+                        <h3 class="mb-6 font-serif text-neutral-900">Related Videos</h3>
+                        <div class="space-y-4 font-sans">
                             {entry.data.relatedVideos.map((video) => (
-                                <li class="p-4 bg-neutral-50 rounded-lg border border-neutral-200">
+                                <div class="p-5 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
                                     <a
                                         href={video.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        class="text-primary hover:underline font-medium"
+                                        class="font-medium block"
                                     >
                                         🎥 {video.title}
                                     </a>
                                     {video.creator && (
-                                        <span class="ml-2 text-sm text-neutral-600">
+                                        <span class="text-sm text-neutral-600 mt-1 block">
                                             by {video.creator}
                                         </span>
                                     )}
-                                </li>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </div>
                 )}
+
+                <p class="text-sm text-neutral-600 italic mt-8 font-sans">
+                    Note: Links provided are to accessible summaries and educational content.
+                    Full academic citations available upon request.
+                </p>
             </section>
         )}
 
         <!-- Article Footer -->
-        <footer class="mt-12 pt-8 border-t border-neutral-300">
-            <div class="flex flex-wrap gap-4 justify-between items-center">
-                <a href="/blog" class="text-primary font-medium hover:underline">
-                    ← Back to All Research
+        <footer class="mt-16 pt-10 border-t border-neutral-200 font-sans">
+            <div class="flex flex-wrap gap-6 justify-between items-center">
+                <a href="/blog" class="font-medium inline-flex items-center group">
+                    <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span>
+                    Back to All Research
                 </a>
                 <a href="/newsletter" class="btn btn-primary">
                     Get More Research in Your Inbox
