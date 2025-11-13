@@ -3,48 +3,213 @@
 @tailwind utilities;
 
 @layer base {
+    /* Body text - optimized for reading */
+    body {
+        @apply leading-loose;
+        font-feature-settings: "kern" 1, "liga" 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Headings - elegant serif */
+    h1, h2, h3, h4, h5, h6 {
+        @apply font-serif text-neutral-900;
+        font-feature-settings: "kern" 1, "liga" 1, "dlig" 1;
+    }
+
     h1 {
-        @apply text-4xl font-bold tracking-tight sm:text-5xl;
+        @apply text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl;
+        letter-spacing: -0.02em;
     }
 
     h2 {
-        @apply text-2xl font-bold sm:text-3xl;
+        @apply text-3xl font-bold leading-snug sm:text-4xl;
+        letter-spacing: -0.01em;
     }
 
+    h3 {
+        @apply text-2xl font-semibold leading-snug sm:text-3xl;
+    }
+
+    h4 {
+        @apply text-xl font-semibold leading-normal;
+    }
+
+    /* Paragraphs - optimal reading experience */
+    p {
+        @apply leading-loose text-neutral-700;
+        max-width: 70ch; /* Optimal line length for readability */
+    }
+
+    /* Links - refined underline style */
     a {
-        @apply underline transition hover:opacity-80;
+        @apply text-primary no-underline transition-all duration-200;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
     }
 
+    a:hover {
+        @apply text-primary;
+        text-decoration: underline;
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 2px;
+    }
+
+    /* Code blocks */
     pre {
         @apply p-6 overflow-x-auto rounded-lg;
     }
 
     :not(pre) > code {
-        @apply px-1 py-0.5 font-mono rounded bg-[#1f1f1f] text-[#F67280];
+        @apply px-1.5 py-0.5 font-mono rounded bg-neutral-100 text-primary border border-neutral-200;
         font-size: 0.9em;
+    }
+
+    /* Lists - better spacing */
+    ul, ol {
+        @apply leading-loose;
+    }
+
+    li {
+        @apply mb-2;
+    }
+
+    /* Blockquotes - elegant pull quotes */
+    blockquote {
+        @apply border-l-4 border-primary pl-6 py-2 italic text-neutral-700;
+        font-size: 1.125rem;
+    }
+
+    /* Horizontal rules - subtle dividers */
+    hr {
+        @apply border-t border-neutral-300 my-12;
     }
 }
 
 @layer components {
-    .markdown > h1,
-    .markdown > h2 {
-        @apply mt-12 mb-6;
+    /* Article typography */
+    .prose {
+        @apply text-neutral-700;
     }
 
-    .markdown > p,
-    .markdown > pre {
-        @apply my-6;
+    .prose h1,
+    .prose h2,
+    .prose h3,
+    .prose h4 {
+        @apply font-serif text-neutral-900 mt-12 mb-6;
     }
 
-    .markdown > :first-child {
+    .prose h2 {
+        @apply pt-8 border-t border-neutral-200;
+    }
+
+    .prose h3 {
+        @apply mt-10 mb-4;
+    }
+
+    .prose p {
+        @apply my-6 leading-loose;
+    }
+
+    .prose ul,
+    .prose ol {
+        @apply my-6 space-y-3;
+    }
+
+    .prose li {
+        @apply leading-loose;
+    }
+
+    .prose a {
+        @apply text-primary font-medium;
+    }
+
+    .prose strong {
+        @apply font-semibold text-neutral-900;
+    }
+
+    .prose em {
+        @apply italic;
+    }
+
+    /* First paragraph of articles - slightly larger */
+    .prose > p:first-of-type {
+        @apply text-lg;
+    }
+
+    .prose > :first-child {
         @apply mt-0;
     }
 
-    .markdown > :last-child {
+    .prose > :last-child {
         @apply mb-0;
+    }
+
+    /* Magazine-style section dividers */
+    .section-divider {
+        @apply w-16 h-px bg-primary mx-auto my-12;
+    }
+
+    /* Elegant borders */
+    .border-elegant {
+        @apply border border-neutral-200;
+    }
+
+    .border-elegant-top {
+        @apply border-t border-neutral-200;
+    }
+
+    /* Pull quotes */
+    .pull-quote {
+        @apply text-2xl font-serif italic text-neutral-800 border-l-4 border-primary pl-6 my-8;
+        line-height: 1.4;
+    }
+
+    /* Reading width container */
+    .reading-width {
+        max-width: 70ch;
+    }
+
+    /* Button refinements */
+    .btn {
+        @apply font-sans font-medium tracking-wide transition-all duration-200;
+        letter-spacing: 0.025em;
     }
 
     .btn:disabled {
         @apply text-neutral-400 bg-neutral-700;
+    }
+
+    /* Card hover effects - subtle */
+    .card-hover {
+        @apply transition-all duration-300;
+    }
+
+    .card-hover:hover {
+        @apply shadow-xl;
+        transform: translateY(-2px);
+    }
+
+    /* Tag styling - refined */
+    .tag {
+        @apply px-3 py-1 text-sm rounded-full font-medium transition-colors duration-200;
+    }
+
+    /* Category badge - elegant */
+    .category-badge {
+        @apply px-4 py-1.5 rounded-full font-serif font-medium text-sm tracking-wide;
+        letter-spacing: 0.05em;
+    }
+}
+
+@layer utilities {
+    /* Optical alignment for headings */
+    .optical-align {
+        margin-left: -0.05em;
+    }
+
+    /* Relaxed line height for better readability */
+    .leading-article {
+        line-height: 1.8;
     }
 }

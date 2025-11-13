@@ -1,9 +1,14 @@
 ---
 import '../../src/styles/globals.css';
 import '@fontsource/inter/400.css';
-import '@fontsource/inter/800.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/crimson-pro/400.css';
+import '@fontsource/crimson-pro/600.css';
+import '@fontsource/crimson-pro/700.css';
 import interFont400 from '@fontsource/inter/files/inter-latin-400-normal.woff2?url';
-import interFont800 from '@fontsource/inter/files/inter-latin-800-normal.woff2?url';
+import interFont600 from '@fontsource/inter/files/inter-latin-600-normal.woff2?url';
+import crimsonFont400 from '@fontsource/crimson-pro/files/crimson-pro-latin-400-normal.woff2?url';
+import crimsonFont700 from '@fontsource/crimson-pro/files/crimson-pro-latin-700-normal.woff2?url';
 
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -38,7 +43,9 @@ const { title, description = "Transform complex academic research into accessibl
 
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="preload" as="font" type="font/woff2" href={interFont400} crossorigin />
-        <link rel="preload" as="font" type="font/woff2" href={interFont800} crossorigin />
+        <link rel="preload" as="font" type="font/woff2" href={interFont600} crossorigin />
+        <link rel="preload" as="font" type="font/woff2" href={crimsonFont400} crossorigin />
+        <link rel="preload" as="font" type="font/woff2" href={crimsonFont700} crossorigin />
     </head>
     <body class="antialiased text-neutral-900 bg-[#FAFAF9]" data-theme="florecer">
         <div class="flex flex-col min-h-screen px-6 sm:px-12">

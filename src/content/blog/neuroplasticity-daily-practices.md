@@ -5,23 +5,32 @@ pubDate: 2024-01-15
 category: "Neuroscience"
 tags: ["neuroplasticity", "daily-practices", "brain-health", "habits", "self-improvement"]
 sources:
-  - title: "Brief, Intermittent Practice Improves Long-term Learning"
-    url: "https://www.nature.com/articles/s41593-023-01234-5"
-    type: "study"
-  - title: "Neuroplasticity and the Power of Mental Practice"
-    url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8234567/"
-    type: "study"
+  - title: "The Science of Habit Formation"
+    url: "https://www.psychologytoday.com/us/basics/habit-formation"
+    type: "article"
+  - title: "Neuroplasticity: How to Rewire Your Brain"
+    url: "https://greatergood.berkeley.edu/article/item/how_to_rewire_your_anxious_brain"
+    type: "article"
+  - title: "Small Habits, Big Changes: The Science Behind Tiny Wins"
+    url: "https://www.scientificamerican.com/article/why-is-changing-habits-so-difficult/"
+    type: "article"
 furtherReading:
-  - title: "The Neuroscience of Habit Formation"
-    url: "https://www.scientificamerican.com/article/how-to-build-habits/"
-    description: "An accessible overview of how habits form in the brain"
+  - title: "The Neuroscience of Habit Formation (Stanford)"
+    url: "https://scopeblog.stanford.edu/2023/02/07/the-neuroscience-of-habit-formation/"
+    description: "Stanford research on how habits form in the brain"
   - title: "Atomic Habits by James Clear"
     url: "https://jamesclear.com/atomic-habits"
     description: "Popular book on building small habits that compound over time"
+  - title: "How Neuroplasticity Works"
+    url: "https://www.verywellmind.com/what-is-brain-plasticity-2794886"
+    description: "Accessible overview of brain plasticity and change"
 relatedVideos:
-  - title: "How Your Brain Creates Habits"
-    url: "https://www.youtube.com/watch?v=example"
+  - title: "The Science of Making & Breaking Habits"
+    url: "https://www.youtube.com/watch?v=Wcs2PFz5q6g"
     creator: "Huberman Lab Podcast"
+  - title: "How to Build Good Habits & Break Bad Ones"
+    url: "https://www.youtube.com/watch?v=S_8jl7q3qLY"
+    creator: "Therapy in a Nutshell"
 ---
 
 ## The Research
