@@ -58,30 +58,35 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                     Subscribe to Research Rescue Weekly
                 </h2>
 
-                <!-- Placeholder form - Replace with your email service provider's form -->
-                <form class="max-w-md mx-auto space-y-4" action="#" method="POST">
+                <!-- ConvertKit Form -->
+                <form
+                    class="max-w-md mx-auto space-y-4"
+                    action="https://app.kit.com/forms/8810669/subscriptions"
+                    method="POST"
+                    data-sv-form="8810669"
+                    data-uid="73b5dfca45"
+                >
                     <div>
-                        <label for="name" class="block mb-2 text-sm font-medium text-neutral-900">
+                        <label for="fields[first_name]" class="block mb-2 text-sm font-medium text-neutral-900">
                             First Name
                         </label>
                         <input
                             type="text"
-                            id="name"
-                            name="name"
-                            required
+                            id="fields[first_name]"
+                            name="fields[first_name]"
                             class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                             placeholder="Your first name"
                         />
                     </div>
 
                     <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-neutral-900">
+                        <label for="email_address" class="block mb-2 text-sm font-medium text-neutral-900">
                             Email Address
                         </label>
                         <input
                             type="email"
-                            id="email"
-                            name="email"
+                            id="email_address"
+                            name="email_address"
                             required
                             class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                             placeholder="your@email.com"
@@ -94,15 +99,30 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                         </label>
                         <div class="space-y-2">
                             <label class="flex items-center">
-                                <input type="checkbox" name="interest" value="personal-growth" class="mr-2" />
+                                <input
+                                    type="checkbox"
+                                    name="fields[interests][]"
+                                    value="Personal Growth & Development"
+                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
+                                />
                                 <span class="text-neutral-700">Personal Growth & Development</span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" name="interest" value="counseling" class="mr-2" />
+                                <input
+                                    type="checkbox"
+                                    name="fields[interests][]"
+                                    value="Counseling & Therapy Insights"
+                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
+                                />
                                 <span class="text-neutral-700">Counseling & Therapy Insights</span>
                             </label>
                             <label class="flex items-center">
-                                <input type="checkbox" name="interest" value="neuroscience" class="mr-2" />
+                                <input
+                                    type="checkbox"
+                                    name="fields[interests][]"
+                                    value="Neuroscience & Brain Health"
+                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
+                                />
                                 <span class="text-neutral-700">Neuroscience & Brain Health</span>
                             </label>
                         </div>
@@ -119,17 +139,11 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                         We respect your privacy. Unsubscribe at any time.
                     </p>
                 </form>
-
-                <!-- Integration Note -->
-                <div class="mt-8 p-4 bg-white border border-neutral-300 rounded-lg">
-                    <p class="text-sm text-neutral-700">
-                        <strong>Note:</strong> This is a placeholder form. To activate newsletter signups,
-                        integrate with your email service provider (ConvertKit, Mailchimp, etc.) by
-                        replacing the form action and adding your service's form endpoint.
-                    </p>
-                </div>
             </div>
         </section>
+
+        <!-- ConvertKit Script -->
+        <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 
         <!-- What to Expect -->
         <section class="mb-12 p-8 bg-neutral-100 rounded-lg">
