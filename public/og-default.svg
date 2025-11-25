@@ -1,0 +1,27 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FAFAF9"/>
+
+  <!-- Decorative accent -->
+  <rect x="0" y="0" width="8" height="630" fill="#2F5233"/>
+
+  <!-- Main content -->
+  <text x="100" y="240" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#2F5233">
+    Florecer Mind
+  </text>
+
+  <text x="100" y="310" font-family="Arial, sans-serif" font-size="36" fill="#5F6F5E" font-style="italic">
+    Where Research Blooms into Wisdom
+  </text>
+
+  <!-- Tagline -->
+  <text x="100" y="420" font-family="Arial, sans-serif" font-size="28" fill="#7A8A79" style="max-width: 900px;">
+    <tspan x="100" dy="0">Transform complex academic research into</tspan>
+    <tspan x="100" dy="40">accessible, practical wisdom</tspan>
+  </text>
+
+  <!-- Domain -->
+  <text x="100" y="550" font-family="Arial, sans-serif" font-size="24" fill="#A8B5A0">
+    getflorecer.com
+  </text>
+</svg>
