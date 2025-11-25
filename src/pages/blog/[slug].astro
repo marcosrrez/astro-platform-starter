@@ -10,11 +10,49 @@ export async function getStaticPaths() {
     }));
 }
 
-const { entry} = Astro.props;
+const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Structured data for SEO
+const structuredData = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: entry.data.title,
+    description: entry.data.description,
+    image: entry.data.image ? new URL(entry.data.image, Astro.site).toString() : new URL('/og-default.svg', Astro.site).toString(),
+    datePublished: entry.data.pubDate.toISOString(),
+    dateModified: entry.data.pubDate.toISOString(),
+    author: {
+        '@type': 'Organization',
+        name: entry.data.author || 'Florecer Mind Research Team',
+        url: Astro.site
+    },
+    publisher: {
+        '@type': 'Organization',
+        name: 'Florecer Mind',
+        logo: {
+            '@type': 'ImageObject',
+            url: new URL('/favicon.svg', Astro.site).toString()
+        }
+    },
+    mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': new URL(Astro.url.pathname, Astro.site).toString()
+    },
+    articleSection: entry.data.category,
+    keywords: entry.data.tags.join(', ')
+};
 ---
 
-<Layout title={entry.data.title} description={entry.data.description}>
+<Layout
+    title={entry.data.title}
+    description={entry.data.description}
+    article={true}
+    publishedTime={entry.data.pubDate.toISOString()}
+    author={entry.data.author || "Florecer Mind Research Team"}
+    image={entry.data.image || "/og-default.svg"}
+    imageAlt={`${entry.data.title} - Florecer Mind`}
+>
     <article class="max-w-4xl mx-auto">
         <!-- Article Header -->
         <header class="mb-12">
@@ -163,4 +201,7 @@ const { Content } = await entry.render();
             </div>
         </footer>
     </article>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 </Layout>
