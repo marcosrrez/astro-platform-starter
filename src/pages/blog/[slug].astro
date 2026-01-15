@@ -1,6 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import SocialShare from '../../components/SocialShare.astro';
+import NewsletterCTA from '../../components/NewsletterCTA.astro';
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection('blog');
@@ -95,10 +97,16 @@ const structuredData = {
             <div class="section-divider"></div>
         </header>
 
+        <!-- Social Sharing -->
+        <SocialShare title={entry.data.title} url={new URL(Astro.url.pathname, Astro.site).toString()} />
+
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none">
             <Content />
         </div>
+
+        <!-- Newsletter CTA -->
+        <NewsletterCTA />
 
         <!-- Sources & Resources Section -->
         {(entry.data.sources || entry.data.furtherReading || entry.data.relatedVideos) && (
@@ -202,6 +210,74 @@ const structuredData = {
         </footer>
     </article>
 
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress"></div>
+
+    <!-- Back to Top Button -->
+    <button
+        id="back-to-top"
+        class="back-to-top btn btn-primary btn-circle w-12 h-12 shadow-lg"
+        aria-label="Back to top"
+    >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+        </svg>
+    </button>
+
     <!-- Structured Data for SEO -->
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+
+    <!-- Reading Progress & Back to Top Scripts -->
+    <script>
+        // Reading progress bar
+        function updateProgress() {
+            const winScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.querySelector('.reading-progress');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        }
+
+        // Back to top button visibility
+        function updateBackToTop() {
+            const btn = document.getElementById('back-to-top');
+            if (btn) {
+                if (window.scrollY > 500) {
+                    btn.classList.add('visible');
+                } else {
+                    btn.classList.remove('visible');
+                }
+            }
+        }
+
+        // Combined scroll handler
+        function handleScroll() {
+            updateProgress();
+            updateBackToTop();
+        }
+
+        // Debounce for better performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                window.cancelAnimationFrame(scrollTimeout);
+            }
+            scrollTimeout = window.requestAnimationFrame(() => {
+                handleScroll();
+            });
+        }, { passive: true });
+
+        // Back to top click handler
+        document.getElementById('back-to-top')?.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize on page load
+        handleScroll();
+    </script>
 </Layout>
