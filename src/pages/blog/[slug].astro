@@ -279,5 +279,52 @@ const structuredData = {
 
         // Initialize on page load
         handleScroll();
+
+        // Style checkmarks in article content
+        function styleCheckmarks() {
+            const prose = document.querySelector('.prose');
+            if (!prose) return;
+
+            // Find all text nodes containing checkmarks
+            const walker = document.createTreeWalker(
+                prose,
+                NodeFilter.SHOW_TEXT,
+                null
+            );
+
+            const nodesToReplace = [];
+            let node;
+            while (node = walker.nextNode()) {
+                if (node.nodeValue && node.nodeValue.includes('✓')) {
+                    nodesToReplace.push(node);
+                }
+            }
+
+            // Replace checkmarks with styled spans
+            nodesToReplace.forEach(node => {
+                const parent = node.parentNode;
+                if (!parent) return;
+
+                const fragment = document.createDocumentFragment();
+                const parts = node.nodeValue.split('✓');
+
+                parts.forEach((part, index) => {
+                    if (part) {
+                        fragment.appendChild(document.createTextNode(part));
+                    }
+                    if (index < parts.length - 1) {
+                        const checkmark = document.createElement('span');
+                        checkmark.className = 'checkmark-styled';
+                        checkmark.textContent = '✓';
+                        fragment.appendChild(checkmark);
+                    }
+                });
+
+                parent.replaceChild(fragment, node);
+            });
+        }
+
+        // Run on page load
+        styleCheckmarks();
     </script>
 </Layout>
