@@ -174,10 +174,44 @@
     .btn {
         @apply font-sans font-medium tracking-wide transition-all duration-200;
         letter-spacing: 0.025em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn:hover:not(:disabled) {
+        box-shadow: 0 4px 12px rgba(47, 82, 51, 0.15);
+    }
+
+    .btn:active:not(:disabled) {
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
 
     .btn:disabled {
         @apply text-neutral-400 bg-neutral-700;
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .btn-primary {
+        @apply bg-primary text-primary-content;
+        font-weight: 600;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background-color: #244028;
+    }
+
+    .btn-outline {
+        @apply border-2 border-primary text-primary bg-transparent;
+        font-weight: 600;
+    }
+
+    .btn-outline:hover:not(:disabled) {
+        @apply bg-primary text-primary-content;
+    }
+
+    .btn-lg {
+        @apply px-6 py-3 text-base;
+        min-height: 3rem;
     }
 
     /* Card hover effects - subtle */
@@ -197,18 +231,18 @@
     }
 
     /* Smooth button transitions */
-    button,
-    .btn {
+    button:not(.no-transform),
+    .btn:not(.no-transform) {
         transition: all 300ms ease;
     }
 
-    button:hover,
-    .btn:hover {
+    button:hover:not(:disabled):not(.no-transform),
+    .btn:hover:not(:disabled):not(.no-transform) {
         transform: translateY(-1px);
     }
 
-    button:active,
-    .btn:active {
+    button:active:not(:disabled):not(.no-transform),
+    .btn:active:not(:disabled):not(.no-transform) {
         transform: translateY(0);
     }
 
@@ -253,6 +287,77 @@
     .category-badge {
         @apply px-4 py-1.5 rounded-full font-serif font-medium text-sm tracking-wide;
         letter-spacing: 0.05em;
+    }
+
+    /* Checkmark styling - elegant research findings */
+    .checkmark-styled {
+        @apply inline-flex items-center justify-center;
+        color: #2F5233;
+        font-weight: 700;
+        font-size: 1.1em;
+        margin-right: 0.25rem;
+        background: linear-gradient(135deg, rgba(47, 82, 51, 0.08), rgba(168, 181, 160, 0.12));
+        border-radius: 50%;
+        width: 1.5em;
+        height: 1.5em;
+        line-height: 1;
+        vertical-align: middle;
+        border: 1.5px solid rgba(47, 82, 51, 0.2);
+        transition: all 200ms ease;
+    }
+
+    .checkmark-styled:hover {
+        background: linear-gradient(135deg, rgba(47, 82, 51, 0.12), rgba(168, 181, 160, 0.18));
+        border-color: rgba(47, 82, 51, 0.35);
+        transform: scale(1.05);
+    }
+
+    /* Social share buttons */
+    .social-share-btn {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .social-share-btn::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 200ms ease;
+        border-radius: 0.5rem;
+    }
+
+    .social-share-btn:hover::before {
+        opacity: 0.05;
+    }
+
+    .social-share-btn:active {
+        transform: scale(0.95);
+    }
+
+    /* Social icons (footer and general use) */
+    .social-icon {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .social-icon::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: currentColor;
+        opacity: 0;
+        transition: opacity 200ms ease;
+        border-radius: 0.5rem;
+    }
+
+    .social-icon:hover::before {
+        opacity: 0.05;
+    }
+
+    .social-icon:active {
+        transform: scale(0.95);
     }
 }
 
