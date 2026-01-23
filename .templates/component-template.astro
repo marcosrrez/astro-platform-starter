@@ -1,0 +1,52 @@
+---
+/**
+ * [Component Name]
+ *
+ * Description: [What this component does]
+ *
+ * Props:
+ * - [propName]: [type] - [description]
+ *
+ * Usage:
+ * <ComponentName propName="value" />
+ *
+ * Brand Guide Compliance:
+ * - Colors: Uses primary (#2F5233) and secondary (#A8B5A0)
+ * - Typography: [Serif/Sans], [size]
+ * - Spacing: [spacing details]
+ * - Transitions: 300ms ease
+ */
+
+interface Props {
+    // Define your props here
+    title?: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<div class="[component-name]">
+    <!-- Component markup following brand guide -->
+    {title && <h3 class="text-xl font-serif text-primary">{title}</h3>}
+    {description && <p class="text-neutral-700 leading-relaxed">{description}</p>}
+</div>
+
+<style>
+    /* Component-specific styles (if needed beyond Tailwind) */
+    /* Prefer Tailwind classes for consistency */
+</style>
+
+<!--
+CHECKLIST BEFORE COMMITTING:
+□ Uses brand colors from design tokens
+□ Typography follows type scale (Crimson Pro/Inter)
+□ Spacing uses consistent units (4px, 8px, 16px, etc.)
+□ Hover states defined (300ms transitions)
+□ Accessible (ARIA labels, semantic HTML)
+□ Responsive (mobile-first, md/lg breakpoints)
+□ Icons sized consistently (w-4/w-5/w-6)
+□ Buttons use .btn classes
+□ Focus states visible
+□ Loading/disabled states (if applicable)
+-->
