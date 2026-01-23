@@ -45,6 +45,13 @@ Transform complex academic research into accessible, practical wisdom that empow
 - Growth-oriented and optimistic
 - Grounded in science, focused on humanity
 
+### Contact Information
+- **Email**: marcos@getflorecer.com
+- **Website**: https://getflorecer.com
+- **Instagram**: @getflorecermind
+- **Twitter/X**: @florecermind
+- **LinkedIn**: /company/florecermind
+
 ---
 
 ## Visual Identity
