@@ -1,5 +1,5 @@
 ---
-title: "The Antidepressant Almost No One Prescribes"
+title: "Exercise Treats Depression About as Well as Therapy or Medication"
 description: "An umbrella review of 1,000+ trials found exercise rivals therapy and medication for depression and anxiety. So why does it stay off the prescription pad?"
 pubDate: 2026-07-21
 category: "Mental Health"
@@ -28,7 +28,7 @@ relatedVideos:
     creator: "Wendy Suzuki (TED)"
 ---
 
-You already know exercise is "good for you." That sentence has been worn so smooth by repetition that it barely registers anymore—filed somewhere between flossing and drinking more water. So here is the version worth registering: for mild-to-moderate depression and anxiety, structured exercise produces symptom reductions in the same range as psychotherapy and antidepressant medication. It is one of the most effective mental-health interventions we have. And it is almost never handed to you the way a prescription is.
+You already know exercise is "good for you." That sentence has been worn so smooth by repetition that it barely registers anymore, filed somewhere between flossing and drinking more water. But the specific finding underneath it deserves a fresh hearing: for mild-to-moderate depression and anxiety, structured exercise produces symptom reductions in the same range as psychotherapy and antidepressant medication. It is one of the most effective mental-health interventions we have. And it is almost never handed to you the way a prescription is.
 
 ## The Research
 

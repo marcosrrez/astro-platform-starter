@@ -75,11 +75,17 @@ minutes clears this bar. Before writing, decide how this piece will meet it:
   and tied to the mechanism you explained — not generic wellness bullet points.
 - **A human voice.** Warm, curious, direct. Short sentences among long ones. No
   jargon without translation, no filler, no AI throat-clearing.
+- **A title a human editor would write.** Plain, specific, and honest to the
+  finding. Readers distrust content that reads as AI-generated, and headlines are
+  the first tell. Avoid the formulas that scream machine: "The [Noun] Almost No
+  One [Verb]s," "Why [X] Is the [Superlative] [Thing]," "The Surprising Science
+  of…," or a title stuffed with em-dashes. Prefer a plain declarative claim
+  ("Exercise treats depression about as well as therapy") or a concrete question.
 
 **Anti-patterns that fail the bar:** an invented or vaguely-gestured study;
 round-number stats with no source; a listicle with no argument; "studies show"
-without which study; practices disconnected from the science; a title that could
-sit on any wellness blog; padding to hit a length.
+without which study; practices disconnected from the science; an AI-formula or
+generic-wellness-blog title; padding to hit a length.
 
 ## 4. Write the article
 
