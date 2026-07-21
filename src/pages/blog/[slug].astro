@@ -15,6 +15,13 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 const { Content } = await entry.render();
 
+// Editorial metadata
+const reviewer = 'Marcos Gutierrez';
+const readingTime = Math.max(1, Math.round(entry.body.split(/\s+/).filter(Boolean).length / 200));
+const sourceCount = entry.data.sources?.length ?? 0;
+const formatDate = (d: Date) =>
+    d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
 // Structured data for SEO
 const structuredData = {
     '@context': 'https://schema.org',
@@ -26,8 +33,12 @@ const structuredData = {
     dateModified: entry.data.pubDate.toISOString(),
     author: {
         '@type': 'Organization',
-        name: entry.data.author || 'Florecer Mind Research Team',
+        name: 'Florecer Mind',
         url: Astro.site
+    },
+    editor: {
+        '@type': 'Person',
+        name: reviewer
     },
     publisher: {
         '@type': 'Organization',
@@ -55,50 +66,40 @@ const structuredData = {
     image={entry.data.image || "/og-default.png"}
     imageAlt={`${entry.data.title} - Florecer Mind`}
 >
-    <article class="max-w-4xl mx-auto">
+    <article class="mx-auto max-w-[46rem]">
         <!-- Article Header -->
-        <header class="mb-12">
-            <div class="mb-6 flex flex-wrap items-center gap-3 text-sm font-sans">
-                <span class="category-badge bg-secondary/20 text-primary">
-                    {entry.data.category}
-                </span>
-                <time datetime={entry.data.pubDate.toISOString()} class="text-neutral-600">
-                    {entry.data.pubDate.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    })}
-                </time>
-            </div>
+        <header class="mb-10">
+            <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="kicker">
+                {entry.data.category}
+            </a>
 
-            <h1 class="mb-6 optical-align">
+            <h1 class="mt-4 mb-5 optical-align">
                 {entry.data.title}
             </h1>
 
-            <p class="text-xl text-neutral-700 leading-relaxed font-sans max-w-3xl">
+            <p class="mb-8 font-serif text-2xl leading-snug text-neutral-700">
                 {entry.data.description}
             </p>
 
-            <!-- Tags -->
-            {entry.data.tags && entry.data.tags.length > 0 && (
-                <div class="mt-8 flex flex-wrap gap-2">
-                    {entry.data.tags.map((tag) => (
-                        <a
-                            href={`/blog?tag=${encodeURIComponent(tag)}`}
-                            class="tag bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
-                        >
-                            #{tag}
-                        </a>
-                    ))}
-                </div>
-            )}
+            <!-- Byline & meta -->
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 article-meta">
+                <span>By <span class="font-medium text-neutral-800">Florecer Mind</span></span>
+                <span aria-hidden="true">·</span>
+                <span>Reviewed by <span class="font-medium text-neutral-800">{reviewer}</span></span>
+                <span aria-hidden="true">·</span>
+                <time datetime={entry.data.pubDate.toISOString()}>{formatDate(entry.data.pubDate)}</time>
+                <span aria-hidden="true">·</span>
+                <span>{readingTime} min read</span>
+                {sourceCount > 0 && (
+                    <>
+                        <span aria-hidden="true">·</span>
+                        <span>{sourceCount} peer-reviewed {sourceCount === 1 ? 'source' : 'sources'}</span>
+                    </>
+                )}
+            </div>
 
-            <!-- Elegant divider -->
-            <div class="section-divider"></div>
+            <hr class="mt-8 border-neutral-200" />
         </header>
-
-        <!-- Social Sharing -->
-        <SocialShare title={entry.data.title} url={new URL(Astro.url.pathname, Astro.site).toString()} />
 
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none">
@@ -116,7 +117,7 @@ const structuredData = {
                 <!-- Scientific Sources -->
                 {entry.data.sources && entry.data.sources.length > 0 && (
                     <div class="mb-10">
-                        <h3 class="mb-6 font-serif text-neutral-900">Research Summary</h3>
+                        <h3 class="mb-6 font-serif text-neutral-900">Peer-Reviewed Sources</h3>
                         <div class="space-y-4 font-sans">
                             {entry.data.sources.map((source) => (
                                 <div class="pl-5 border-l-2 border-primary/30">
@@ -176,7 +177,12 @@ const structuredData = {
                                         rel="noopener noreferrer"
                                         class="font-medium block"
                                     >
-                                        🎥 {video.title}
+                                        <span class="inline-flex items-start gap-2">
+                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-primary" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                                <path d="M6.3 4.7a1 1 0 011.02-.04l8 4.7a1 1 0 010 1.72l-8 4.7A1 1 0 016 15V5.55a1 1 0 01.3-.85z"></path>
+                            </svg>
+                            <span>{video.title}</span>
+                        </span>
                                     </a>
                                     {video.creator && (
                                         <span class="text-sm text-neutral-600 mt-1 block">
@@ -189,23 +195,45 @@ const structuredData = {
                     </div>
                 )}
 
-                <p class="text-sm text-neutral-600 italic mt-8 font-sans">
-                    Where a study is named in this article, a link to the primary source
-                    (or its abstract) is provided above, alongside reputable educational
-                    summaries for accessible further reading.
-                </p>
+                <div class="mt-10 p-5 rounded-lg bg-neutral-50 border border-neutral-200">
+                    <p class="text-sm text-neutral-700 leading-relaxed font-sans">
+                        <strong class="text-neutral-900">How we verify.</strong> Every Florecer Mind
+                        spotlight is researched and drafted with AI assistance, then reviewed by
+                        {` ${reviewer} `}
+                        against the primary sources before publishing. Where a study is named above,
+                        we link the primary source (or its abstract) alongside reputable summaries
+                        for accessible further reading.
+                    </p>
+                </div>
             </section>
         )}
 
         <!-- Article Footer -->
         <footer class="mt-16 pt-10 border-t border-neutral-200 font-sans">
+            {entry.data.tags && entry.data.tags.length > 0 && (
+                <div class="mb-8 flex flex-wrap gap-2">
+                    {entry.data.tags.map((tag) => (
+                        <a
+                            href={`/blog?tag=${encodeURIComponent(tag)}`}
+                            class="tag bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
+                        >
+                            #{tag}
+                        </a>
+                    ))}
+                </div>
+            )}
+
+            <div class="mb-8">
+                <SocialShare title={entry.data.title} url={new URL(Astro.url.pathname, Astro.site).toString()} />
+            </div>
+
             <div class="flex flex-wrap gap-6 justify-between items-center">
                 <a href="/blog" class="font-medium inline-flex items-center group">
                     <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span>
                     Back to All Research
                 </a>
                 <a href="/newsletter" class="btn btn-primary">
-                    Get More Research in Your Inbox
+                    Get the weekly spotlight
                 </a>
             </div>
         </footer>

@@ -11,6 +11,9 @@ const sortedPosts = allPosts.sort((a, b) =>
     b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 
+const readingTime = (body: string) =>
+    Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+
 // Get URL parameters for filtering
 const url = new URL(Astro.request.url);
 const selectedCategory = url.searchParams.get('category');
@@ -94,7 +97,7 @@ const otherTags = allTags.filter(tag =>
                                 href={`/blog?tag=${encodeURIComponent(tag)}`}
                                 class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
                                     selectedTag === tag
-                                        ? 'bg-secondary text-white'
+                                        ? 'bg-secondary text-neutral-900'
                                         : 'bg-white text-neutral-700 hover:bg-neutral-200'
                                 }`}
                             >
@@ -115,7 +118,7 @@ const otherTags = allTags.filter(tag =>
                                 href={`/blog?tag=${encodeURIComponent(tag)}`}
                                 class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
                                     selectedTag === tag
-                                        ? 'bg-secondary text-white'
+                                        ? 'bg-secondary text-neutral-900'
                                         : 'bg-white text-neutral-700 hover:bg-neutral-200'
                                 }`}
                             >
@@ -154,7 +157,7 @@ const otherTags = allTags.filter(tag =>
         {filteredPosts.length > 0 ? (
             <div class="space-y-8">
                 {filteredPosts.map((post) => (
-                    <article class="p-6 border border-neutral-300 rounded-lg hover:shadow-lg transition-shadow">
+                    <article class="p-6 border border-neutral-200 rounded-lg hover:border-primary transition-colors">
                         <div class="mb-3 flex flex-wrap items-center gap-3 text-sm">
                             <a
                                 href={`/blog?category=${encodeURIComponent(post.data.category)}`}
@@ -169,6 +172,8 @@ const otherTags = allTags.filter(tag =>
                                     day: 'numeric'
                                 })}
                             </time>
+                            <span class="text-neutral-400" aria-hidden="true">·</span>
+                            <span class="text-neutral-600">{readingTime(post.body)} min read</span>
                         </div>
 
                         <h2 class="mb-3 text-2xl font-bold text-neutral-900">
