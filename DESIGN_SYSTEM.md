@@ -6,6 +6,11 @@
 **Feel**: Trustworthy, elegant, magazine-quality
 **Inspiration**: The Atlantic, Scientific American, Kinfolk
 
+> **Naming:** This document covers *how the site looks*. For brand voice, the
+> **Florecer Mind** name, the **"Where Research Blooms into Wisdom"** tagline,
+> and the **Research Rescue Weekly** newsletter (and when to use each), see
+> [`BRAND_GUIDE.md`](./BRAND_GUIDE.md#brand-architecture-names--taglines).
+
 ---
 
 ## Typography

@@ -21,7 +21,7 @@ const structuredData = {
     '@type': 'Article',
     headline: entry.data.title,
     description: entry.data.description,
-    image: entry.data.image ? new URL(entry.data.image, Astro.site).toString() : new URL('/og-default.svg', Astro.site).toString(),
+    image: entry.data.image ? new URL(entry.data.image, Astro.site).toString() : new URL('/og-default.png', Astro.site).toString(),
     datePublished: entry.data.pubDate.toISOString(),
     dateModified: entry.data.pubDate.toISOString(),
     author: {
@@ -52,7 +52,7 @@ const structuredData = {
     article={true}
     publishedTime={entry.data.pubDate.toISOString()}
     author={entry.data.author || "Florecer Mind Research Team"}
-    image={entry.data.image || "/og-default.svg"}
+    image={entry.data.image || "/og-default.png"}
     imageAlt={`${entry.data.title} - Florecer Mind`}
 >
     <article class="max-w-4xl mx-auto">
@@ -190,8 +190,9 @@ const structuredData = {
                 )}
 
                 <p class="text-sm text-neutral-600 italic mt-8 font-sans">
-                    Note: Links provided are to accessible summaries and educational content.
-                    Full academic citations available upon request.
+                    Where a study is named in this article, a link to the primary source
+                    (or its abstract) is provided above, alongside reputable educational
+                    summaries for accessible further reading.
                 </p>
             </section>
         )}
