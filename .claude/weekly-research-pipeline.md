@@ -82,7 +82,7 @@ npm run build
 The build must pass (it validates frontmatter against the Zod schema). Fix any
 schema or type errors before opening the PR.
 
-## 6. Open a PR for review
+## 6. Push the branch and surface a PR link
 
 ```bash
 git add src/content/blog/
@@ -90,18 +90,25 @@ git commit -m "content: add research spotlight — <title>"
 git push -u origin HEAD
 ```
 
-Then open a pull request against `main` using the GitHub tools. PR body should include:
+> **Note on PR creation:** the automated weekly session runs **without** GitHub
+> MCP tools or the `gh` CLI, so it cannot open the PR itself. That is by design —
+> a human opens and reviews the PR. `git push` prints a "Create a pull request"
+> URL; if it doesn't, construct one:
+>
+> ```
+> https://github.com/marcosrrez/astro-platform-starter/compare/main...<branch>?expand=1
+> ```
+>
+> Surface that URL in the final report. If you *do* have GitHub tools available
+> (e.g. running this manually from a full session), you may open the PR directly.
 
-- One-line summary of the spotlight and its category.
-- The list of sources used, so a reviewer can spot-check citations quickly.
-- A short "credibility check" confirming every specific claim is backed by a
-  linked source.
-
-**Do not merge.** A human reviews and publishes. Leave the PR open.
+**Never merge.** A human reviews and publishes.
 
 ## 7. Report
 
-Summarize: the topic chosen, why, the sources, and the PR link.
+Summarize: the topic chosen, why it was chosen, the sources used (so a reviewer
+can spot-check citations), a one-line credibility check confirming every specific
+claim is backed by a linked source, and the PR / compare URL.
 
 ---
 
