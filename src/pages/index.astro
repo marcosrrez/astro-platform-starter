@@ -10,6 +10,41 @@ const allPosts = await getCollection('blog');
 const latestPosts = allPosts
     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
     .slice(0, 3); // Show top 3 latest posts
+
+// Organization + WebSite structured data for SEO / rich results
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://getflorecer.com';
+const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+        {
+            '@type': 'Organization',
+            '@id': `${siteUrl}/#organization`,
+            name: 'Florecer Mind',
+            url: siteUrl,
+            slogan: 'Where Research Blooms into Wisdom',
+            description,
+            email: 'marcos@getflorecer.com',
+            logo: {
+                '@type': 'ImageObject',
+                url: `${siteUrl}/favicon.svg`
+            },
+            sameAs: [
+                'https://instagram.com/getflorecermind',
+                'https://twitter.com/florecermind',
+                'https://linkedin.com/company/florecermind'
+            ]
+        },
+        {
+            '@type': 'WebSite',
+            '@id': `${siteUrl}/#website`,
+            url: siteUrl,
+            name: 'Florecer Mind',
+            description,
+            publisher: { '@id': `${siteUrl}/#organization` },
+            inLanguage: 'en-US'
+        }
+    ]
+};
 ---
 
 <Layout title={title} description={description}>
@@ -134,4 +169,7 @@ const latestPosts = allPosts
             </a>
         </div>
     </section>
+
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 </Layout>
