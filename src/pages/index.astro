@@ -11,6 +11,17 @@ const latestPosts = allPosts
     .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
     .slice(0, 3); // Show top 3 latest posts
 
+const [featured, ...rest] = latestPosts;
+
+// Credibility figures (computed, not claimed)
+const totalSources = allPosts.reduce((n, p) => n + (p.data.sources?.length ?? 0), 0);
+
+const readingTime = (body: string) =>
+    Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+
+const formatDate = (d: Date) =>
+    d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
 // Organization + WebSite structured data for SEO / rich results
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://getflorecer.com';
 const structuredData = {
@@ -48,125 +59,169 @@ const structuredData = {
 ---
 
 <Layout title={title} description={description}>
-    <!-- Hero Section -->
-    <section class="py-16 sm:py-24">
-        <h1 class="mb-8 optical-align">
-            Where Research<br />Blooms into Wisdom
-        </h1>
-        <p class="mb-10 text-xl leading-loose text-neutral-700 sm:text-2xl max-w-3xl font-sans">
-            We transform complex academic research from counseling, neuroscience, and cognitive science
-            into accessible, practical wisdom for everyday people and counselors.
-            Rescuing valuable research from academic obscurity and helping it flourish in real lives.
-        </p>
-        <div class="flex flex-wrap gap-4">
-            <a href="/blog" class="btn btn-primary btn-lg">
-                Explore Research
-            </a>
-            <a href="/newsletter" class="btn btn-outline btn-lg border-2">
-                Subscribe to Newsletter
-            </a>
+    <!-- Hero -->
+    <section class="pt-2 pb-14 sm:pt-6 sm:pb-20">
+        <div class="grid gap-10 lg:grid-cols-[1.5fr_1fr] lg:gap-16 lg:items-end">
+            <div>
+                <p class="kicker mb-5">Evidence-based mental health</p>
+                <h1 class="mb-6 optical-align">Where Research Blooms into Wisdom</h1>
+                <p class="max-w-2xl text-xl leading-relaxed text-neutral-700 sm:text-2xl font-sans">
+                    We rescue rigorous research from counseling, neuroscience, and cognitive
+                    science out of academic obscurity — and translate it into practical wisdom
+                    you can actually use.
+                </p>
+                <div class="mt-8 flex flex-wrap gap-4">
+                    <a href="/blog" class="btn btn-primary btn-lg">Explore Research</a>
+                    <a href="/newsletter" class="btn btn-outline btn-lg border-2">Subscribe to Newsletter</a>
+                </div>
+            </div>
+
+            <!-- Credibility panel -->
+            <aside class="border-t-2 border-primary pt-6">
+                <p class="kicker mb-5">The Florecer standard</p>
+                <dl class="grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-5">
+                    <div>
+                        <dt class="font-serif text-3xl text-primary leading-none">{allPosts.length}</dt>
+                        <dd class="mt-1 text-sm text-neutral-600 font-sans">research spotlights, each tied to primary sources</dd>
+                    </div>
+                    <div>
+                        <dt class="font-serif text-3xl text-primary leading-none">{totalSources}+</dt>
+                        <dd class="mt-1 text-sm text-neutral-600 font-sans">peer-reviewed studies cited across the archive</dd>
+                    </div>
+                    <div>
+                        <dt class="font-serif text-3xl text-primary leading-none">100%</dt>
+                        <dd class="mt-1 text-sm text-neutral-600 font-sans">human-reviewed before anything is published</dd>
+                    </div>
+                </dl>
+            </aside>
         </div>
     </section>
 
-    <!-- Section divider -->
-    <div class="section-divider"></div>
-
-    <!-- Mission Section -->
-    <section class="py-16">
-        <div class="grid gap-8 md:grid-cols-3">
-            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
-                <h3 class="mb-4 font-serif">Research Spotlights</h3>
+    <!-- What we do -->
+    <section class="py-14 sm:py-16 border-t border-neutral-200">
+        <h2 class="mb-10 text-sm font-sans font-semibold uppercase tracking-[0.18em] text-primary">What we do</h2>
+        <div class="grid gap-10 md:grid-cols-3">
+            <div>
+                <span class="block mb-3 font-serif text-4xl text-neutral-300 leading-none">01</span>
+                <h3 class="mb-2 font-serif text-xl">Research Spotlights</h3>
                 <p class="text-neutral-700 leading-relaxed font-sans">
-                    Weekly deep-dives into specific studies, making complex findings accessible and actionable.
+                    Weekly deep-dives into specific studies, translating complex findings into
+                    something accessible and actionable.
                 </p>
             </div>
-            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
-                <h3 class="mb-4 font-serif">Practical Applications</h3>
+            <div>
+                <span class="block mb-3 font-serif text-4xl text-neutral-300 leading-none">02</span>
+                <h3 class="mb-2 font-serif text-xl">Practical Applications</h3>
                 <p class="text-neutral-700 leading-relaxed font-sans">
-                    Evidence-based techniques and insights you can implement in your daily life.
+                    Evidence-based techniques and insights you can put into practice in your daily
+                    life — no jargon required.
                 </p>
             </div>
-            <div class="p-8 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
-                <h3 class="mb-4 font-serif">Expert Insights</h3>
+            <div>
+                <span class="block mb-3 font-serif text-4xl text-neutral-300 leading-none">03</span>
+                <h3 class="mb-2 font-serif text-xl">For Everyone</h3>
                 <p class="text-neutral-700 leading-relaxed font-sans">
-                    Valuable for both everyday people seeking growth and counselors deepening their practice.
+                    Valuable for both people seeking growth and counselors deepening an
+                    evidence-based practice.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Section divider -->
-    <div class="section-divider"></div>
+    <!-- Latest Research -->
+    <section class="py-14 sm:py-16 border-t border-neutral-200">
+        <div class="mb-10 flex items-baseline justify-between gap-4">
+            <h2 class="font-serif">Latest Research Spotlights</h2>
+            <a href="/blog" class="hidden sm:inline-flex items-center font-sans font-medium group whitespace-nowrap">
+                View all
+                <span class="ml-2 transition-transform group-hover:translate-x-1">→</span>
+            </a>
+        </div>
 
-    <!-- Featured Research -->
-    <section class="py-16">
-        <h2 class="mb-10 font-serif">Latest Research Spotlights</h2>
-        {latestPosts.length > 0 ? (
-            <div class="space-y-8">
-                {latestPosts.map((post) => (
-                    <article class="p-8 border border-neutral-200 rounded-lg hover:border-primary card-hover">
-                        <div class="mb-4 flex items-center gap-3 text-sm font-sans">
-                            <span class="category-badge bg-secondary/20 text-primary">
-                                {post.data.category}
-                            </span>
-                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
-                                {post.data.pubDate.toLocaleDateString('en-US', {
-                                    month: 'long',
-                                    day: 'numeric',
-                                    year: 'numeric'
-                                })}
-                            </time>
+        {featured ? (
+            <div class="space-y-12">
+                <!-- Featured lead -->
+                <article class="grid gap-6 md:grid-cols-2 md:gap-10 md:items-center">
+                    <div class="order-2 md:order-1">
+                        <div class="mb-4 flex items-center gap-3 article-meta">
+                            <a href={`/blog?category=${encodeURIComponent(featured.data.category)}`} class="kicker">{featured.data.category}</a>
+                            <span aria-hidden="true">·</span>
+                            <span>{readingTime(featured.body)} min read</span>
                         </div>
-                        <h3 class="mb-3 font-serif text-neutral-900">
-                            <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
-                                {post.data.title}
+                        <h3 class="mb-4 font-serif text-3xl sm:text-4xl leading-tight">
+                            <a href={`/blog/${featured.slug}`} class="text-neutral-900 hover:text-primary transition-colors">
+                                {featured.data.title}
                             </a>
                         </h3>
-                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans">
-                            {post.data.description}
+                        <p class="mb-5 text-lg text-neutral-700 leading-relaxed font-sans">
+                            {featured.data.description}
                         </p>
-                        {post.data.tags && post.data.tags.length > 0 && (
-                            <div class="mb-5 flex flex-wrap gap-2">
-                                {post.data.tags.slice(0, 4).map((tag) => (
-                                    <span class="tag bg-neutral-100 text-neutral-700">
-                                        #{tag}
-                                    </span>
-                                ))}
-                            </div>
-                        )}
-                        <a href={`/blog/${post.slug}`} class="font-medium font-sans inline-flex items-center group">
-                            Read More
+                        <div class="article-meta mb-5">
+                            {formatDate(featured.data.pubDate)}
+                            {featured.data.sources && featured.data.sources.length > 0 && (
+                                <span> · {featured.data.sources.length} peer-reviewed sources</span>
+                            )}
+                        </div>
+                        <a href={`/blog/${featured.slug}`} class="font-medium font-sans inline-flex items-center group">
+                            Read spotlight
                             <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
                         </a>
-                    </article>
-                ))}
+                    </div>
+                    <a href={`/blog/${featured.slug}`} class="order-1 md:order-2 block aspect-[4/3] rounded-lg bg-gradient-to-br from-primary/10 via-secondary/10 to-neutral-100 border border-neutral-200 relative overflow-hidden group">
+                        <span class="absolute bottom-5 left-5 right-5 font-serif text-2xl text-primary/70 leading-tight">
+                            {featured.data.category}
+                        </span>
+                    </a>
+                </article>
+
+                <!-- Secondary posts -->
+                {rest.length > 0 && (
+                    <div class="grid gap-8 sm:grid-cols-2 border-t border-neutral-200 pt-10">
+                        {rest.map((post) => (
+                            <article>
+                                <div class="mb-3 flex items-center gap-3 article-meta">
+                                    <a href={`/blog?category=${encodeURIComponent(post.data.category)}`} class="kicker">{post.data.category}</a>
+                                    <span aria-hidden="true">·</span>
+                                    <span>{readingTime(post.body)} min read</span>
+                                </div>
+                                <h3 class="mb-2 font-serif text-xl">
+                                    <a href={`/blog/${post.slug}`} class="text-neutral-900 hover:text-primary transition-colors">
+                                        {post.data.title}
+                                    </a>
+                                </h3>
+                                <p class="text-neutral-700 leading-relaxed font-sans">
+                                    {post.data.description}
+                                </p>
+                            </article>
+                        ))}
+                    </div>
+                )}
             </div>
         ) : (
             <div class="p-8 text-center bg-neutral-50 rounded-lg border border-neutral-200">
-                <p class="text-neutral-700 font-sans">New research spotlights coming soon!</p>
+                <p class="text-neutral-700 font-sans">New research spotlights coming soon.</p>
             </div>
         )}
 
-        <div class="mt-10 text-center">
-            <a href="/blog" class="btn btn-outline border-2">
-                View All Research
-            </a>
+        <div class="mt-10 sm:hidden">
+            <a href="/blog" class="btn btn-outline border-2 w-full">View All Research</a>
         </div>
     </section>
 
-    <!-- Section divider -->
-    <div class="section-divider"></div>
-
     <!-- Newsletter CTA -->
-    <section class="py-16">
-        <div class="p-12 text-center rounded-lg bg-primary text-primary-content">
-            <h2 class="mb-4 font-serif text-white">Join the Research Rescue Weekly</h2>
-            <p class="mb-8 text-lg font-sans text-white/90 max-w-2xl mx-auto">
-                Get evidence-based insights delivered to your inbox. No jargon, just practical wisdom.
-            </p>
-            <a href="/newsletter" class="btn btn-lg bg-white text-primary hover:bg-neutral-100 border-0">
-                Subscribe Now
-            </a>
+    <section class="py-14 sm:py-16 border-t border-neutral-200">
+        <div class="on-dark p-10 sm:p-12 rounded-lg bg-primary">
+            <div class="max-w-2xl">
+                <p class="kicker mb-4 text-white/70">Research Rescue Weekly</p>
+                <h2 class="mb-4 font-serif text-white">The next study breakdown, in your inbox Monday</h2>
+                <p class="mb-8 text-lg font-sans text-white/90">
+                    One evidence-based spotlight a week. No jargon, no spam — just practical wisdom
+                    drawn from the research.
+                </p>
+                <a href="/newsletter" class="btn btn-lg bg-white text-primary hover:bg-neutral-100 border-0">
+                    Subscribe free
+                </a>
+            </div>
         </div>
     </section>
 

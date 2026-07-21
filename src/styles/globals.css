@@ -20,6 +20,7 @@
     h1 {
         @apply text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl;
         letter-spacing: -0.02em;
+        text-wrap: balance;
     }
 
     h2 {
@@ -35,10 +36,11 @@
         @apply text-xl font-semibold leading-normal;
     }
 
-    /* Paragraphs - optimal reading experience */
+    /* Paragraphs - optimal reading experience.
+       Line length is constrained on the article column (.prose / .reading-width),
+       not globally, so headings and rules can align with the text measure. */
     p {
         @apply leading-loose text-neutral-700;
-        max-width: 70ch; /* Optimal line length for readability */
     }
 
     /* Links - refined underline style */
@@ -53,6 +55,17 @@
         text-decoration: underline;
         text-decoration-color: currentColor;
         text-decoration-thickness: 2px;
+    }
+
+    /* Visible keyboard focus for links, buttons and controls (accessibility + trust) */
+    a:focus-visible,
+    button:focus-visible,
+    .btn:focus-visible,
+    input:focus-visible,
+    summary:focus-visible {
+        outline: 2px solid #2F5233;
+        outline-offset: 2px;
+        border-radius: 2px;
     }
 
     /* Code blocks */
@@ -108,7 +121,9 @@
     }
 
     .prose p {
-        @apply my-6 leading-loose;
+        @apply my-6 text-neutral-800;
+        font-size: 1.125rem;
+        line-height: 1.75;
     }
 
     .prose ul,
@@ -132,9 +147,19 @@
         @apply italic;
     }
 
-    /* First paragraph of articles - slightly larger */
+    /* First paragraph of articles - editorial drop cap */
     .prose > p:first-of-type {
-        @apply text-lg;
+        @apply text-neutral-900;
+    }
+
+    .prose > p:first-of-type::first-letter {
+        float: left;
+        font-family: 'Crimson Pro', Georgia, serif;
+        font-weight: 700;
+        font-size: 3.8rem;
+        line-height: 0.72;
+        margin: 0.02em 0.12em 0 0;
+        color: #2F5233;
     }
 
     .prose > :first-child {
@@ -168,6 +193,26 @@
     /* Reading width container */
     .reading-width {
         max-width: 70ch;
+    }
+
+    /* Light text for content on the dark primary background. Guards against the
+       base h1..h6 { text-neutral-900 } / p { text-neutral-700 } rules winning
+       over inherited color and rendering dark-on-dark. */
+    .on-dark :is(h1, h2, h3, h4, h5, h6),
+    .on-dark p {
+        color: #FAFAF9;
+    }
+
+    /* Editorial eyebrow / kicker */
+    .kicker {
+        @apply font-sans font-semibold uppercase text-primary;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+    }
+
+    /* Article meta row (byline · date · reading time · sources) */
+    .article-meta {
+        @apply font-sans text-sm text-neutral-600;
     }
 
     /* Button refinements */
