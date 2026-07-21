@@ -17,6 +17,7 @@ const { Content } = await entry.render();
 
 // Editorial metadata
 const reviewer = 'Marcos Gutierrez';
+const reviewerCredential = 'LAC'; // Licensed Associate Counselor
 const readingTime = Math.max(1, Math.round(entry.body.split(/\s+/).filter(Boolean).length / 200));
 const sourceCount = entry.data.sources?.length ?? 0;
 const formatDate = (d: Date) =>
@@ -38,7 +39,8 @@ const structuredData = {
     },
     editor: {
         '@type': 'Person',
-        name: reviewer
+        name: reviewer,
+        jobTitle: 'Licensed Associate Counselor'
     },
     publisher: {
         '@type': 'Organization',
@@ -85,7 +87,7 @@ const structuredData = {
             <div class="flex flex-wrap items-center gap-x-3 gap-y-1 article-meta">
                 <span>By <span class="font-medium text-neutral-800">Florecer Mind</span></span>
                 <span aria-hidden="true">·</span>
-                <span>Reviewed by <span class="font-medium text-neutral-800">{reviewer}</span></span>
+                <span>Reviewed by <span class="font-medium text-neutral-800">{reviewer}, {reviewerCredential}</span></span>
                 <span aria-hidden="true">·</span>
                 <time datetime={entry.data.pubDate.toISOString()}>{formatDate(entry.data.pubDate)}</time>
                 <span aria-hidden="true">·</span>
