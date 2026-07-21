@@ -45,6 +45,18 @@ Transform complex academic research into accessible, practical wisdom that empow
 - Growth-oriented and optimistic
 - Grounded in science, focused on humanity
 
+### Brand Architecture: Names & Taglines
+
+Florecer Mind intentionally uses two complementary ideas. Keep them in their lanes:
+
+| Name | What it is | When to use it |
+| :--- | :--------- | :------------- |
+| **Florecer Mind** | The brand / publication name | Everywhere the organization speaks: logo, site title, About, footer, social handles |
+| **"Where Research Blooms into Wisdom"** | The brand tagline (growth / flourishing metaphor) | Paired with the logo/wordmark, hero, meta descriptions, About |
+| **Research Rescue Weekly** | The **newsletter product** name (rescue-from-obscurity metaphor) | Only when referring to the email newsletter itself — signup pages, newsletter CTAs, subscribe copy |
+
+The two metaphors are deliberate and complementary: *Florecer* ("to flourish") is the destination — research **blooming** into wisdom — and *Research Rescue Weekly* names the mechanism — **rescuing** valuable studies from academic obscurity so they can flourish in real lives. Do not swap them: the brand does not "rescue," and the newsletter is not called "Florecer Weekly."
+
 ### Contact Information
 - **Email**: marcos@getflorecer.com
 - **Website**: https://getflorecer.com
@@ -73,14 +85,18 @@ Background Cream: #FAFAF9
 - Represents: Clarity, openness, simplicity
 ```
 
-**Neutral Palette**
+**Neutral Palette** (Tailwind `neutral` scale — hex values match Tailwind's defaults)
 ```
-Text Primary: #1f1f1f (neutral-900)
-Text Secondary: #525252 (neutral-700)
-Text Tertiary: #737373 (neutral-600)
-Borders/Dividers: #d4d4d4 (neutral-300)
-Subtle Backgrounds: #f5f5f4 (neutral-100)
+Text Primary:       #171717 (text-neutral-900)
+Text Secondary:     #404040 (text-neutral-700)
+Text Tertiary:      #525252 (text-neutral-600)
+Borders/Dividers:   #d4d4d4 (border-neutral-300)  — footer, section rules
+Hairline Borders:   #e5e5e5 (border-neutral-200)  — cards, subtle dividers
+Subtle Backgrounds: #f5f5f5 (bg-neutral-100)
 ```
+
+> Note: the page background `#FAFAF9` (Cream) is applied as the arbitrary value
+> `bg-[#FAFAF9]` in `Layout.astro`, **not** `bg-neutral-50` (which is `#fafafa`).
 
 **Accent Colors** (for social media integrations)
 ```
@@ -422,9 +438,9 @@ Use specific, searchable tags:
 |-----|-----|----------------|
 | Primary green | #2F5233 | `text-primary`, `bg-primary` |
 | Sage green | #A8B5A0 | `text-secondary`, `bg-secondary` |
-| Background | #FAFAF9 | `bg-neutral-50` |
-| Text main | #1f1f1f | `text-neutral-900` |
-| Text secondary | #525252 | `text-neutral-700` |
+| Background | #FAFAF9 | `bg-[#FAFAF9]` |
+| Text main | #171717 | `text-neutral-900` |
+| Text secondary | #404040 | `text-neutral-700` |
 
 ### Common Classes
 ```
@@ -454,4 +470,4 @@ This brand guide is a living document. As Florecer Mind evolves, update this gui
 
 ---
 
-*Last updated: January 2026*
+*Last updated: July 2026*
