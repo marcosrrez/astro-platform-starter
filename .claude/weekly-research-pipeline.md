@@ -51,10 +51,46 @@ science, daily practices, or mental health. Prefer topics that:
 3. Aim for **3–6 solid sources**. A meta-analysis or systematic review is worth
    more than five blog posts. Distinguish "study" vs "article" vs "book" in `type`.
 
+## 3b. The quality bar — what makes a spotlight *worthy*
+
+Correct and safe is the floor, not the goal. A spotlight worth someone's ten
+minutes clears this bar. Before writing, decide how this piece will meet it:
+
+- **A sharp angle, not a topic.** "Sleep and mental health" is a topic. "Why the
+  night you can't sleep is often built during the day" is an angle. Lead with a
+  specific claim or tension the reader hasn't already heard a hundred times.
+- **Earn the hook.** Open with a concrete, recognizable moment or a genuinely
+  surprising finding — not a dictionary definition or "In today's fast-paced
+  world." The reader should feel *seen* or *surprised* in the first two sentences.
+- **Specific beats general.** Name the study, the number, the mechanism. "Research
+  shows exercise helps" is forgettable; "an umbrella review of 97 reviews found
+  exercise rivaled therapy for mild-to-moderate depression" is not. Every section
+  should teach something a smart friend couldn't have guessed.
+- **Honest nuance builds trust.** Say what the evidence *doesn't* show, who it
+  doesn't apply to, and where researchers disagree. Effect sizes, limitations, and
+  "this is correlational" are features, not hedges. Never oversell.
+- **One throughline.** The hook, the research, the practices, and the takeaways
+  should all serve a single idea. If a section doesn't advance it, cut it.
+- **Practices that actually fit a life.** Applications must be specific, realistic,
+  and tied to the mechanism you explained — not generic wellness bullet points.
+- **A human voice.** Warm, curious, direct. Short sentences among long ones. No
+  jargon without translation, no filler, no AI throat-clearing.
+- **A title a human editor would write.** Plain, specific, and honest to the
+  finding. Readers distrust content that reads as AI-generated, and headlines are
+  the first tell. Avoid the formulas that scream machine: "The [Noun] Almost No
+  One [Verb]s," "Why [X] Is the [Superlative] [Thing]," "The Surprising Science
+  of…," or a title stuffed with em-dashes. Prefer a plain declarative claim
+  ("Exercise treats depression about as well as therapy") or a concrete question.
+
+**Anti-patterns that fail the bar:** an invented or vaguely-gestured study;
+round-number stats with no source; a listicle with no argument; "studies show"
+without which study; practices disconnected from the science; an AI-formula or
+generic-wellness-blog title; padding to hit a length.
+
 ## 4. Write the article
 
-Create `src/content/blog/<slug>.md`. Follow `.templates/article-template.md` and
-the structure in `BRAND_GUIDE.md`:
+Create `src/content/blog/<slug>.md`. Follow `.templates/article-template.md`, the
+quality bar above, and the structure in `BRAND_GUIDE.md`:
 
 - **Frontmatter** matching the schema in `src/content/config.ts`:
   - `title`, `description` (120–155 chars), `pubDate` (this week's Monday),
