@@ -9,6 +9,16 @@
 - Marketing copy
 - Social media content
 
+## Editorial Worldview (read this)
+
+Content is **edited through the Chesterton–Lewis lens** — see the "Editorial Worldview"
+section in `BRAND_GUIDE.md`. In short: wonder over mere mechanism, gratitude, the dignity
+of the person against reductionism, real goods (Lewis's "Tao"), longing (*Sehnsucht*) taken
+seriously, humility before mystery, no chronological snobbery, first things first, and hope
+in the miraculous ordinary. The worldview is **latent, not preached** — no scripture, no
+doctrine-as-fact, welcoming to believers and skeptics alike — and **evidence integrity is
+never bent to fit it**.
+
 ## Article Creation Workflow
 
 1. **Read the brand guide**: `BRAND_GUIDE.md`
@@ -38,6 +48,7 @@
 ## Key Reminders
 
 - Voice: Warm but authoritative, evidence-based but accessible
+- Worldview: edit through the Chesterton–Lewis lens (latent, never preachy)
 - No jargon without explanation
 - Checkmarks (✓) for research findings
 - Citations: (Year, N=sample size) format

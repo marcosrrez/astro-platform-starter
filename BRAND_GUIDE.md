@@ -45,6 +45,65 @@ Transform complex academic research into accessible, practical wisdom that empow
 - Growth-oriented and optimistic
 - Grounded in science, focused on humanity
 
+### Editorial Worldview: The Chesterton–Lewis Lens
+
+Every Florecer Mind article stands on solid evidence — and is *edited through* the
+moral and imaginative worldview of **G.K. Chesterton** and **C.S. Lewis**. This is a
+lens, not a sermon: it shapes how we frame, interpret, and emphasize research, never
+the accuracy of the research itself. The aim is what Lewis prized in good art — a
+worldview **latent, not patent**: felt in the framing, never preached.
+
+Nine principles, drawn from their work:
+
+1. **Wonder over mere mechanism.** Explain the neuroscience accurately, then refuse to
+   let the explanation explain the *person* away. A mind that can change is a marvel,
+   not just a machine to debug. Chesterton: "We are perishing for want of wonder, not
+   for want of wonders." Restore the astonishment.
+2. **Gratitude as the ground floor.** Frame growth and healing within gratitude — the
+   body, the capacity to change, another person's presence are gifts before they are
+   tools. Avoid the purely transactional register of "hacks," "optimization," "leverage."
+3. **Guard the person against reductionism.** Resist "nothing-buttery" — *you are
+   nothing but neurons / chemicals / conditioning.* Report the biology without implying
+   the human being is only biology. A person is a mystery to be honored, not merely a
+   problem to be solved.
+4. **Take longing seriously (Sehnsucht).** Lewis named the ache no experience quite
+   satisfies. Restlessness and "something's missing" are not always malfunctions to be
+   medicated into silence; they can be meaningful signals. Hold both: real clinical
+   suffering deserves real care, *and* longing may point beyond itself.
+5. **The good is real (the Tao).** Love, courage, honesty, forgiveness, patience are
+   real goods, not arbitrary preferences. Guidance may assume, without apology, that
+   becoming a more loving and truthful person is genuinely good — Lewis's "Tao," the
+   moral order nearly every culture recognizes.
+6. **Humility before mystery.** The mind exceeds our models. Present findings with
+   epistemic modesty — where our citation rigor and our worldview meet. "Mysticism keeps
+   men sane" (Chesterton); mystery is part of an honest picture, not an embarrassing gap.
+7. **No chronological snobbery — and no novelty-worship.** A study is not truer because
+   it is newer, nor ancient wisdom obsolete because it is old. Put the latest finding in
+   conversation with enduring human wisdom, not as a scoop that overturns everything.
+8. **First things first.** Keep loves in order. Techniques serve the person, and the
+   person is made for love, meaning, and community — not the reverse. Never let
+   self-optimization quietly become the highest good.
+9. **Hope and the miraculous ordinary.** End in real hope, not toxic positivity — and
+   treat the ordinary as quietly miraculous: sleep, a walk, a shared meal, a forgiven
+   grievance. Chesterton's genius was seeing the common world as astonishing.
+
+**The same finding, two ways:**
+- *Flat / reductive:* "Gratitude journaling increases prefrontal-cortex activity, so
+  it's a useful tool for optimizing mood."
+- *Through the lens:* "The research shows gratitude measurably reshapes the brain — but
+  it only confirms something older and stranger: giving thanks changes the one who gives
+  it. The practice is small; what it points to is not."
+
+**Guardrails (non-negotiable):**
+- **Evidence integrity is never bent to fit the worldview.** The lens colors
+  interpretation and emphasis — never the data, effect sizes, or citations.
+- **Latent, not preachy.** No scripture citations, no doctrinal claims stated as fact,
+  no implication that faith is required for mental health. We write for believers,
+  seekers, and skeptics alike; everyone should feel welcomed, not evangelized.
+- **Never romanticize suffering** or imply meaning-making substitutes for treatment.
+  Real illness deserves real professional care; the worldview adds meaning, it does not
+  replace medicine.
+
 ### Brand Architecture: Names & Taglines
 
 Florecer Mind intentionally uses two complementary ideas. Keep them in their lanes:

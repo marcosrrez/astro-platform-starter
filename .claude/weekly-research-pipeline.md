@@ -75,6 +75,14 @@ minutes clears this bar. Before writing, decide how this piece will meet it:
   and tied to the mechanism you explained — not generic wellness bullet points.
 - **A human voice.** Warm, curious, direct. Short sentences among long ones. No
   jargon without translation, no filler, no AI throat-clearing.
+- **The Chesterton–Lewis lens.** Edit the framing through the worldview in
+  `BRAND_GUIDE.md` → "Editorial Worldview": wonder over mere mechanism, gratitude,
+  the dignity of the person against reductionism, real goods (Lewis's "Tao"), longing
+  (*Sehnsucht*) taken seriously, humility before mystery, no chronological snobbery,
+  first things first, hope in the miraculous ordinary. Keep it **latent, never preached**
+  — no scripture, no doctrine-as-fact, welcoming to skeptics and believers alike — and
+  **never bend the evidence to fit it.** The lens shapes emphasis and interpretation, not
+  the data.
 - **A title a human editor would write.** Plain, specific, and honest to the
   finding. Readers distrust content that reads as AI-generated, and headlines are
   the first tell. Avoid the formulas that scream machine: "The [Noun] Almost No
