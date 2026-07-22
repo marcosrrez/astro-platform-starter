@@ -50,7 +50,7 @@
         text-underline-offset: 3px;
     }
 
-    a:hover {
+    a:not(.btn):hover {
         @apply text-primary;
         text-decoration: underline;
         text-decoration-color: currentColor;

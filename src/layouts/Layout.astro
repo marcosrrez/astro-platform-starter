@@ -35,13 +35,16 @@ const {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const imageURL = new URL(image, Astro.site);
+
+// Consistent browser-tab title: always end with the brand unless it's already present
+const fullTitle = title.includes('Florecer Mind') ? title : `${title} - Florecer Mind`;
 ---
 
 <!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>{title}</title>
+        <title>{fullTitle}</title>
         <meta name="description" content={description} />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
