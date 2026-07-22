@@ -7,6 +7,17 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
 
 <Layout title={title} description={description}>
     <div class="max-w-3xl mx-auto">
+        <!-- Success message: revealed by inline script when Kit redirects back with
+             ?subscribed=true (set that as the form's success redirect in Kit). -->
+        <div id="subscribe-success" hidden class="on-dark mb-10 flex items-start gap-3 rounded-lg bg-primary p-5">
+            <svg class="mt-0.5 h-6 w-6 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <div>
+                <p class="font-semibold text-white">You're almost in.</p>
+                <p class="text-sm text-white/90">Check your inbox for a confirmation email to finish subscribing to Research Rescue Weekly.</p>
+            </div>
+        </div>
         <!-- Header -->
         <section class="mb-12 text-center">
             <h1 class="mb-6 optical-align">
@@ -58,13 +69,13 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                     Subscribe to Research Rescue Weekly
                 </h2>
 
-                <!-- ConvertKit Form -->
+                <!-- Kit (ConvertKit) form — native POST so it works even when
+                     privacy/ad blockers block Kit's client script. On submit the
+                     browser navigates to Kit, which confirms the subscription. -->
                 <form
                     class="max-w-md mx-auto space-y-4"
                     action="https://app.kit.com/forms/8810669/subscriptions"
                     method="POST"
-                    data-sv-form="8810669"
-                    data-uid="73b5dfca45"
                 >
                     <div>
                         <label for="fields[first_name]" class="block mb-2 text-sm font-medium text-neutral-900">
@@ -139,14 +150,12 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                     </button>
 
                     <p class="text-xs text-center text-neutral-600">
-                        We respect your privacy. Unsubscribe at any time.
+                        After you subscribe you'll see a confirmation page, then get a
+                        confirmation email to click. We respect your privacy — unsubscribe anytime.
                     </p>
                 </form>
             </div>
         </section>
-
-        <!-- ConvertKit Script -->
-        <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
 
         <!-- What to Expect -->
         <section class="mb-12 p-8 bg-neutral-100 rounded-lg">
@@ -178,4 +187,14 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
             </a>
         </div>
     </div>
+
+    <script is:inline>
+        if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+            const el = document.getElementById('subscribe-success');
+            if (el) {
+                el.hidden = false;
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    </script>
 </Layout>
