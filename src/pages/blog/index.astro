@@ -2,6 +2,10 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
+// Server-render so ?category= / ?tag= filters actually apply (the site is
+// output: 'hybrid', so pages are static unless they opt into SSR).
+export const prerender = false;
+
 const title = "Research Spotlights - Florecer Mind";
 const description = "Explore our latest research spotlights, transforming academic studies into practical wisdom for everyday life.";
 

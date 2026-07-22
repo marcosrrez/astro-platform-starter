@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const title = "Page Not Found";
+const description = "The page you're looking for doesn't exist. Explore Florecer Mind's research spotlights instead.";
+---
+
+<Layout title={title} description={description}>
+    <section class="py-16 sm:py-28 max-w-2xl">
+        <p class="kicker mb-5">Error 404</p>
+        <h1 class="mb-6 optical-align">This page wandered off.</h1>
+        <p class="mb-10 text-xl leading-relaxed text-neutral-700 font-sans">
+            The page you're looking for doesn't exist or may have moved. Let's get you
+            back to the research.
+        </p>
+
+        <div class="flex flex-wrap gap-4">
+            <a href="/" class="btn btn-primary btn-lg">Back to Home</a>
+            <a href="/blog" class="btn btn-outline btn-lg border-2">Browse Research Spotlights</a>
+        </div>
+
+        <nav class="mt-14 border-t border-neutral-200 pt-8" aria-label="Helpful links">
+            <p class="kicker mb-4">You might be looking for</p>
+            <ul class="grid gap-3 sm:grid-cols-2 font-sans">
+                <li><a href="/blog" class="text-primary hover:underline">Research Spotlights</a></li>
+                <li><a href="/newsletter" class="text-primary hover:underline">Research Rescue Weekly newsletter</a></li>
+                <li><a href="/resources" class="text-primary hover:underline">Find a therapist &amp; crisis resources</a></li>
+                <li><a href="/about" class="text-primary hover:underline">About Florecer Mind</a></li>
+            </ul>
+        </nav>
+    </section>
+</Layout>
