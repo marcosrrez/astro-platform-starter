@@ -73,6 +73,7 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
                      privacy/ad blockers block Kit's client script. On submit the
                      browser navigates to Kit, which confirms the subscription. -->
                 <form
+                    id="newsletter-form"
                     class="max-w-md mx-auto space-y-4"
                     action="https://app.kit.com/forms/8810669/subscriptions"
                     method="POST"
@@ -189,12 +190,42 @@ const description = "Subscribe to Research Rescue Weekly - Evidence-based insigh
     </div>
 
     <script is:inline>
-        if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
-            const el = document.getElementById('subscribe-success');
-            if (el) {
-                el.hidden = false;
-                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        (function () {
+            var success = document.getElementById('subscribe-success');
+            var form = document.getElementById('newsletter-form');
+
+            function showSuccess() {
+                if (!success) return;
+                success.hidden = false;
+                // Hide the whole form section so the success message is the focus
+                var section = form && form.closest('section');
+                if (section) section.hidden = true;
+                success.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-        }
+
+            // Case 1: Kit redirected back after a successful subscribe
+            if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
+                showSuccess();
+            }
+
+            // Case 2: progressive enhancement — subscribe without leaving the site.
+            // Submits the form to Kit in the background, then shows our own message.
+            // Falls back to a normal (navigating) submit if anything goes wrong.
+            if (form && window.fetch) {
+                form.addEventListener('submit', function (e) {
+                    if (!form.checkValidity()) return; // let native validation show
+                    e.preventDefault();
+                    var btn = form.querySelector('button[type="submit"]');
+                    if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; }
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: new URLSearchParams(new FormData(form)),
+                        mode: 'no-cors'
+                    })
+                        .then(showSuccess)
+                        .catch(function () { form.submit(); });
+                });
+            }
+        })();
     </script>
 </Layout>
