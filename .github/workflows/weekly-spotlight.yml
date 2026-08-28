@@ -1,0 +1,83 @@
+# Weekly Research Spotlight — writes a fully-cited, worldview-edited draft and
+# opens a pull request for human review every Friday. Runs inside GitHub with
+# write access, so (unlike a cloud Routine) it can actually push and open the PR.
+#
+# ONE-TIME SETUP (repo owner):
+#   1. Settings → Secrets and variables → Actions → New repository secret:
+#        name:  ANTHROPIC_API_KEY   value: <your Anthropic API key>
+#   2. Settings → Actions → General → "Workflow permissions":
+#        enable "Allow GitHub Actions to create and approve pull requests".
+# After that it's hands-off: a PR appears each Friday for you to review & merge.
+name: Weekly Research Spotlight
+
+on:
+  schedule:
+    - cron: '17 14 * * 5' # Fridays 14:17 UTC (~9:17am US Central), ahead of the Monday send
+  workflow_dispatch: {} # allow manual "Run workflow" from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  spotlight:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for API key
+        id: guard
+        run: |
+          if [ -n "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::ANTHROPIC_API_KEY secret is not set — skipping. Add it in Settings → Secrets → Actions to enable the weekly spotlight."
+          fi
+
+      - name: Checkout
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        if: steps.guard.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        if: steps.guard.outputs.ready == 'true'
+        run: npm ci
+
+      - name: Write this week's spotlight and open a PR
+        if: steps.guard.outputs.ready == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          claude_args: '--max-turns 60'
+          prompt: |
+            You are producing this week's Research Spotlight for the Florecer Mind
+            website (a research-focused mental-health blog + the "Research Rescue
+            Weekly" newsletter). Work autonomously and end by opening a pull request.
+
+            1. Configure git: `git config user.name "florecer-bot"` and
+               `git config user.email "bot@getflorecer.com"`. Create a new branch
+               `claude/weekly-spotlight-$(date +%Y-%m-%d)` from origin/main.
+            2. Read `.claude/weekly-research-pipeline.md` and `BRAND_GUIDE.md` and
+               follow them EXACTLY — including the Chesterton–Lewis editorial lens
+               (latent, never preached) and the anti-fabrication guardrails.
+            3. CRITICAL: never invent studies, statistics, sample sizes, or effect
+               sizes. Every specific claim must map to a real source you found via
+               web search (peer-reviewed studies, meta-analyses, NIH/NIMH/APA/.edu),
+               linked in the article's `sources` frontmatter. If you cannot verify a
+               claim, reword it generally or cut it.
+            4. Pick ONE specific topic NOT already covered in `src/content/blog/`.
+               Write a new, fully-cited Markdown article there, matching the schema
+               in `src/content/config.ts`. Set `pubDate` to the upcoming Monday.
+            5. Run `npm run build` — it MUST pass (frontmatter is schema-validated).
+               Fix any errors before continuing.
+            6. Commit, push the branch, and open a pull request against `main` using
+               `gh pr create`. The PR body must list every source used and a
+               one-line credibility check confirming each specific claim is backed by
+               a linked source. DO NOT merge — a human reviews and publishes.
