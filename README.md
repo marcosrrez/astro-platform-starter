@@ -9,6 +9,7 @@ Built with [Astro](https://astro.build/), styled with [Tailwind CSS](https://tai
 - **Live site:** https://getflorecer.com
 - **Newsletter:** Research Rescue Weekly (evidence-based insights, every Monday)
 - **Contact:** marcos@getflorecer.com
+- **Status:** live and actively published
 
 ## What this project is
 
@@ -70,8 +71,8 @@ npm run dev      # start the dev server at http://localhost:4321
 │   │   ├── blog/
 │   │   │   ├── index.astro   # Spotlight index + category/tag filtering
 │   │   │   └── [slug].astro  # Individual spotlight (renders Markdown)
-│   │   ├── rss.xml.ts        # RSS feed
-│   │   └── api/              # Netlify serverless endpoints (blobs, revalidate)
+│   │   ├── 404.astro         # Branded not-found page
+│   │   └── rss.xml.ts        # RSS feed
 │   └── styles/
 │       └── globals.css      # Base typography + component styles
 ├── public/                  # Static assets (favicon, OG image, robots.txt)
@@ -107,7 +108,14 @@ The post is automatically listed on the homepage, the `/blog` index, the RSS fee
 
 ### Automated weekly spotlights
 
-A weekly research pipeline is documented in [`.claude/weekly-research-pipeline.md`](./.claude/weekly-research-pipeline.md). It produces a fully-cited spotlight draft and opens a pull request for human review before anything goes live.
+Every Friday, the [Weekly Research Spotlight](./.github/workflows/weekly-spotlight.yml) GitHub Action writes a fully cited spotlight draft and opens a pull request for review. Nothing goes live until you merge it. The pipeline itself is documented in [`.claude/weekly-research-pipeline.md`](./.claude/weekly-research-pipeline.md).
+
+One-time setup (the workflow skips itself until both are done):
+
+1. **Settings → Secrets and variables → Actions:** add `ANTHROPIC_API_KEY`.
+2. **Settings → Actions → General → Workflow permissions:** turn on *Allow GitHub Actions to create and approve pull requests*.
+
+You can also run it on demand from the Actions tab.
 
 ## Brand & design
 
