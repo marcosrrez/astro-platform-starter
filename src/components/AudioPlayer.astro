@@ -1,0 +1,319 @@
+---
+interface Props {
+  audioUrl?: string;
+  title: string;
+  author?: string;
+  duration?: string;
+}
+
+const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
+---
+
+{audioUrl && (
+  <div 
+    class="audio-player-container my-8 rounded-2xl border border-neutral-200/90 bg-white/95 p-4 sm:p-5 shadow-sm backdrop-blur-md transition-all hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900/90"
+    data-audio-player
+    data-src={audioUrl}
+    data-title={title}
+    data-author={author}
+  >
+    <audio class="sr-only" preload="metadata" src={audioUrl}></audio>
+    
+    <div class="flex flex-col gap-3.5">
+      <!-- Top Row: Icon, Title & Status, Speed Pill -->
+      <div class="flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <!-- Play / Pause Main Button -->
+          <button
+            type="button"
+            class="play-toggle-btn relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-md transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 dark:bg-white dark:text-neutral-900"
+            aria-label={`Play narration for ${title}`}
+            data-state="paused"
+          >
+            <!-- Play Icon -->
+            <svg class="play-icon h-5 w-5 translate-x-0.5 fill-current" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <!-- Pause Icon -->
+            <svg class="pause-icon hidden h-5 w-5 fill-current" viewBox="0 0 24 24">
+              <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+            </svg>
+          </button>
+
+          <!-- Label & Animated Waveform -->
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 dark:text-rose-400">
+                Listen to Essay
+              </span>
+              <!-- Waveform bars indicator -->
+              <div class="waveform-indicator flex items-end gap-0.5 h-3 opacity-40">
+                <span class="bar h-1 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
+                <span class="bar h-2 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
+                <span class="bar h-3 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
+                <span class="bar h-1.5 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
+              </div>
+            </div>
+            <p class="truncate text-sm font-medium text-neutral-800 dark:text-neutral-200">
+              {title}
+            </p>
+          </div>
+        </div>
+
+        <!-- Controls: 15s Rewind, Speed Button -->
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          <!-- Rewind 15s -->
+          <button
+            type="button"
+            class="rewind-btn flex h-8 w-8 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+            aria-label="Rewind 15 seconds"
+            title="Rewind 15s"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0019 16V8a1 1 0 00-1.6-.8l-5.334 4zM4.066 11.2a1 1 0 000 1.6l5.334 4A1 1 0 0011 16V8a1 1 0 00-1.6-.8l-5.334 4z" />
+            </svg>
+          </button>
+
+          <!-- Speed Pill -->
+          <button
+            type="button"
+            class="speed-btn rounded-full border border-neutral-300 px-2.5 py-1 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100 focus:outline-none dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            aria-label="Change playback speed"
+          >
+            1.0×
+          </button>
+        </div>
+      </div>
+
+      <!-- Scrub Bar & Time Display -->
+      <div class="space-y-1">
+        <div class="group relative flex items-center">
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value="0"
+            step="0.1"
+            class="timeline-slider h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-neutral-900 transition-all focus:outline-none dark:bg-neutral-800 dark:accent-white"
+            aria-label="Audio scrubber"
+          />
+        </div>
+        <div class="flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
+          <span class="current-time">0:00</span>
+          <span class="duration-time">--:--</span>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+<style>
+  /* Custom slider track & thumb styling */
+  .timeline-slider::-webkit-slider-thumb {
+    appearance: none;
+    height: 12px;
+    width: 12px;
+    border-radius: 9999px;
+    background: currentColor;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+  .timeline-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.25);
+  }
+  .timeline-slider::-moz-range-thumb {
+    height: 12px;
+    width: 12px;
+    border-radius: 9999px;
+    background: currentColor;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+  .timeline-slider:hover::-moz-range-thumb {
+    transform: scale(1.25);
+  }
+
+  /* Animated waveform pulse when playing */
+  .waveform-playing .bar:nth-child(1) {
+    animation: wavePulse 0.9s ease-in-out infinite alternate;
+  }
+  .waveform-playing .bar:nth-child(2) {
+    animation: wavePulse 0.6s ease-in-out infinite alternate 0.15s;
+  }
+  .waveform-playing .bar:nth-child(3) {
+    animation: wavePulse 1.1s ease-in-out infinite alternate 0.3s;
+  }
+  .waveform-playing .bar:nth-child(4) {
+    animation: wavePulse 0.75s ease-in-out infinite alternate 0.2s;
+  }
+
+  @keyframes wavePulse {
+    0% { height: 3px; }
+    100% { height: 14px; }
+  }
+</style>
+
+<script>
+  function formatTime(seconds: number): string {
+    if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+  }
+
+  function setupAudioPlayers() {
+    const players = document.querySelectorAll<HTMLElement>('[data-audio-player]');
+
+    players.forEach(player => {
+      if (player.dataset.initialized === 'true') return;
+      player.dataset.initialized = 'true';
+
+      const audio = player.querySelector<HTMLAudioElement>('audio');
+      const playBtn = player.querySelector<HTMLButtonElement>('.play-toggle-btn');
+      const playIcon = player.querySelector<SVGElement>('.play-icon');
+      const pauseIcon = player.querySelector<SVGElement>('.pause-icon');
+      const speedBtn = player.querySelector<HTMLButtonElement>('.speed-btn');
+      const rewindBtn = player.querySelector<HTMLButtonElement>('.rewind-btn');
+      const slider = player.querySelector<HTMLInputElement>('.timeline-slider');
+      const currentTimeEl = player.querySelector<HTMLElement>('.current-time');
+      const durationTimeEl = player.querySelector<HTMLElement>('.duration-time');
+      const waveform = player.querySelector<HTMLElement>('.waveform-indicator');
+
+      if (!audio || !playBtn || !slider || !currentTimeEl || !durationTimeEl) return;
+
+      const title = player.dataset.title || 'Florecer Mind Essay';
+      const author = player.dataset.author || 'Florecer Mind';
+
+      const speeds = [1.0, 1.25, 1.5, 2.0];
+      let currentSpeedIndex = 0;
+
+      // Update MediaSession
+      function updateMediaSession() {
+        if ('mediaSession' in navigator) {
+          navigator.mediaSession.metadata = new MediaMetadata({
+            title: title,
+            artist: author,
+            album: 'Florecer Mind Audio Library',
+            artwork: [
+              { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' },
+              { src: '/og-default.png', sizes: '1200x630', type: 'image/png' }
+            ]
+          });
+
+          navigator.mediaSession.setActionHandler('play', () => {
+            audio.play();
+          });
+          navigator.mediaSession.setActionHandler('pause', () => {
+            audio.pause();
+          });
+          navigator.mediaSession.setActionHandler('seekbackward', () => {
+            audio.currentTime = Math.max(0, audio.currentTime - 15);
+          });
+          navigator.mediaSession.setActionHandler('seekforward', () => {
+            audio.currentTime = Math.min(audio.duration, audio.currentTime + 15);
+          });
+        }
+      }
+
+      function updatePlayState(isPlaying: boolean) {
+        if (isPlaying) {
+          playBtn.setAttribute('data-state', 'playing');
+          playIcon?.classList.add('hidden');
+          pauseIcon?.classList.remove('hidden');
+          waveform?.classList.add('waveform-playing');
+          waveform?.classList.remove('opacity-40');
+          if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'playing';
+          }
+        } else {
+          playBtn.setAttribute('data-state', 'paused');
+          playIcon?.classList.remove('hidden');
+          pauseIcon?.classList.add('hidden');
+          waveform?.classList.remove('waveform-playing');
+          waveform?.classList.add('opacity-40');
+          if ('mediaSession' in navigator) {
+            navigator.mediaSession.playbackState = 'paused';
+          }
+        }
+      }
+
+      // Play/Pause toggle
+      playBtn.addEventListener('click', () => {
+        // Pause any other audio on the page
+        document.querySelectorAll('audio').forEach(otherAudio => {
+          if (otherAudio !== audio && !otherAudio.paused) {
+            otherAudio.pause();
+          }
+        });
+
+        if (audio.paused) {
+          audio.play().then(() => {
+            updateMediaSession();
+          }).catch(err => {
+            console.error('Audio playback error:', err);
+          });
+        } else {
+          audio.pause();
+        }
+      });
+
+      // Rewind 15s
+      rewindBtn?.addEventListener('click', () => {
+        audio.currentTime = Math.max(0, audio.currentTime - 15);
+      });
+
+      // Speed toggle
+      speedBtn?.addEventListener('click', () => {
+        currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+        const newSpeed = speeds[currentSpeedIndex];
+        audio.playbackRate = newSpeed;
+        speedBtn.textContent = `${newSpeed}×`;
+      });
+
+      // Audio event listeners
+      audio.addEventListener('play', () => updatePlayState(true));
+      audio.addEventListener('pause', () => updatePlayState(false));
+      audio.addEventListener('ended', () => {
+        updatePlayState(false);
+        audio.currentTime = 0;
+      });
+
+      audio.addEventListener('loadedmetadata', () => {
+        if (audio.duration && isFinite(audio.duration)) {
+          durationTimeEl.textContent = formatTime(audio.duration);
+        }
+      });
+
+      let isDragging = false;
+
+      audio.addEventListener('timeupdate', () => {
+        if (!isDragging && audio.duration && isFinite(audio.duration)) {
+          const progress = (audio.currentTime / audio.duration) * 100;
+          slider.value = progress.toString();
+          currentTimeEl.textContent = formatTime(audio.currentTime);
+        }
+      });
+
+      // Scrubbing
+      slider.addEventListener('input', () => {
+        isDragging = true;
+        if (audio.duration && isFinite(audio.duration)) {
+          const scrubTime = (parseFloat(slider.value) / 100) * audio.duration;
+          currentTimeEl.textContent = formatTime(scrubTime);
+        }
+      });
+
+      slider.addEventListener('change', () => {
+        isDragging = false;
+        if (audio.duration && isFinite(audio.duration)) {
+          audio.currentTime = (parseFloat(slider.value) / 100) * audio.duration;
+        }
+      });
+    });
+  }
+
+  // Initialize on load & Astro page transitions
+  setupAudioPlayers();
+  document.addEventListener('astro:page-load', setupAudioPlayers);
+</script>

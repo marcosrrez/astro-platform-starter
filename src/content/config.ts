@@ -21,6 +21,7 @@ const blog = defineCollection({
         tags: z.array(z.string()),
         author: z.string().optional(),
         image: z.string().optional(),
+        audioUrl: z.string().optional(),
         // Sources and resources
         sources: z.array(z.object({
             title: z.string(),

@@ -35,11 +35,11 @@ relatedVideos:
 
 ## The Research
 
-We tend to imagine lasting change as something that requires big, dramatic effort. The research on the brain—and on habits—tells a gentler story: small, consistent actions, repeated over time, are what actually reshape us.
+We tend to imagine lasting change as something that requires big, dramatic effort. The research on the brain and habits tells a gentler story: small, consistent actions, repeated over time, are what actually reshape us.
 
-Two lines of evidence make the case. On the brain side, researchers took MRI scans of people before and after an eight-week mindfulness program and compared them to a control group (Hölzel et al., 2011). Even over that relatively short window, the practicing group showed measurable increases in gray matter density in regions tied to learning, memory, and emotion regulation—direct evidence that a consistent practice can change brain structure, not just how you feel in the moment.
+Two lines of evidence make the case. On the brain side, researchers took MRI scans of people before and after an eight-week mindfulness program and compared them to a control group (Hölzel et al., 2011). Even over that relatively short window, the practicing group showed measurable increases in gray matter density in regions tied to learning, memory, and emotion regulation: direct evidence that a consistent practice can change brain structure, not just how you feel in the moment.
 
-On the behavior side, a well-known study followed 96 people as they tried to build a new daily habit (Lally et al., 2010). It took a median of about 66 days for a behavior to become automatic—though it ranged widely, from 18 to 254 days depending on the person and the habit. Crucially, missing a single day did not derail the process. Consistency mattered far more than perfection.
+On the behavior side, a well-known study followed 96 people as they tried to build a new daily habit (Lally et al., 2010). It took a median of about 66 days for a behavior to become automatic, though it ranged widely, from 18 to 254 days depending on the person and the habit. Crucially, missing a single day did not derail the process. Consistency mattered far more than perfection.
 
 Together, these findings point to the same conclusion: you don't need heroic, hours-long sessions to change. You need small actions you can actually repeat.
 
@@ -47,7 +47,7 @@ Together, these findings point to the same conclusion: you don't need heroic, ho
 
 - ✓ A consistent eight-week practice produced measurable increases in brain gray matter density (Hölzel et al., 2011)
 - ✓ New habits took a median of ~66 days to become automatic, with wide individual variation (Lally et al., 2010)
-- ✓ Missing a single day did not break habit formation—consistency beats perfection (Lally et al., 2010)
+- ✓ Missing a single day did not break habit formation: consistency beats perfection (Lally et al., 2010)
 - ✓ The brain stays plastic in adulthood: structure can change in response to what we repeatedly practice
 
 ## Practical Applications
@@ -64,13 +64,13 @@ Write three specific things you're grateful for. Research shows this rewires neu
 
 ### 3. Learning Micro-Session (10 minutes)
 
-Dedicate 10 minutes to learning something new—a language app, reading, or educational content. Daily engagement strengthens hippocampal connections.
+Dedicate 10 minutes to learning something new, such as a language lesson, reading, or educational material. Daily engagement strengthens hippocampal connections.
 
 ## Key Takeaways
 
 - **Start small**: small, repeatable practices are what actually stick
 - **Consistency beats intensity** for lasting change (Lally et al., 2010)
-- **Missing one day won't derail you**—just pick it back up the next day
+- **Missing one day will not derail you:** just pick it back up the next day
 - **The brain stays plastic**: a consistent eight-week practice measurably changed brain structure (Hölzel et al., 2011)
 
 ## For Counselors & Practitioners

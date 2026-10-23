@@ -39,7 +39,7 @@ A landmark 2023 meta-analysis published in *Psychotherapy* examined over 300 stu
 
 The findings challenge some common assumptions and confirm others:
 
-The **therapeutic alliance**—the collaborative relationship between therapist and client—accounted for more variance in outcomes than the specific type of therapy used. In fact, the strength of the alliance predicted success across CBT, psychodynamic therapy, humanistic approaches, and other modalities.
+The **therapeutic alliance** (the collaborative relationship between therapist and client) accounted for more variance in outcomes than the specific type of therapy used. In fact, the strength of the alliance predicted success across CBT, psychodynamic therapy, humanistic approaches, and other modalities.
 
 Even more striking: therapist effects (individual therapist skill and qualities) accounted for 5-9% of outcome variance, which is actually larger than the variance explained by specific treatment models (less than 1% in most comparative studies).
 
@@ -91,7 +91,7 @@ Research identified specific therapist characteristics associated with better ou
 
 ### What Clients Bring
 
-Alliance isn't just about the therapist—clients contribute too:
+Alliance is not just about the therapist; clients contribute too:
 
 **Willingness to Engage**: Clients who actively participate in therapy tasks show better outcomes
 
@@ -139,7 +139,7 @@ Use validated brief measures like the Session Rating Scale or Working Alliance I
 
 **Repair Ruptures Quickly**
 
-Alliance ruptures happen—what matters is addressing them:
+Alliance ruptures happen; what matters is addressing them:
 - Notice signs: increased silence, intellectualization, arriving late
 - Name it directly: "I'm sensing some distance today. Did something not sit right last session?"
 - Take responsibility: "I may have moved too fast" or "I might have misunderstood"
@@ -172,7 +172,7 @@ Following a treatment manual rigidly while ignoring alliance cues predicts poore
 
 **3. Cultural Misattunement**
 
-Studies show that when therapists don't acknowledge cultural factors, racial/ethnic minority clients experience weaker alliances and drop out more frequently. Cultural responsiveness isn't optional—it's essential.
+Studies show that when therapists don't acknowledge cultural factors, racial/ethnic minority clients experience weaker alliances and drop out more frequently. Cultural responsiveness is not optional; it is essential.
 
 **4. Avoiding Negative Feedback**
 

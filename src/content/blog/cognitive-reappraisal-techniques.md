@@ -35,28 +35,28 @@ relatedVideos:
 
 ## The Research
 
-Cognitive reappraisal—reinterpreting a situation to change its emotional impact—is one of the most studied emotion-regulation strategies in psychology, and the evidence for it is strong.
+Cognitive reappraisal (reinterpreting a situation to change its emotional impact) is one of the most studied emotion-regulation strategies in psychology, and the evidence for it is strong.
 
-A large meta-analysis published in *Psychological Bulletin* synthesized 306 experimental comparisons of different emotion-regulation strategies (Webb, Miles & Sheeran, 2012). It found that reappraisal reliably reduces negative emotion—but *how* you reappraise matters. Reinterpreting the situation itself, or deliberately taking another perspective, produced larger benefits (effect sizes around d = 0.36–0.45) than simply trying to reinterpret an emotional response after it had already arisen (about d = 0.23).
+A large meta-analysis published in *Psychological Bulletin* synthesized 306 experimental comparisons of different emotion-regulation strategies (Webb, Miles & Sheeran, 2012). It found that reappraisal reliably reduces negative emotion, but *how* you reappraise matters. Reinterpreting the situation itself, or deliberately taking another perspective, produced larger benefits (effect sizes around d = 0.36 to 0.45) than simply trying to reinterpret an emotional response after it had already arisen (about d = 0.23).
 
-Neuroimaging research helps explain the mechanism. A meta-analysis of brain-imaging studies (Buhle et al., 2014) found that reappraisal consistently engages prefrontal "cognitive control" regions—including the dorsomedial, dorsolateral, and ventrolateral prefrontal cortex—while modulating activity in the amygdala, the brain's threat-detection hub. In other words, reappraisal recruits the thinking brain to turn down the volume on the reactive one.
+Neuroimaging research helps explain the mechanism. A meta-analysis of brain-imaging studies (Buhle et al., 2014) found that reappraisal consistently engages prefrontal "cognitive control" regions (including the dorsomedial, dorsolateral, and ventrolateral prefrontal cortex) while modulating activity in the amygdala, the brain's threat-detection hub. In other words, reappraisal recruits the thinking brain to turn down the volume on the reactive one.
 
 ### Key Findings
 
 - ✓ Reappraisal reliably reduces negative emotion across many types of stressors (Webb et al., 2012)
 - ✓ Reinterpreting the situation, or taking another perspective, works better than trying to suppress or reinterpret a feeling after it hits (Webb et al., 2012)
 - ✓ Brain imaging shows reappraisal engages prefrontal control regions while modulating the amygdala (Buhle et al., 2014)
-- ✓ It is a trainable skill—the more you practice, the more accessible it becomes
+- ✓ It is a trainable skill: the more you practice, the more accessible it becomes
 
 ## What is Cognitive Reappraisal?
 
-Cognitive reappraisal is the practice of changing how you think about a situation to change how you feel about it. It's not positive thinking or denial—it's finding alternative, realistic interpretations that are more balanced and helpful.
+Cognitive reappraisal is the practice of changing how you think about a situation to change how you feel about it. It's not positive thinking or denial; it is finding alternative, realistic interpretations that are more balanced and helpful.
 
 **Example:**
 - **Original thought**: "My boss didn't respond to my email. She must think my work is terrible."
 - **Reappraisal**: "My boss didn't respond yet. She's probably busy. I'll follow up if I don't hear back by tomorrow."
 
-The reappraisal doesn't dismiss the situation—it simply considers other explanations that are equally plausible but less emotionally devastating.
+The reappraisal doesn't dismiss the situation; it simply considers other explanations that are equally plausible but less emotionally devastating.
 
 ## Practical Applications
 
@@ -88,7 +88,7 @@ Research shows that linguistic distance helps reduce emotional intensity. Try th
 
 **1. Third-Person Perspective**
 - Instead of: "I'm so anxious about this presentation"
-- Try: "[Your name] is feeling anxious about the presentation. That's understandable—it's an important moment."
+- Try: "[Your name] is feeling anxious about the presentation. That is understandable: it is an important moment."
 
 **2. Temporal Distance**
 - Ask: "Will this matter in 5 years? In 1 year? In 1 month?"
@@ -124,7 +124,7 @@ Cognitive reappraisal training can be integrated into various therapeutic approa
 
 **In-Session Modeling**: When clients present distressing situations, model the reappraisal process out loud before asking them to try.
 
-**Dosage Matters**: Regular, repeated practice—not a one-time insight—is what builds the skill. Encourage clients to rehearse reappraisal on small, everyday frustrations between sessions so the process becomes more automatic when bigger stressors arrive.
+**Dosage Matters**: Regular, repeated practice, not a one-time insight, is what builds the skill. Encourage clients to rehearse reappraisal on small, everyday frustrations between sessions so the process becomes more automatic when bigger stressors arrive.
 
 **Contraindications**: While generally beneficial, reappraisal may not be appropriate during acute trauma processing or when validation of the original emotion is therapeutically necessary first.
 
@@ -136,7 +136,7 @@ Cognitive reappraisal training can be integrated into various therapeutic approa
 
 **2. Dismissing Valid Concerns**
 - Reappraisal isn't about ignoring real problems
-- If something needs action, take action—then reappraise your catastrophic predictions about it
+- If something needs action, take action, then reappraise your catastrophic predictions about it
 
 **3. Expecting Perfection**
 - You won't believe every reappraisal at first
@@ -151,6 +151,6 @@ Cognitive reappraisal training can be integrated into various therapeutic approa
 4. Notice how your emotional intensity shifts (even slightly)
 
 **This Month:**
-Track patterns in your automatic thoughts. You'll likely notice themes—and reframing becomes easier as you recognize your mind's favorite stories.
+Track patterns in your automatic thoughts. You'll likely notice themes, and reframing becomes easier as you recognize your mind's favorite stories.
 
 The evidence is clear: changing how you interpret situations changes how you feel about them, and your brain literally rewires itself in the process. Start small, practice consistently, and give yourself credit for each time you pause to reframe.

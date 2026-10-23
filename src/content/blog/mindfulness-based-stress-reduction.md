@@ -37,7 +37,7 @@ relatedVideos:
     creator: "TED-Ed"
 ---
 
-Mindfulness has become ubiquitous—from apps promising instant calm to corporate wellness programs. But the mindfulness supported by rigorous research looks quite different from the commodified version flooding our feeds. Let's examine what the evidence actually shows.
+Mindfulness has become ubiquitous, from apps promising instant calm to corporate wellness programs. But the mindfulness supported by rigorous research looks quite different from the commodified version flooding our feeds. Let's examine what the evidence actually shows.
 
 ## The Research
 
@@ -49,7 +49,7 @@ Mindfulness-Based Stress Reduction (MBSR) has been studied extensively since Jon
 
 ✓ A landmark 2003 study demonstrated that 8 weeks of MBSR training produced measurable changes in brain electrical activity and enhanced immune function (increased antibody response to flu vaccine)
 
-✓ Meta-analytic evidence shows MBSR reduces anxiety with an effect size of d=0.63 and depression at d=0.59—these are clinically meaningful reductions
+✓ Meta-analytic evidence shows MBSR reduces anxiety with an effect size of d=0.63 and depression at d=0.59: these are clinically meaningful reductions
 
 ✓ Follow-up studies show effects persist: benefits remained significant 6-12 months after program completion without continued formal instruction
 
@@ -67,7 +67,7 @@ MBSR is a structured 8-week program, not a casual practice. Understanding what p
 
 **Three Core Practices:**
 
-1. **Body Scan Meditation** (weeks 1-4 primarily): Systematically bringing attention to different parts of the body, noticing sensations without trying to change them. This develops interoceptive awareness—the ability to notice internal body states.
+1. **Body Scan Meditation** (weeks 1-4 primarily): Systematically bringing attention to different parts of the body, noticing sensations without trying to change them. This develops interoceptive awareness, the ability to notice internal body states.
 
 2. **Sitting Meditation** (introduced week 3): Focusing attention on the breath, sounds, bodily sensations, thoughts, and emotions as they arise. When the mind wanders (and it will), gently returning attention.
 
@@ -75,7 +75,7 @@ MBSR is a structured 8-week program, not a casual practice. Understanding what p
 
 ### What Makes It Different from Apps
 
-**It's effortful and sometimes uncomfortable:** You're not aiming to feel calm or relaxed. You're building the capacity to stay present with whatever arises—including discomfort, boredom, or restlessness.
+**It's effortful and sometimes uncomfortable:** You're not aiming to feel calm or relaxed. You're building the capacity to stay present with whatever arises, including discomfort, boredom, or restlessness.
 
 **It's structured and progressive:** The practices build on each other. Week 1 is different from week 8. You're developing skills, not consuming content.
 
@@ -95,7 +95,7 @@ This creates space between thought and reaction, allowing you to respond rather 
 
 ### 2. Reduced Rumination
 
-Rumination—repetitive thinking about problems and negative feelings—is a key mechanism in anxiety and depression. Mindfulness practice interrupts rumination by redirecting attention to present-moment experience.
+Rumination (repetitive thinking about problems and negative feelings) is a key mechanism in anxiety and depression. Mindfulness practice interrupts rumination by redirecting attention to present-moment experience.
 
 One study found that MBSR participants showed significant decreases in rumination that mediated reductions in depressive symptoms.
 
@@ -106,7 +106,7 @@ Mindfulness trains three aspects of attention:
 - **Attention switching:** Noticing when attention has wandered and redirecting it
 - **Attention monitoring:** Observing where attention is in the moment
 
-These aren't just meditation skills—they transfer to daily life, helping you notice when you're caught in worry or distraction.
+These are not just meditation skills; they transfer to daily life, helping you notice when you are caught in worry or distraction.
 
 ### 4. Emotion Regulation
 
@@ -116,7 +116,7 @@ Functionally, this means emotional reactions become less intense and you recover
 
 ### 5. Self-Compassion Development
 
-Though not formally taught in classical MBSR, many participants report increased self-compassion—the ability to treat yourself with the same kindness you'd offer a good friend during difficult times.
+Though not formally taught in classical MBSR, many participants report increased self-compassion, the ability to treat yourself with the same kindness you would offer a good friend during difficult times.
 
 ## Practical Applications
 
@@ -132,12 +132,12 @@ Don't try to do body scan, sitting meditation, and yoga daily from the start. Pi
 
 **Basic Body Scan Practice (10 minutes):**
 1. Lie down or sit comfortably
-2. Bring attention to your left foot—simply notice any sensations present
+2. Bring attention to your left foot; simply notice any sensations present
 3. After 30-60 seconds, move attention to your left ankle, then calf, then knee
 4. Progress through the entire body systematically
 5. When your mind wanders (it will), notice this without judgment and gently return attention to the body part you're focusing on
 
-**Informal Practice—Mindful Moments:**
+**Informal Practice: Mindful Moments:**
 Between formal sessions, choose one daily activity to do mindfully:
 - **Mindful coffee/tea:** Notice temperature, aroma, taste, the feel of the cup
 - **Mindful walking:** Feel your feet making contact with the ground with each step
@@ -146,7 +146,7 @@ Between formal sessions, choose one daily activity to do mindfully:
 ### Common Misconceptions
 
 **"I'm bad at meditation because my mind keeps wandering"**
-→ Mind-wandering is not a failure—it's what minds do. The practice is noticing wandering and returning attention. You can't do it wrong.
+→ Mind-wandering is not a failure; it is what minds do. The practice is noticing wandering and returning attention. You can't do it wrong.
 
 **"Mindfulness is about being calm and relaxed"**
 → Calmness may arise, but it's not the goal. The goal is present-moment awareness, even when the present moment is uncomfortable.
@@ -190,7 +190,7 @@ If you're introducing mindfulness concepts in individual therapy:
 Rather than explaining mindfulness, guide a brief (3-5 minute) practice in session. Debrief the experience together.
 
 **Normalize Difficulty:**
-"Most people find their minds wander constantly—that's completely normal. In fact, noticing that your mind wandered means mindfulness is working."
+"Most people find their minds wander constantly; that is completely normal. In fact, noticing that your mind wandered means mindfulness is working."
 
 **Connect to Client's Goals:**
 Explicitly link mindfulness to their presenting concerns: "You mentioned feeling overwhelmed by racing thoughts. Mindfulness can create space between the thought and your reaction to it."
@@ -217,7 +217,7 @@ Emerging research shows that intensive meditation retreats can occasionally trig
 
 - Research-based mindfulness (MBSR) is a structured 8-week program, not a casual practice
 - Effect sizes for reducing anxiety and stress are moderate and clinically meaningful
-- The mechanism isn't relaxation—it's building capacity to observe experience without reactivity
+- The mechanism is not relaxation: it is building capacity to observe experience without reactivity
 - Dose matters: more practice during training predicts greater benefits
 - Mindfulness complements but doesn't replace therapy or medical treatment when needed
 - Common struggles (mind-wandering, restlessness) are part of the practice, not failures
@@ -231,7 +231,7 @@ Choose **one** evidence-based starting point:
 3. **Join a local MBSR program** if you want the full structured experience (find programs at qualified medical centers)
 4. **Read "Full Catastrophe Living"** to understand the complete approach
 
-Remember: Mindfulness is a skill developed through practice, not a product consumed through apps. The research shows it works—but the work is yours to do.
+Remember: Mindfulness is a skill developed through practice, not a product consumed through apps. The research shows it works, but the work is yours to do.
 
 ---
 

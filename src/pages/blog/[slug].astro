@@ -5,6 +5,7 @@ import SocialShare from '../../components/SocialShare.astro';
 import NewsletterCTA from '../../components/NewsletterCTA.astro';
 import InteractiveGlossary from '../../components/InteractiveGlossary.astro';
 import OrbitMnemonicMedium from '../../components/OrbitMnemonicMedium.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection('blog');
@@ -104,6 +105,13 @@ const structuredData = {
 
             <hr class="mt-8 border-neutral-200" />
         </header>
+
+        <!-- Integrated Audio Player (Apple HIG / Cartesia Sonic Voice Narration) -->
+        <AudioPlayer
+            title={entry.data.title}
+            author={entry.data.author || "Florecer Mind"}
+            audioUrl={entry.data.audioUrl || `/audio/${entry.slug}.mp3`}
+        />
 
         <!-- Andy Matuschak / Orbit Mnemonic Medium & In-Prose Interleaved Checkpoints -->
         <OrbitMnemonicMedium mode="article" currentSlug={entry.slug} />
