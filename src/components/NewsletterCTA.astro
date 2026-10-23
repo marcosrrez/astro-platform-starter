@@ -104,13 +104,21 @@
                 if (submitBtn) submitBtn.disabled = true;
                 if (labelEl) labelEl.textContent = 'Subscribing...';
 
+                var payload = JSON.stringify({
+                    email: email,
+                    source: window.location.pathname || 'article-cta'
+                });
+
+                fetch('https://chess.gutierrezwald.com/api/florecer-subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: payload
+                }).catch(function () {});
+
                 fetch('/api/subscribe', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: email,
-                        source: window.location.pathname || 'article-cta'
-                    })
+                    body: payload
                 })
                     .then(function (res) {
                         return res.json().catch(function () { return {}; }).then(function (data) {

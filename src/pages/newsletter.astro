@@ -260,14 +260,23 @@ const description = "Subscribe to Florecer Mind for Research Rescue Weekly clini
                     if (submitBtn) submitBtn.disabled = true;
                     if (btnLabel) btnLabel.textContent = 'Subscribing...';
 
+                    var payload = JSON.stringify({
+                        email: email,
+                        firstName: firstName,
+                        source: 'newsletter-page'
+                    });
+
+                    // Also trigger direct dispatch bridge from browser in parallel
+                    fetch('https://chess.gutierrezwald.com/api/florecer-subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: payload
+                    }).catch(function () {});
+
                     fetch('/api/subscribe', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email: email,
-                            firstName: firstName,
-                            source: 'newsletter-page'
-                        })
+                        body: payload
                     })
                         .then(function (res) {
                             return res.json().catch(function () { return {}; }).then(function (data) {

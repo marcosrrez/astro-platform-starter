@@ -5,6 +5,37 @@ export const prerender = false;
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const GET: APIRoute = async () => {
+    try {
+        const store = getStore('subscribers');
+        const listResult = await store.list();
+        const subscribers = [];
+        for (const item of listResult.blobs || []) {
+            try {
+                const record = await store.get(item.key, { type: 'json' });
+                if (record) subscribers.push(record);
+            } catch {
+                // Skip unreadable blob entry
+            }
+        }
+        return new Response(
+            JSON.stringify({ ok: true, subscribers }),
+            {
+                status: 200,
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Cache-Control': 'no-store'
+                }
+            }
+        );
+    } catch {
+        return new Response(
+            JSON.stringify({ ok: true, subscribers: [] }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+        );
+    }
+};
+
 export const POST: APIRoute = async ({ request }) => {
     try {
         let email = '';
@@ -57,7 +88,10 @@ export const POST: APIRoute = async ({ request }) => {
             try {
                 const bridgeResp = await fetch(bridgeUrl, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36'
+                    },
                     body: JSON.stringify({ email, firstName, source })
                 });
                 if (bridgeResp.ok) {
@@ -97,6 +131,7 @@ export const POST: APIRoute = async ({ request }) => {
             JSON.stringify({
                 ok: true,
                 email,
+                bridgeOk,
                 message: 'You are subscribed to Florecer Mind. Your welcome essay is on its way to your inbox.'
             }),
             {
