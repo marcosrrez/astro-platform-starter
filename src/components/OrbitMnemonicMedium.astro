@@ -1,0 +1,637 @@
+---
+import { ORBIT_PROMPTS } from '../data/orbitPrompts';
+
+interface Props {
+    mode?: 'article' | 'hub';
+    currentSlug?: string;
+}
+
+const { mode = 'article', currentSlug = '' } = Astro.props;
+const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
+---
+
+{mode === 'article' && (
+    <div
+        id="orbit-article-controller"
+        data-current-slug={currentSlug}
+        class="mb-10 p-5 sm:p-6 card-surface-muted font-sans"
+    >
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="space-y-1">
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="category-badge bg-primary/10 text-primary">
+                        Mnemonic Medium
+                    </span>
+                    <span class="text-xs font-medium text-neutral-600">
+                        Inspired by <a href="https://andymatuschak.org/books/" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Andy Matuschak &amp; Orbit</a>
+                    </span>
+                </div>
+                <p class="text-sm text-neutral-700 leading-relaxed">
+                    Passive reading creates an illusion of competence. This essay interleaves active retrieval prompts from this article and earlier essays directly into the text so what you read becomes durable, usable understanding.
+                </p>
+            </div>
+            <div class="flex items-center gap-3 shrink-0">
+                <div class="text-right hidden sm:block">
+                    <div id="orbit-article-progress-label" class="text-xs font-semibold text-neutral-900">
+                        Interleaved Mode Active
+                    </div>
+                    <div id="orbit-article-global-stat" class="text-xs text-neutral-600">
+                        0 prompts in long-term orbit
+                    </div>
+                </div>
+                <button
+                    type="button"
+                    id="orbit-toggle-checkpoints-btn"
+                    class="btn btn-secondary btn-sm"
+                    aria-pressed="true"
+                >
+                    <span id="orbit-toggle-dot" class="w-2 h-2 rounded-full bg-primary"></span>
+                    <span id="orbit-toggle-label">Checkpoints: On</span>
+                </button>
+            </div>
+        </div>
+    </div>
+)}
+
+{mode === 'hub' && (
+    <section
+        id="orbit-hub-studio"
+        class="py-12 sm:py-16 border-b border-neutral-200 font-sans"
+        aria-labelledby="orbit-hub-heading"
+    >
+        <div class="mb-8 flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div class="max-w-3xl">
+                <div class="flex flex-wrap items-center gap-2.5 mb-3">
+                    <span class="category-badge bg-primary/10 text-primary">
+                        The Mnemonic Medium
+                    </span>
+                    <a
+                        href="https://andymatuschak.org/books/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-xs font-medium text-neutral-600 underline hover:text-primary"
+                    >
+                        Why Books Don't Work (Andy Matuschak)
+                    </a>
+                </div>
+                <h2 id="orbit-hub-heading" class="font-serif text-3xl sm:text-4xl font-bold text-neutral-900 mb-3">
+                    Interleaved Orbit Practice Studio
+                </h2>
+                <p class="text-neutral-700 text-base sm:text-lg leading-relaxed">
+                    Reading an essay linearly feels fluent, yet most insights fade within days without retrieval and interleaving. Below, prompts from across our neuroscience, C.S. Lewis, and clinical counseling essays are mixed together so you practice discriminating which mechanism applies in real home and playroom moments.
+                </p>
+            </div>
+
+            <!-- Spaced Repetition Stats Strip -->
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
+                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
+                    <div id="orbit-stat-due" class="font-serif text-2xl sm:text-3xl font-bold text-primary">0</div>
+                    <div class="text-xs font-medium text-neutral-600 mt-0.5">Due Today</div>
+                </div>
+                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
+                    <div id="orbit-stat-orbit" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">0</div>
+                    <div class="text-xs font-medium text-neutral-600 mt-0.5">In Orbit</div>
+                </div>
+                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
+                    <div id="orbit-stat-mastered" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">0</div>
+                    <div class="text-xs font-medium text-neutral-600 mt-0.5">14d+ Solid</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interleaved Filter Pills -->
+        <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Orbit deck filter">
+                <button type="button" data-orbit-filter="interleaved" class="pill-filter pill-filter-active">
+                    Interleave All Essays (Recommended)
+                </button>
+                <button type="button" data-orbit-filter="due" class="pill-filter pill-filter-inactive">
+                    Due for Review Today
+                </button>
+                <button type="button" data-orbit-filter="creaturely-mind-at-four-oclock-restraint-collapse" class="pill-filter pill-filter-inactive">
+                    Essay 1: Restraint Collapse
+                </button>
+                <button type="button" data-orbit-filter="four-brick-juggler-wandering-lantern-barbara-oakley" class="pill-filter pill-filter-inactive">
+                    Essay 2: Working Memory
+                </button>
+                <button type="button" data-orbit-filter="grit-without-grimness-duckworth-cs-lewis-chest" class="pill-filter pill-filter-inactive">
+                    Essay 3: Grit &amp; The Chest
+                </button>
+                <button type="button" data-orbit-filter="clinical" class="pill-filter pill-filter-inactive">
+                    Clinical &amp; Brain Essays
+                </button>
+            </div>
+
+            <button type="button" id="orbit-hub-shuffle-btn" class="btn btn-ghost btn-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+                <span>Shuffle Interleaved Queue</span>
+            </button>
+        </div>
+
+        <!-- Active Orbit Deck Container -->
+        <div id="orbit-hub-card-mount" class="p-6 sm:p-8 md:p-10 card-surface relative"></div>
+    </section>
+)}
+
+<script is:inline define:vars={{ serializedPrompts, mode, currentSlug }}>
+    (function () {
+        var ALL_PROMPTS = [];
+        try {
+            ALL_PROMPTS = JSON.parse(serializedPrompts);
+        } catch (e) {
+            return;
+        }
+
+        var STORAGE_KEY = 'florecer_orbit_srs_v1';
+
+        function loadSrsState() {
+            try {
+                var raw = localStorage.getItem(STORAGE_KEY);
+                return raw ? JSON.parse(raw) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveSrsState(state) {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+            } catch (e) {}
+        }
+
+        function getCardSrs(promptId) {
+            var state = loadSrsState();
+            return state[promptId] || {
+                intervalDays: 0,
+                dueAt: 0,
+                reps: 0,
+                lapses: 0,
+                lastReviewedAt: 0
+            };
+        }
+
+        function gradeCardSrs(promptId, rememberedClearly) {
+            var state = loadSrsState();
+            var entry = state[promptId] || {
+                intervalDays: 0,
+                dueAt: 0,
+                reps: 0,
+                lapses: 0,
+                lastReviewedAt: 0
+            };
+            var now = Date.now();
+            var dayMs = 86400000;
+
+            if (rememberedClearly) {
+                var nextInterval = 1;
+                if (entry.intervalDays === 0) nextInterval = 1;
+                else if (entry.intervalDays === 1) nextInterval = 4;
+                else if (entry.intervalDays === 4) nextInterval = 14;
+                else if (entry.intervalDays === 14) nextInterval = 45;
+                else nextInterval = Math.min(180, Math.round(entry.intervalDays * 2.2));
+
+                entry.intervalDays = nextInterval;
+                entry.reps = (entry.reps || 0) + 1;
+                entry.dueAt = now + nextInterval * dayMs;
+            } else {
+                entry.intervalDays = 1;
+                entry.lapses = (entry.lapses || 0) + 1;
+                entry.dueAt = now + dayMs * 0.25; // Due again in 6 hours / today
+            }
+            entry.lastReviewedAt = now;
+            state[promptId] = entry;
+            saveSrsState(state);
+            return entry;
+        }
+
+        function formatSrsBadge(promptId) {
+            var srs = getCardSrs(promptId);
+            if (!srs.reps && !srs.lapses) {
+                return { text: 'New Prompt', tone: 'bg-neutral-100 text-neutral-700' };
+            }
+            if (srs.dueAt <= Date.now()) {
+                return { text: 'Due Now (' + srs.intervalDays + 'd)', tone: 'bg-amber-100 text-amber-900' };
+            }
+            if (srs.intervalDays >= 14) {
+                return { text: 'Long-Term Orbit (' + srs.intervalDays + 'd)', tone: 'bg-primary/15 text-primary' };
+            }
+            return { text: 'In Orbit (' + srs.intervalDays + 'd)', tone: 'bg-primary/10 text-primary' };
+        }
+
+        function computeGlobalStats() {
+            var state = loadSrsState();
+            var now = Date.now();
+            var due = 0;
+            var inOrbit = 0;
+            var mastered = 0;
+
+            ALL_PROMPTS.forEach(function (p) {
+                var s = state[p.id];
+                if (!s || (!s.reps && !s.lapses)) {
+                    due += 1;
+                } else {
+                    inOrbit += 1;
+                    if (s.dueAt <= now) due += 1;
+                    if (s.intervalDays >= 14) mastered += 1;
+                }
+            });
+
+            return { due: due, inOrbit: inOrbit, mastered: mastered };
+        }
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // Reusable interactive Orbit Checkpoint renderer
+        function mountCheckpointWidget(container, promptsQueue, checkpointHeaderLabel, onQueueComplete) {
+            var queue = promptsQueue.slice();
+            var currentIndex = 0;
+            var isRevealed = false;
+            var sessionCompletedCount = 0;
+
+            function renderCurrent() {
+                if (currentIndex >= queue.length) {
+                    container.innerHTML =
+                        '<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-2">' +
+                        '  <div class="flex items-start sm:items-center gap-3.5">' +
+                        '    <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center shrink-0">' +
+                        '      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"></path></svg>' +
+                        '    </div>' +
+                        '    <div>' +
+                        '      <div class="font-serif font-bold text-lg text-neutral-900">Checkpoint Complete (' + sessionCompletedCount + ' recalled into Orbit)</div>' +
+                        '      <div class="text-sm text-neutral-600">Your spaced-repetition intervals are saved in this browser. Keep reading or review again anytime.</div>' +
+                        '    </div>' +
+                        '  </div>' +
+                        '  <button type="button" data-orbit-restart class="btn btn-secondary btn-sm shrink-0">Practice Checkpoint Again</button>' +
+                        '</div>';
+
+                    var restartBtn = container.querySelector('[data-orbit-restart]');
+                    if (restartBtn) {
+                        restartBtn.addEventListener('click', function () {
+                            currentIndex = 0;
+                            isRevealed = false;
+                            sessionCompletedCount = 0;
+                            renderCurrent();
+                        });
+                    }
+                    if (typeof onQueueComplete === 'function') onQueueComplete();
+                    return;
+                }
+
+                var item = queue[currentIndex];
+                var badge = formatSrsBadge(item.id);
+                var isBridge = item.isInterleavedBridge || item.category === 'Cross-Essay Interleaving';
+
+                var bridgeBanner = isBridge
+                    ? '<div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100/90 text-amber-900 border border-amber-300/70">' +
+                      '  <span>Interleaved Bridge Prompt</span>' +
+                      '  <span aria-hidden="true">·</span>' +
+                      '  <span>From: ' + escapeHtml(item.essayTitle) + '</span>' +
+                      '</div>'
+                    : '<div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">' +
+                      '  <span>' + escapeHtml(item.category) + '</span>' +
+                      '  <span aria-hidden="true">·</span>' +
+                      '  <span>' + escapeHtml(item.sectionLabel) + '</span>' +
+                      '</div>';
+
+                var dotsHtml = queue
+                    .map(function (_, idx) {
+                        var cls = idx < currentIndex
+                            ? 'bg-primary w-2.5 h-2.5'
+                            : idx === currentIndex
+                            ? 'bg-primary w-6 h-2.5'
+                            : 'bg-neutral-300 w-2.5 h-2.5';
+                        return '<span class="inline-block rounded-full transition-all ' + cls + '"></span>';
+                    })
+                    .join('');
+
+                container.innerHTML =
+                    '<div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-neutral-200/80">' +
+                    '  <div class="flex items-center gap-2">' +
+                    '    <span class="text-xs font-bold uppercase tracking-wider text-primary">' + escapeHtml(checkpointHeaderLabel) + '</span>' +
+                    '    <span class="text-neutral-300" aria-hidden="true">|</span>' +
+                    '    <span class="text-xs font-medium text-neutral-600">Prompt ' + (currentIndex + 1) + ' of ' + queue.length + '</span>' +
+                    '  </div>' +
+                    '  <div class="flex items-center gap-2.5">' +
+                    '    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium ' + badge.tone + '">' + escapeHtml(badge.text) + '</span>' +
+                    '    <div class="flex items-center gap-1" aria-hidden="true">' + dotsHtml + '</div>' +
+                    '  </div>' +
+                    '</div>' +
+                    bridgeBanner +
+                    '<h4 class="font-serif text-xl sm:text-2xl font-bold text-neutral-900 leading-snug mb-4">' +
+                    escapeHtml(item.question) +
+                    '</h4>' +
+                    (!isRevealed
+                        ? '<div class="space-y-3">' +
+                          '  <input type="text" data-orbit-scratch placeholder="Optional: jot a 3-word hypothesis before revealing..." class="input-hig text-sm" />' +
+                          '  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">' +
+                          '    <button type="button" data-orbit-reveal class="btn btn-primary">' +
+                          '      <span>Reveal Answer &amp; Narrative Anchor</span>' +
+                          '    </button>' +
+                          '    <button type="button" data-orbit-skip class="btn btn-ghost btn-sm text-neutral-600">' +
+                          '      <span>Skip Prompt</span>' +
+                          '    </button>' +
+                          '  </div>' +
+                          '</div>'
+                        : '<div class="mt-4 pt-4 border-t border-neutral-200/90 space-y-4 animate-fade-in">' +
+                          '  <div class="p-4 sm:p-5 rounded-[12px] bg-[#F7F4EE] border border-neutral-200/90">' +
+                          '    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Retrieval Answer</div>' +
+                          '    <p class="text-neutral-900 text-base leading-relaxed font-normal m-0">' + escapeHtml(item.answer) + '</p>' +
+                          '  </div>' +
+                          '  <div class="p-4 rounded-[12px] bg-white border border-neutral-200/80">' +
+                          '    <div class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-1">Narrative &amp; Clinical Anchor</div>' +
+                          '    <p class="text-neutral-700 text-sm leading-relaxed italic m-0">' + escapeHtml(item.anchor) + '</p>' +
+                          '  </div>' +
+                          '  <div class="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">' +
+                          '    <span class="text-xs font-medium text-neutral-600">How Effortful Was Your Recall?</span>' +
+                          '    <div class="flex flex-wrap items-center gap-2.5">' +
+                          '      <button type="button" data-orbit-grade="retry" class="btn btn-secondary btn-sm">' +
+                          '        <span>Retry Soon (Fuzzy)</span>' +
+                          '      </button>' +
+                          '      <button type="button" data-orbit-grade="solid" class="btn btn-primary btn-sm">' +
+                          '        <span>Recalled Clearly (Solid)</span>' +
+                          '      </button>' +
+                          '    </div>' +
+                          '  </div>' +
+                          '</div>');
+
+                var scratchInput = container.querySelector('[data-orbit-scratch]');
+                var revealBtn = container.querySelector('[data-orbit-reveal]');
+                var skipBtn = container.querySelector('[data-orbit-skip]');
+                var retryBtn = container.querySelector('[data-orbit-grade="retry"]');
+                var solidBtn = container.querySelector('[data-orbit-grade="solid"]');
+
+                if (scratchInput) {
+                    scratchInput.addEventListener('keydown', function (ev) {
+                        if (ev.key === 'Enter') {
+                            ev.preventDefault();
+                            isRevealed = true;
+                            renderCurrent();
+                        }
+                    });
+                }
+
+                if (revealBtn) {
+                    revealBtn.addEventListener('click', function () {
+                        isRevealed = true;
+                        renderCurrent();
+                    });
+                }
+
+                if (skipBtn) {
+                    skipBtn.addEventListener('click', function () {
+                        currentIndex += 1;
+                        isRevealed = false;
+                        renderCurrent();
+                    });
+                }
+
+                if (retryBtn) {
+                    retryBtn.addEventListener('click', function () {
+                        gradeCardSrs(item.id, false);
+                        // Re-interleave at end of queue if not already retried twice
+                        if (!item._retriedOnce) {
+                            var clone = Object.assign({}, item, { _retriedOnce: true });
+                            queue.push(clone);
+                        }
+                        currentIndex += 1;
+                        isRevealed = false;
+                        renderCurrent();
+                        if (typeof onQueueComplete === 'function') onQueueComplete();
+                    });
+                }
+
+                if (solidBtn) {
+                    solidBtn.addEventListener('click', function () {
+                        gradeCardSrs(item.id, true);
+                        sessionCompletedCount += 1;
+                        currentIndex += 1;
+                        isRevealed = false;
+                        renderCurrent();
+                        if (typeof onQueueComplete === 'function') onQueueComplete();
+                    });
+                }
+            }
+
+            renderCurrent();
+        }
+
+        // =====================================================================
+        // MODE 1: ARTICLE IN-PROSE INTERLEAVED CHECKPOINTS
+        // =====================================================================
+        if (mode === 'article') {
+            var controller = document.getElementById('orbit-article-controller');
+            if (!controller) return;
+
+            var slug = currentSlug || controller.getAttribute('data-current-slug') || '';
+            var proseContainer = document.querySelector('article .prose');
+            if (!proseContainer) return;
+
+            var ownPrompts = ALL_PROMPTS.filter(function (p) {
+                return p.essaySlug === slug;
+            });
+            var otherPrompts = ALL_PROMPTS.filter(function (p) {
+                return p.essaySlug !== slug;
+            });
+
+            // Fallback if a future blog post doesn't have custom prompts yet
+            if (ownPrompts.length === 0) {
+                ownPrompts = ALL_PROMPTS.slice(0, 2);
+            }
+
+            var h2Elements = Array.from(proseContainer.querySelectorAll('h2'));
+            var injectedCheckpoints = [];
+
+            function updateArticleStats() {
+                var stats = computeGlobalStats();
+                var statEl = document.getElementById('orbit-article-global-stat');
+                if (statEl) {
+                    statEl.textContent = stats.inOrbit + ' prompts in long-term orbit (' + stats.mastered + ' solid)';
+                }
+            }
+
+            // Build interleaved checkpoints distributed across the essay's H2 boundaries
+            if (ownPrompts.length >= 3 && h2Elements.length >= 4) {
+                var midPrompts = ownPrompts.slice(0, Math.ceil(ownPrompts.length / 2));
+                var endPrompts = ownPrompts.slice(Math.ceil(ownPrompts.length / 2));
+
+                // Add 1 interleaved prompt from another essay into Checkpoint 1
+                if (otherPrompts.length > 0) {
+                    var bridge1 = Object.assign({}, otherPrompts[0], { isInterleavedBridge: true });
+                    midPrompts.push(bridge1);
+                }
+                // Add 1 interleaved prompt from another essay into Checkpoint 2
+                if (otherPrompts.length > 1) {
+                    var bridge2 = Object.assign({}, otherPrompts[1], { isInterleavedBridge: true });
+                    endPrompts.push(bridge2);
+                }
+
+                // Inject Checkpoint 1 right before the 4th H2 (after the first half of the essay)
+                var targetH2 = h2Elements[Math.min(3, h2Elements.length - 1)];
+                var cp1 = document.createElement('aside');
+                cp1.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cp1.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint 1');
+                targetH2.parentNode.insertBefore(cp1, targetH2);
+                mountCheckpointWidget(cp1, midPrompts, 'Orbit Checkpoint 01 • Mid-Essay Interleaving', updateArticleStats);
+                injectedCheckpoints.push(cp1);
+
+                // Inject Checkpoint 2 at the end of the prose
+                var cp2 = document.createElement('aside');
+                cp2.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cp2.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint 2');
+                proseContainer.appendChild(cp2);
+                mountCheckpointWidget(cp2, endPrompts, 'Orbit Checkpoint 02 • Synthesis & Cross-Essay Recall', updateArticleStats);
+                injectedCheckpoints.push(cp2);
+            } else {
+                // Compact essay: inject 1 combined checkpoint (own prompt + 2 interleaved cross-essay prompts) at end of prose
+                var combinedQueue = ownPrompts.slice();
+                otherPrompts.slice(0, 2).forEach(function (op) {
+                    combinedQueue.push(Object.assign({}, op, { isInterleavedBridge: true }));
+                });
+                var cpSingle = document.createElement('aside');
+                cpSingle.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cpSingle.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint');
+                proseContainer.appendChild(cpSingle);
+                mountCheckpointWidget(cpSingle, combinedQueue, 'Orbit Checkpoint • Active Recall & Cross-Essay Interleaving', updateArticleStats);
+                injectedCheckpoints.push(cpSingle);
+            }
+
+            updateArticleStats();
+
+            var toggleBtn = document.getElementById('orbit-toggle-checkpoints-btn');
+            var toggleLabel = document.getElementById('orbit-toggle-label');
+            var toggleDot = document.getElementById('orbit-toggle-dot');
+            var checkpointsVisible = true;
+
+            if (toggleBtn) {
+                toggleBtn.addEventListener('click', function () {
+                    checkpointsVisible = !checkpointsVisible;
+                    toggleBtn.setAttribute('aria-pressed', checkpointsVisible ? 'true' : 'false');
+                    if (toggleLabel) {
+                        toggleLabel.textContent = checkpointsVisible ? 'Checkpoints: On' : 'Checkpoints: Off';
+                    }
+                    if (toggleDot) {
+                        toggleDot.className = checkpointsVisible
+                            ? 'w-2 h-2 rounded-full bg-primary'
+                            : 'w-2 h-2 rounded-full bg-neutral-400';
+                    }
+                    injectedCheckpoints.forEach(function (el) {
+                        el.hidden = !checkpointsVisible;
+                    });
+                });
+            }
+        }
+
+        // =====================================================================
+        // MODE 2: HUB INTERLEAVED ORBIT STUDIO (/learning)
+        // =====================================================================
+        if (mode === 'hub') {
+            var hubMount = document.getElementById('orbit-hub-card-mount');
+            if (!hubMount) return;
+
+            var activeFilter = 'interleaved';
+
+            function updateHubStats() {
+                var stats = computeGlobalStats();
+                var dueEl = document.getElementById('orbit-stat-due');
+                var orbitEl = document.getElementById('orbit-stat-orbit');
+                var masteredEl = document.getElementById('orbit-stat-mastered');
+                if (dueEl) dueEl.textContent = String(stats.due);
+                if (orbitEl) orbitEl.textContent = String(stats.inOrbit);
+                if (masteredEl) masteredEl.textContent = String(stats.mastered);
+            }
+
+            function buildInterleavedDeck(filterKey, shuffleOrder) {
+                var list = [];
+                if (filterKey === 'interleaved') {
+                    // Round-robin interleave across essays so no two consecutive prompts come from the same essay
+                    var byEssay = {};
+                    ALL_PROMPTS.forEach(function (p) {
+                        if (!byEssay[p.essaySlug]) byEssay[p.essaySlug] = [];
+                        byEssay[p.essaySlug].push(p);
+                    });
+                    var slugs = Object.keys(byEssay);
+                    var maxLen = 0;
+                    slugs.forEach(function (s) {
+                        if (byEssay[s].length > maxLen) maxLen = byEssay[s].length;
+                    });
+                    for (var i = 0; i < maxLen; i++) {
+                        for (var j = 0; j < slugs.length; j++) {
+                            var candidate = byEssay[slugs[j]][i];
+                            if (candidate) {
+                                list.push(Object.assign({}, candidate, { isInterleavedBridge: true }));
+                            }
+                        }
+                    }
+                } else if (filterKey === 'due') {
+                    var now = Date.now();
+                    list = ALL_PROMPTS.filter(function (p) {
+                        var s = getCardSrs(p.id);
+                        return (!s.reps && !s.lapses) || s.dueAt <= now;
+                    });
+                    if (list.length === 0) list = ALL_PROMPTS.slice(0, 6);
+                } else if (filterKey === 'clinical') {
+                    list = ALL_PROMPTS.filter(function (p) {
+                        return (
+                            p.essaySlug !== 'creaturely-mind-at-four-oclock-restraint-collapse' &&
+                            p.essaySlug !== 'four-brick-juggler-wandering-lantern-barbara-oakley' &&
+                            p.essaySlug !== 'grit-without-grimness-duckworth-cs-lewis-chest'
+                        );
+                    });
+                } else {
+                    list = ALL_PROMPTS.filter(function (p) {
+                        return p.essaySlug === filterKey;
+                    });
+                }
+
+                if (shuffleOrder) {
+                    for (var k = list.length - 1; k > 0; k--) {
+                        var r = Math.floor(Math.random() * (k + 1));
+                        var tmp = list[k];
+                        list[k] = list[r];
+                        list[r] = tmp;
+                    }
+                }
+                return list;
+            }
+
+            function renderHubDeck(shuffleOrder) {
+                var deck = buildInterleavedDeck(activeFilter, shuffleOrder);
+                var label = activeFilter === 'interleaved'
+                    ? 'Interleaved Multi-Essay Orbit Deck'
+                    : activeFilter === 'due'
+                    ? 'Due Today in Your Spaced-Repetition Orbit'
+                    : 'Focused Essay Retrieval Deck';
+                mountCheckpointWidget(hubMount, deck, label, updateHubStats);
+                updateHubStats();
+            }
+
+            var filterButtons = document.querySelectorAll('[data-orbit-filter]');
+            filterButtons.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    activeFilter = btn.getAttribute('data-orbit-filter') || 'interleaved';
+                    filterButtons.forEach(function (b) {
+                        b.className = b === btn ? 'pill-filter pill-filter-active' : 'pill-filter pill-filter-inactive';
+                    });
+                    renderHubDeck(false);
+                });
+            });
+
+            var shuffleBtn = document.getElementById('orbit-hub-shuffle-btn');
+            if (shuffleBtn) {
+                shuffleBtn.addEventListener('click', function () {
+                    renderHubDeck(true);
+                });
+            }
+
+            renderHubDeck(false);
+        }
+    })();
+</script>

@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import InteractiveGlossary from '../components/InteractiveGlossary.astro';
+import OrbitMnemonicMedium from '../components/OrbitMnemonicMedium.astro';
 
 const title = "The Embodied Soul & The Developing Brain - Florecer Mind";
 const description = "A dedicated research series on the Science of Learning, Executive Function, Grit, and Child Development for parents and counselors, written in the spirit of C.S. Lewis.";
@@ -53,6 +54,9 @@ const formatDate = (d: Date) =>
                 </div>
             </div>
         </section>
+
+        <!-- Andy Matuschak / Orbit Interleaved Practice Studio -->
+        <OrbitMnemonicMedium mode="hub" />
 
         <!-- Essays in the Series -->
         <section class="py-12 sm:py-16">
