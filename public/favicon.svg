@@ -1,30 +1,15 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <style>
-    .favicon-center-dot {
-      fill: #014847;
-    }
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <!-- Continuous-curvature Apple HIG squircle in deep editorial forest green -->
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="#1E3F2A" />
+  <!-- Subtle inner optical hairline border for tactile depth -->
+  <rect x="3.5" y="3.5" width="57" height="57" rx="13.5" stroke="#FBF9F5" stroke-opacity="0.16" stroke-width="1" />
 
-    .favicon-lines {
-      fill: #05BDBA;
-    }
+  <!-- Classical high-contrast Baskerville/Didot Roman 'F' monogram in warm ivory -->
+  <path
+    d="M19 16.5H43.5L44.2 24.5H41.8C41.1 20.6 39.4 19.3 35.2 19.3H28.8V30.2H34.4C37.5 30.2 38.8 29.1 39.3 26.2H41.6V36.8H39.3C38.8 33.8 37.5 32.8 34.4 32.8H28.8V43.2C28.8 46.1 30.1 47.1 33.4 47.3V49.5H19V47.3C22.1 47.1 23.2 46.1 23.2 43.2V22.6C23.2 19.7 22.1 18.9 19 18.7V16.5Z"
+    fill="#FBF9F5"
+  />
 
-    @media (prefers-color-scheme: dark) {
-      .favicon-center-dot {
-        fill: #fff;
-      }
-
-      .favicon-lines {
-        fill: #05BDBA;
-      }
-    }
-  </style>
-  <path class="favicon-center-dot" stroke="none" d="M17.9922 18.3225H14.005L13.6746 17.9921V14.005L14.005 13.6746H17.9922L18.3226 14.005V17.9921L17.9922 18.3225Z" />
-  <g class="favicon-lines" stroke="none">
-    <path d="M9.6958 24.3311H9.35705L7.6661 22.6401V22.3041L10.2511 19.7164L12.042 19.7191L12.2808 19.9552V21.7461L9.6958 24.3311Z" />
-    <path d="M7.6661 9.69576V9.35701L9.35705 7.66606H9.6958L12.2808 10.2511V12.0392L12.042 12.2808H10.2511L7.6661 9.69576Z" />
-    <path d="M10.0457 17.4369H0.205466L0 17.2314V14.7658L0.205466 14.5603H10.0457L10.2511 14.7658V17.2314L10.0457 17.4369Z" />
-    <path d="M31.7945 17.4369H21.9544L21.7489 17.2314V14.7658L21.9544 14.5603H31.7945L32 14.7658V17.2314L31.7945 17.4369Z" />
-    <path d="M14.5631 10.0456V2.66547L14.7686 2.46001H17.2343L17.4396 2.66547V10.0456L17.2343 10.2511H14.7686L14.5631 10.0456Z" />
-    <path d="M14.5631 29.3316V21.9515L14.7686 21.746H17.2343L17.4396 21.9515V29.3316L17.2343 29.5371H14.7686L14.5631 29.3316Z" />
-  </g>
+  <!-- Warm terracotta editorial baseline point (communicates precision & scholarship) -->
+  <circle cx="44.5" cy="46.2" r="3.4" fill="#C86D51" />
 </svg>
