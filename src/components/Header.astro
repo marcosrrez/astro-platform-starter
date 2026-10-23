@@ -5,6 +5,7 @@ const navItems = [
     { linkText: 'Home', href: '/' },
     { linkText: 'Research', href: '/blog' },
     { linkText: 'Learning & Growing', href: '/learning' },
+    { linkText: 'Instagram Studio', href: '/instagram' },
     { linkText: 'Resources', href: '/resources' },
     { linkText: 'About', href: '/about' },
     { linkText: 'Newsletter', href: '/newsletter' }
@@ -46,7 +47,7 @@ const isActive = (href: string) =>
     <!-- Mobile nav (disclosure menu) -->
     <details class="sm:hidden relative group">
         <summary
-            class="list-none flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer text-neutral-800 rounded-lg hover:bg-neutral-100 transition-colors"
+            class="list-none flex items-center justify-center min-h-[44px] min-w-[44px] cursor-pointer text-neutral-800 rounded-[10px] hover:bg-neutral-100 transition-colors"
             aria-label="Open menu"
         >
             <svg class="w-6 h-6 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -57,18 +58,18 @@ const isActive = (href: string) =>
             </svg>
         </summary>
         <nav
-            class="absolute right-0 top-full z-50 mt-2 w-56 rounded-lg border border-neutral-200 bg-[#FAFAF9] shadow-xl overflow-hidden"
+            class="absolute right-0 top-full z-50 mt-2 w-60 rounded-[16px] border border-neutral-200/90 bg-[#FAFAF9] shadow-xl overflow-hidden p-1.5"
             aria-label="Primary"
         >
-            <ul class="flex flex-col py-1">
+            <ul class="flex flex-col gap-0.5">
                 {navItems.map((item) => (
                     <li>
                         <a
                             href={item.href}
                             aria-current={isActive(item.href) ? 'page' : undefined}
-                            class={`flex items-center min-h-[44px] px-4 font-sans font-medium transition-colors ${
+                            class={`flex items-center min-h-[44px] px-3.5 rounded-[10px] font-sans font-medium transition-colors no-underline ${
                                 isActive(item.href)
-                                    ? 'text-primary bg-primary/5'
+                                    ? 'text-primary bg-primary/10'
                                     : 'text-neutral-700 hover:bg-neutral-100'
                             }`}
                         >

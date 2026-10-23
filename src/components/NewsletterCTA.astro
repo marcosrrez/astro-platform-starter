@@ -1,22 +1,146 @@
 ---
-// Newsletter CTA component for use in blog posts
+// Inline One-Step Email Signup Card for essays and editorial pages
 ---
 
-<div class="my-16 p-8 md:p-10 bg-gradient-to-br from-primary/5 to-secondary/5 border-l-4 border-primary rounded-r-lg transition-all duration-300 hover:shadow-lg hover:border-primary/80">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-        <div class="flex-1">
-            <h3 class="mb-3 text-xl md:text-2xl font-serif text-primary">Get More Research Like This</h3>
+<aside
+    class="my-16 p-6 sm:p-8 md:p-10 bg-white border border-neutral-200/90 rounded-[20px] shadow-xs font-sans"
+    aria-labelledby="inline-cta-heading"
+>
+    <div class="flex flex-col gap-6">
+        <div class="max-w-2xl">
+            <p class="kicker mb-2">Florecer Mind Dispatch</p>
+            <h3 id="inline-cta-heading" class="mb-2 text-2xl sm:text-3xl font-serif font-bold text-neutral-900">
+                Receive the Next Research Essay in Your Inbox
+            </h3>
             <p class="text-neutral-700 leading-relaxed text-base">
-                Join Research Rescue Weekly for evidence-based insights delivered every Monday. No jargon, just practical wisdom.
+                Join parents, educators, and counselors receiving our <strong>Embodied Soul &amp; Developing Brain</strong> dispatches and weekly research spotlights. Your welcome essay arrives immediately.
             </p>
         </div>
-        <div class="flex-shrink-0">
-            <a href="/newsletter" class="btn btn-primary btn-lg inline-flex items-center gap-2 whitespace-nowrap">
-                Subscribe to Newsletter
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+        <!-- Inline Confirmation State -->
+        <div
+            data-cta-success
+            hidden
+            role="status"
+            aria-live="polite"
+            class="on-dark rounded-[12px] bg-primary p-5 sm:p-6 flex items-start gap-3.5"
+        >
+            <svg class="mt-0.5 h-5 w-5 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <div>
+                <p class="font-semibold text-white text-base">
+                    You are subscribed to Florecer Mind.
+                </p>
+                <p class="text-sm text-white/90 mt-0.5">
+                    Check your inbox for your welcome essay.
+                </p>
+            </div>
+        </div>
+
+        <!-- Inline One-Step Form -->
+        <form data-cta-form class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3" novalidate>
+            <label for="inline-cta-email" class="sr-only">Email address</label>
+            <input
+                id="inline-cta-email"
+                type="email"
+                name="email"
+                required
+                autocomplete="email"
+                placeholder="Enter your email address..."
+                class="input-hig sm:flex-1"
+            />
+            <button
+                type="submit"
+                data-cta-submit
+                class="btn btn-primary btn-lg shrink-0"
+            >
+                <span data-cta-label>Subscribe</span>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
                 </svg>
-            </a>
-        </div>
+            </button>
+        </form>
+
+        <p data-cta-error hidden role="alert" class="text-sm text-red-700 font-medium"></p>
+
+        <p class="text-xs text-neutral-500">
+            Evidence-based essays reviewed by Marcos Gutierrez, LAC. Zero spam. Unsubscribe anytime.
+        </p>
     </div>
-</div>
+</aside>
+
+<script is:inline>
+    (function () {
+        var forms = document.querySelectorAll('form[data-cta-form]');
+        forms.forEach(function (form) {
+            if (form.dataset.bound === 'true') return;
+            form.dataset.bound = 'true';
+
+            var container = form.closest('aside');
+            var successEl = container ? container.querySelector('[data-cta-success]') : null;
+            var errorEl = container ? container.querySelector('[data-cta-error]') : null;
+            var submitBtn = form.querySelector('[data-cta-submit]');
+            var labelEl = form.querySelector('[data-cta-label]');
+            var emailInput = form.querySelector('input[type="email"]');
+
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                if (errorEl) {
+                    errorEl.hidden = true;
+                    errorEl.textContent = '';
+                }
+
+                var email = emailInput ? emailInput.value.trim() : '';
+                if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    if (errorEl) {
+                        errorEl.textContent = 'Please enter a valid email address.';
+                        errorEl.hidden = false;
+                    }
+                    if (emailInput) emailInput.focus();
+                    return;
+                }
+
+                if (submitBtn) submitBtn.disabled = true;
+                if (labelEl) labelEl.textContent = 'Subscribing...';
+
+                fetch('/api/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        email: email,
+                        source: window.location.pathname || 'article-cta'
+                    })
+                })
+                    .then(function (res) {
+                        return res.json().catch(function () { return {}; }).then(function (data) {
+                            return { ok: res.ok, data: data };
+                        });
+                    })
+                    .then(function (result) {
+                        if (result.ok && result.data && result.data.ok !== false) {
+                            form.hidden = true;
+                            if (successEl) successEl.hidden = false;
+                        } else {
+                            var msg = (result.data && (result.data.error || result.data.message)) ||
+                                'Could not subscribe right now. Please try again.';
+                            if (errorEl) {
+                                errorEl.textContent = msg;
+                                errorEl.hidden = false;
+                            }
+                            if (submitBtn) submitBtn.disabled = false;
+                            if (labelEl) labelEl.textContent = 'Subscribe';
+                        }
+                    })
+                    .catch(function () {
+                        if (errorEl) {
+                            errorEl.textContent = 'Network error. Please try again in a moment.';
+                            errorEl.hidden = false;
+                        }
+                        if (submitBtn) submitBtn.disabled = false;
+                        if (labelEl) labelEl.textContent = 'Subscribe';
+                    });
+            });
+        });
+    })();
+</script>

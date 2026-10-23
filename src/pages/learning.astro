@@ -30,23 +30,23 @@ const formatDate = (d: Date) =>
                 Children are not biological machines to be optimized, nor are they disembodied spirits who can ignore a tired nervous system. This series brings together the science of learning (Barbara Oakley, Terrence Sejnowski), character and deliberate practice (Angela Duckworth, Anders Ericsson), interpersonal neurobiology (Adele Diamond, Stephen Porges), and Child-Centered Play Therapy (Garry Landreth), filtered through the lucid warmth and Christian humanism of C.S. Lewis.
             </p>
             <div class="grid gap-6 sm:grid-cols-3 pt-4 font-sans">
-                <div class="p-4 rounded-lg bg-white border border-neutral-200">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 01</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">Hard Neuroscience</div>
+                <div class="p-6 card-surface">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 01</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">Hard Neuroscience</div>
                     <p class="text-sm text-neutral-600 leading-relaxed">
                         Real brain mechanisms: prefrontal glucose, thalamic sensory gating, working memory slots, and synaptic homeostasis.
                     </p>
                 </div>
-                <div class="p-4 rounded-lg bg-white border border-neutral-200">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 02</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">The C.S. Lewis Lens</div>
+                <div class="p-6 card-surface">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 02</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">The C.S. Lewis Lens</div>
                     <p class="text-sm text-neutral-600 leading-relaxed">
                         Everyday metaphors and ordered affections ("The Chest") that honor the creaturely limits of a child's body and mind.
                     </p>
                 </div>
-                <div class="p-4 rounded-lg bg-white border border-neutral-200">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 03</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">Home &amp; Playroom</div>
+                <div class="p-6 card-surface">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 03</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">Home &amp; Playroom</div>
                     <p class="text-sm text-neutral-600 leading-relaxed">
                         Concrete rhythms and scripts for fathers and mothers at the kitchen table, and for counselors in CCPT and parent consultations.
                     </p>
@@ -68,9 +68,9 @@ const formatDate = (d: Date) =>
 
             <div class="space-y-8">
                 {learningPosts.map((post, idx) => (
-                    <article class="p-6 sm:p-8 bg-white border border-neutral-200 rounded-xl hover:border-primary transition-colors shadow-xs">
-                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm font-sans">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full font-semibold">
+                    <article class="p-6 sm:p-8 card-surface card-interactive">
+                        <div class="mb-4 flex flex-wrap items-center gap-3 text-sm font-sans">
+                            <span class="category-badge bg-primary/10 text-primary">
                                 Essay {learningPosts.length - idx}
                             </span>
                             <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
@@ -92,15 +92,18 @@ const formatDate = (d: Date) =>
                             </a>
                         </h3>
 
-                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans text-base sm:text-lg">
+                        <p class="mb-6 text-neutral-700 leading-relaxed font-sans text-base sm:text-lg">
                             {post.data.description}
                         </p>
 
                         <a
                             href={`/blog/${post.slug}`}
-                            class="inline-flex items-center font-sans font-semibold text-primary hover:underline"
+                            class="btn btn-secondary btn-sm"
                         >
-                            Read Essay with Interactive Vocabulary →
+                            <span>Read Essay with Interactive Vocabulary</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
                         </a>
                     </article>
                 ))}

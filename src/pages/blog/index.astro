@@ -59,19 +59,19 @@ const otherTags = allTags.filter(tag =>
         </p>
 
         <!-- Filters Section -->
-        <div class="mb-12 p-6 bg-neutral-100 rounded-lg border border-neutral-300">
+        <div class="mb-12 p-6 sm:p-8 card-surface-muted">
             <h2 class="mb-4 text-xl font-bold text-neutral-900">Filter by:</h2>
 
             <!-- Categories -->
             <div class="mb-6">
-                <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">Categories</h3>
+                <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">Categories</h3>
                 <div class="flex flex-wrap gap-2">
                     <a
                         href="/blog"
-                        class={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                        class={`pill-filter ${
                             !selectedCategory
-                                ? 'bg-primary text-white'
-                                : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                ? 'bg-primary text-white border-primary'
+                                : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
                         }`}
                     >
                         All
@@ -79,10 +79,10 @@ const otherTags = allTags.filter(tag =>
                     {categories.map((category) => (
                         <a
                             href={`/blog?category=${encodeURIComponent(category)}`}
-                            class={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            class={`pill-filter ${
                                 selectedCategory === category
-                                    ? 'bg-primary text-white'
-                                    : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
                             }`}
                         >
                             {category}
@@ -94,15 +94,15 @@ const otherTags = allTags.filter(tag =>
             <!-- Audience Tags -->
             {audienceTags.length > 0 && (
                 <div class="mb-6">
-                    <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">For You</h3>
+                    <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">For You</h3>
                     <div class="flex flex-wrap gap-2">
                         {audienceTags.map((tag) => (
                             <a
                                 href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
+                                class={`pill-filter ${
                                     selectedTag === tag
-                                        ? 'bg-secondary text-neutral-900'
-                                        : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                        ? 'bg-primary text-white border-primary'
+                                        : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
                                 }`}
                             >
                                 #{tag}
@@ -115,15 +115,15 @@ const otherTags = allTags.filter(tag =>
             <!-- Topic Tags -->
             {topicTags.length > 0 && (
                 <div>
-                    <h3 class="mb-3 text-sm font-bold text-neutral-700 uppercase">Topics</h3>
+                    <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">Topics</h3>
                     <div class="flex flex-wrap gap-2">
                         {topicTags.map((tag) => (
                             <a
                                 href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                class={`px-3 py-1.5 text-sm rounded-full font-medium transition-colors ${
+                                class={`pill-filter ${
                                     selectedTag === tag
-                                        ? 'bg-secondary text-neutral-900'
-                                        : 'bg-white text-neutral-700 hover:bg-neutral-200'
+                                        ? 'bg-primary text-white border-primary'
+                                        : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
                                 }`}
                             >
                                 #{tag}
@@ -135,12 +135,12 @@ const otherTags = allTags.filter(tag =>
 
             {/* Clear Filters */}
             {(selectedCategory || selectedTag) && (
-                <div class="mt-4 pt-4 border-t border-neutral-300">
+                <div class="mt-5 pt-4 border-t border-neutral-200/80">
                     <a
                         href="/blog"
-                        class="inline-flex items-center text-sm text-primary hover:underline font-medium"
+                        class="btn btn-ghost btn-sm"
                     >
-                        ✕ Clear all filters
+                        <span>Clear all filters</span>
                     </a>
                 </div>
             )}
@@ -148,8 +148,8 @@ const otherTags = allTags.filter(tag =>
 
         <!-- Active Filter Display -->
         {(selectedCategory || selectedTag) && (
-            <div class="mb-6 p-4 bg-primary/10 rounded-lg">
-                <p class="text-neutral-900">
+            <div class="mb-6 p-4 rounded-[12px] bg-primary/10 border border-primary/20">
+                <p class="text-neutral-900 font-sans text-sm font-medium">
                     Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
                     {selectedCategory && ` in ${selectedCategory}`}
                     {selectedTag && ` tagged with #${selectedTag}`}
@@ -161,11 +161,11 @@ const otherTags = allTags.filter(tag =>
         {filteredPosts.length > 0 ? (
             <div class="space-y-8">
                 {filteredPosts.map((post) => (
-                    <article class="p-6 border border-neutral-200 rounded-lg hover:border-primary transition-colors">
-                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm">
+                    <article class="p-6 sm:p-8 card-surface card-interactive">
+                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm font-sans">
                             <a
                                 href={`/blog?category=${encodeURIComponent(post.data.category)}`}
-                                class="px-3 py-1 bg-secondary/20 text-primary rounded-full font-medium hover:bg-secondary/30"
+                                class="category-badge bg-primary/10 text-primary hover:bg-primary hover:text-white"
                             >
                                 {post.data.category}
                             </a>
@@ -180,23 +180,23 @@ const otherTags = allTags.filter(tag =>
                             <span class="text-neutral-600">{readingTime(post.body)} min read</span>
                         </div>
 
-                        <h2 class="mb-3 text-2xl font-bold text-neutral-900">
+                        <h2 class="mb-3 text-2xl sm:text-3xl font-bold text-neutral-900">
                             <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
                                 {post.data.title}
                             </a>
                         </h2>
 
-                        <p class="mb-4 text-neutral-700 leading-relaxed">
+                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans">
                             {post.data.description}
                         </p>
 
                         {/* Tags */}
                         {post.data.tags && post.data.tags.length > 0 && (
-                            <div class="mb-4 flex flex-wrap gap-2">
+                            <div class="mb-5 flex flex-wrap gap-2">
                                 {post.data.tags.map((tag) => (
                                     <a
                                         href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                        class="px-2 py-1 text-xs bg-neutral-200 text-neutral-700 rounded-full hover:bg-primary hover:text-white transition-colors"
+                                        class="tag bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
                                     >
                                         #{tag}
                                     </a>
@@ -206,29 +206,32 @@ const otherTags = allTags.filter(tag =>
 
                         <a
                             href={`/blog/${post.slug}`}
-                            class="inline-flex items-center text-primary font-medium hover:underline"
+                            class="btn btn-secondary btn-sm"
                         >
-                            Read Full Research Spotlight →
+                            <span>Read Full Research Spotlight</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
                         </a>
                     </article>
                 ))}
             </div>
         ) : (
-            <div class="p-8 text-center bg-neutral-100 rounded-lg">
+            <div class="p-8 text-center card-surface">
                 <p class="text-lg text-neutral-700 mb-4">
                     No articles found with the selected filters.
                 </p>
-                <a href="/blog" class="text-primary font-medium hover:underline">
+                <a href="/blog" class="btn btn-secondary">
                     Clear filters and view all articles
                 </a>
             </div>
         )}
 
         <!-- Newsletter CTA -->
-        <div class="mt-16 p-8 text-center rounded-lg bg-neutral-100 border border-neutral-300">
+        <div class="mt-16 p-8 sm:p-10 text-center card-surface-muted">
             <h3 class="mb-3 text-2xl font-bold text-primary">Never Miss a Research Spotlight</h3>
-            <p class="mb-6 text-neutral-700">
-                Get weekly research insights delivered to your inbox. Evidence-based wisdom, no jargon.
+            <p class="mb-6 text-neutral-700 max-w-xl mx-auto">
+                Get weekly research insights and Embodied Soul dispatches delivered to your inbox. Evidence-based wisdom, no jargon.
             </p>
             <a href="/newsletter" class="btn btn-primary btn-lg">
                 Subscribe to Newsletter

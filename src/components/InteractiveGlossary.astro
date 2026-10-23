@@ -39,7 +39,7 @@ const categories = [...new Set(GLOSSARY.map((item) => item.category))];
                 <button
                     type="button"
                     data-term-id={item.id}
-                    class="glossary-card-trigger text-left p-5 rounded-lg bg-white border border-neutral-200 hover:border-primary hover:shadow-md transition-all group flex flex-col justify-between"
+                    class="glossary-card-trigger text-left p-5 card-surface card-interactive group flex flex-col justify-between"
                 >
                     <div>
                         <span class="inline-block text-xs font-semibold uppercase tracking-wider text-primary mb-1.5">
@@ -53,7 +53,7 @@ const categories = [...new Set(GLOSSARY.map((item) => item.category))];
                         </p>
                     </div>
                     <span class="mt-4 inline-flex items-center text-xs font-semibold text-primary group-hover:translate-x-0.5 transition-transform">
-                        Open illustration & example →
+                        Open illustration &amp; example →
                     </span>
                 </button>
             ))}
@@ -69,37 +69,37 @@ const categories = [...new Set(GLOSSARY.map((item) => item.category))];
     aria-modal="true"
     aria-labelledby="glossaryModalTitle"
 >
-    <div class="bg-[#FAFAF9] border border-neutral-300 rounded-xl max-w-xl w-full max-h-[86vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative font-sans">
+    <div class="bg-[#FAFAF9] border border-neutral-200/90 rounded-[20px] max-w-xl w-full max-h-[86vh] overflow-y-auto shadow-2xl p-6 sm:p-8 relative font-sans">
         <button
             type="button"
             id="glossaryModalClose"
-            class="absolute top-4 right-4 w-9 h-9 rounded-full bg-neutral-200/80 hover:bg-neutral-300 text-neutral-800 flex items-center justify-center font-bold transition-colors"
+            class="absolute top-4 right-4 min-w-[44px] min-h-[44px] rounded-full bg-neutral-200/80 hover:bg-neutral-300 text-neutral-800 flex items-center justify-center font-bold transition-colors"
             aria-label="Close concept explanation"
         >
             ✕
         </button>
 
         <div id="glossaryModalCategory" class="text-xs font-bold uppercase tracking-widest text-primary mb-1"></div>
-        <h3 id="glossaryModalTitle" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 mb-5 pr-8"></h3>
+        <h3 id="glossaryModalTitle" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 mb-5 pr-12"></h3>
 
         <div class="space-y-5">
-            <div class="p-4 rounded-lg bg-white border border-neutral-200">
+            <div class="p-4 rounded-[12px] bg-white border border-neutral-200/80">
                 <div class="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1.5">
                     1. Plain-English Definition
                 </div>
                 <p id="glossaryModalDefinition" class="text-neutral-800 text-sm sm:text-base leading-relaxed"></p>
             </div>
 
-            <div class="p-4 rounded-lg bg-primary/5 border-l-4 border-primary">
+            <div class="p-4 rounded-[12px] bg-primary/5 border-l-4 border-primary">
                 <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">
                     2. The C.S. Lewis Picture (Illustration)
                 </div>
                 <p id="glossaryModalIllustration" class="font-serif italic text-neutral-900 text-base sm:text-lg leading-relaxed"></p>
             </div>
 
-            <div class="p-4 rounded-lg bg-neutral-100 border border-neutral-200">
+            <div class="p-4 rounded-[12px] bg-neutral-100 border border-neutral-200/80">
                 <div class="text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1.5">
-                    3. At Home & In the Playroom (Example)
+                    3. At Home &amp; In the Playroom (Example)
                 </div>
                 <p id="glossaryModalExample" class="text-neutral-800 text-sm sm:text-base leading-relaxed"></p>
             </div>

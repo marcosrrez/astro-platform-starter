@@ -1,0 +1,245 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { instagramPosts } from '../data/instagramPosts';
+
+const title = "Instagram Studio (@getflorecermind) | Florecer Mind";
+const description = "High-resolution 1080x1350px editorial carousel decks, ready-to-publish captions, and neuroscience visual summaries for @getflorecermind.";
+---
+
+<Layout title={title} description={description} image="/instagram/day-01/slide-1.png">
+    <div class="max-w-5xl mx-auto">
+        <!-- Hero Header -->
+        <section class="pt-2 pb-10 sm:pt-6 sm:pb-14 border-b border-neutral-200">
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <p class="kicker">Visual Essay Studio &amp; Publishing Hub</p>
+                <a
+                    href="https://instagram.com/getflorecermind"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#2F5233] text-white font-sans text-sm font-semibold hover:bg-[#233e26] transition-colors"
+                >
+                    <span>Follow @getflorecermind on Instagram</span>
+                    <span aria-hidden="true">-&gt;</span>
+                </a>
+            </div>
+
+            <h1 class="mb-5 optical-align">
+                The Embodied Soul Carousel Decks
+            </h1>
+
+            <p class="max-w-3xl text-lg sm:text-xl leading-relaxed text-neutral-700 font-sans mb-8">
+                Every essay in <em>The Embodied Soul and the Developing Brain</em> is distilled into a 7-slide, 1080x1350px (4:5 vertical portrait) editorial carousel deck designed for parents, educators, and child therapists. Browse each deck interactively below, download individual slides or full 7-slide sets to your phone in one tap, or copy the research-backed caption.
+            </p>
+
+            <!-- 7-Slide Architecture Overview -->
+            <div class="grid gap-3 sm:grid-cols-4 lg:grid-cols-7 font-sans text-xs">
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#9E472A] mb-1">SLIDE 01</div>
+                    <div class="font-semibold text-neutral-900">Hook Cover</div>
+                    <div class="text-neutral-500 mt-0.5">Core tension &amp; scholars</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#9E472A] mb-1">SLIDE 02</div>
+                    <div class="font-semibold text-neutral-900">Myth vs. Brain</div>
+                    <div class="text-neutral-500 mt-0.5">Reframing behavior</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#2F5233] mb-1">SLIDE 03</div>
+                    <div class="font-semibold text-neutral-900">Neuroscience</div>
+                    <div class="text-neutral-500 mt-0.5">3 biological pillars</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#9E472A] mb-1">SLIDE 04</div>
+                    <div class="font-semibold text-neutral-900">C.S. Lewis Lens</div>
+                    <div class="text-neutral-500 mt-0.5">Literary synthesis</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#2F5233] mb-1">SLIDE 05</div>
+                    <div class="font-semibold text-neutral-900">At Home</div>
+                    <div class="text-neutral-500 mt-0.5">3-step parent protocol</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#9E472A] mb-1">SLIDE 06</div>
+                    <div class="font-semibold text-neutral-900">Playroom</div>
+                    <div class="text-neutral-500 mt-0.5">CCPT &amp; Spanish script</div>
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-neutral-200">
+                    <div class="font-bold text-[#2F5233] mb-1">SLIDE 07</div>
+                    <div class="font-semibold text-neutral-900">Lexicon &amp; CTA</div>
+                    <div class="text-neutral-500 mt-0.5">Glossary term of day</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Jump Navigation -->
+        <nav class="py-6 border-b border-neutral-200 flex flex-wrap items-center gap-3 font-sans text-sm" aria-label="Carousel Decks">
+            <span class="font-semibold text-neutral-500 uppercase tracking-wider text-xs mr-1">Jump to Deck:</span>
+            {instagramPosts.map((deck) => (
+                <a
+                    href={`#${deck.id}`}
+                    class="px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 text-neutral-800 font-medium hover:border-[#2F5233] hover:text-[#2F5233] transition-colors"
+                >
+                    Day 0{deck.day}: {deck.shortTitle}
+                </a>
+            ))}
+        </nav>
+
+        <!-- Carousel Decks Feed -->
+        <div class="divide-y divide-neutral-200">
+            {instagramPosts.map((deck) => (
+                <section id={deck.id} class="py-12 sm:py-16 scroll-mt-8" data-deck-id={deck.id}>
+                    <!-- Deck Header -->
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2.5 text-xs font-sans font-bold uppercase tracking-wider text-[#9E472A] mb-2">
+                                <span class="px-2.5 py-1 rounded bg-[#FAF1EC] border border-[#C86D51]/40">
+                                    Day 0{deck.day} Carousel
+                                </span>
+                                <span>•</span>
+                                <span class="text-[#2F5233]">1080 x 1350px (4:5 Portrait)</span>
+                                <span>•</span>
+                                <span class="text-neutral-500">Lexicon: {deck.vocabTerm}</span>
+                            </div>
+                            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">
+                                {deck.title}
+                            </h2>
+                        </div>
+
+                        <!-- 1-Tap Action Toolbar -->
+                        <div class="flex flex-wrap items-center gap-3 shrink-0 font-sans">
+                            <button
+                                type="button"
+                                class="download-all-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#2F5233] text-white text-sm font-semibold hover:bg-[#233e26] transition-colors cursor-pointer shadow-xs"
+                                data-deck-id={deck.id}
+                                data-slides={JSON.stringify(deck.slides.map((s) => ({ url: s.publicPath, name: `${deck.id}-slide-${s.slideNumber}.png` })))}
+                            >
+                                <span>Download All 7 Slides</span>
+                            </button>
+                            <button
+                                type="button"
+                                class="copy-caption-btn inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-white border border-neutral-300 text-neutral-800 text-sm font-semibold hover:border-[#9E472A] hover:text-[#9E472A] transition-colors cursor-pointer"
+                                data-caption={deck.caption}
+                            >
+                                <span>Copy Caption &amp; Tags</span>
+                            </button>
+                            <a
+                                href={`/blog/${deck.essaySlug}`}
+                                class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-neutral-100 text-neutral-800 text-sm font-semibold hover:bg-neutral-200 transition-colors"
+                            >
+                                <span>Read Essay</span>
+                                <span aria-hidden="true">-&gt;</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Horizontal Carousel Strip -->
+                    <div class="relative">
+                        <div
+                            class="carousel-track flex gap-5 overflow-x-auto pb-5 pt-1 snap-x snap-mandatory scroll-smooth"
+                            id={`track-${deck.id}`}
+                        >
+                            {deck.slides.map((slide) => (
+                                <figure class="snap-start shrink-0 w-[290px] sm:w-[340px] bg-white rounded-xl border border-neutral-200 shadow-xs overflow-hidden flex flex-col">
+                                    <div class="relative aspect-[4/5] bg-[#FBF9F5] border-b border-neutral-100">
+                                        <img
+                                            src={slide.publicPath}
+                                            alt={`Day ${deck.day} Slide ${slide.slideNumber}: ${slide.label}`}
+                                            width="1080"
+                                            height="1350"
+                                            loading={deck.day === 1 && slide.slideNumber <= 3 ? "eager" : "lazy"}
+                                            class="w-full h-full object-contain"
+                                        />
+                                    </div>
+                                    <figcaption class="p-3.5 flex items-center justify-between gap-2 font-sans text-xs bg-white">
+                                        <div>
+                                            <span class="font-bold text-[#9E472A]">0{slide.slideNumber} / 07</span>
+                                            <span class="mx-1.5 text-neutral-300">|</span>
+                                            <span class="font-medium text-neutral-700">{slide.label}</span>
+                                        </div>
+                                        <a
+                                            href={slide.publicPath}
+                                            download={`${deck.id}-slide-${slide.slideNumber}.png`}
+                                            class="px-2.5 py-1 rounded bg-neutral-100 text-neutral-800 font-semibold hover:bg-[#2F5233] hover:text-white transition-colors"
+                                        >
+                                            Save PNG
+                                        </a>
+                                    </figcaption>
+                                </figure>
+                            ))}
+                        </div>
+                    </div>
+
+                    <!-- Ready-to-Publish Caption & Hashtag Drawer -->
+                    <div class="mt-6 bg-white rounded-xl border border-neutral-200 p-5 sm:p-6">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-3">
+                            <div>
+                                <h3 class="font-sans text-xs font-bold uppercase tracking-wider text-neutral-500">
+                                    Ready-to-Publish Instagram Caption (Zero Em-Dashes, Zero Emojis)
+                                </h3>
+                                <p class="font-serif text-lg font-bold text-neutral-900 mt-0.5">
+                                    Hook: &ldquo;{deck.captionHook}&rdquo;
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                class="copy-caption-btn px-3.5 py-1.5 rounded-md bg-[#FAF1EC] text-[#9E472A] border border-[#C86D51]/40 font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#9E472A] hover:text-white transition-colors cursor-pointer"
+                                data-caption={deck.caption}
+                            >
+                                Copy Full Caption
+                            </button>
+                        </div>
+
+                        <pre class="whitespace-pre-wrap font-sans text-sm leading-relaxed text-neutral-700 bg-[#FAFAF9] p-4 rounded-lg border border-neutral-200 overflow-x-auto select-all">{deck.caption}</pre>
+                    </div>
+                </section>
+            ))}
+        </div>
+    </div>
+
+    <script>
+        // 1-Click Copy Caption handler
+        document.querySelectorAll('.copy-caption-btn').forEach((btn) => {
+            btn.addEventListener('click', async () => {
+                const caption = btn.getAttribute('data-caption') || '';
+                const labelEl = btn.querySelector('span') || btn;
+                const originalText = labelEl.textContent;
+                try {
+                    await navigator.clipboard.writeText(caption);
+                    labelEl.textContent = 'Copied to Clipboard!';
+                    setTimeout(() => {
+                        labelEl.textContent = originalText;
+                    }, 2200);
+                } catch {
+                    labelEl.textContent = 'Select box below to copy';
+                }
+            });
+        });
+
+        // 1-Tap Sequential Download of all 7 PNG slides in a deck
+        document.querySelectorAll('.download-all-btn').forEach((btn) => {
+            btn.addEventListener('click', async () => {
+                const raw = btn.getAttribute('data-slides');
+                if (!raw) return;
+                const slides = JSON.parse(raw);
+                const labelEl = btn.querySelector('span') || btn;
+                const originalText = labelEl.textContent;
+                labelEl.textContent = 'Downloading 7 PNGs...';
+
+                for (let i = 0; i < slides.length; i++) {
+                    const a = document.createElement('a');
+                    a.href = slides[i].url;
+                    a.download = slides[i].name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    await new Promise((r) => setTimeout(r, 320));
+                }
+
+                labelEl.textContent = 'All 7 Slides Downloaded!';
+                setTimeout(() => {
+                    labelEl.textContent = originalText;
+                }, 2500);
+            });
+        });
+    </script>
+</Layout>

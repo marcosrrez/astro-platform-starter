@@ -44,7 +44,12 @@ export default {
                     'base-200': '#f5f5f4',
                     'base-300': '#e7e5e4',
                     info: '#2F5233',
-                    'info-content': '#FAFAF9'
+                    'info-content': '#FAFAF9',
+                    '--rounded-box': '1rem',
+                    '--rounded-btn': '0.625rem',
+                    '--rounded-badge': '9999px',
+                    '--btn-text-case': 'none',
+                    '--btn-focus-scale': '0.985'
                 }
             }
         ]

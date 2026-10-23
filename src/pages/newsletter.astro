@@ -2,228 +2,294 @@
 import Layout from '../layouts/Layout.astro';
 
 const title = "Newsletter - Florecer Mind";
-const description = "Subscribe to Research Rescue Weekly - Evidence-based insights delivered to your inbox. No jargon, just practical wisdom from the latest research.";
+const description = "Subscribe to Florecer Mind for Research Rescue Weekly clinical reflections and The Embodied Soul & The Developing Brain research dispatches delivered directly to your inbox.";
 ---
 
 <Layout title={title} description={description}>
     <div class="max-w-3xl mx-auto">
-        <!-- Success message: revealed by inline script when Kit redirects back with
-             ?subscribed=true (set that as the form's success redirect in Kit). -->
-        <div id="subscribe-success" hidden class="on-dark mb-10 flex items-start gap-3 rounded-lg bg-primary p-5">
-            <svg class="mt-0.5 h-6 w-6 shrink-0 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-            </svg>
-            <div>
-                <p class="font-semibold text-white">You're almost in.</p>
-                <p class="text-sm text-white/90">Check your inbox for a confirmation email to finish subscribing to Research Rescue Weekly.</p>
-            </div>
-        </div>
         <!-- Header -->
-        <section class="mb-12 text-center">
+        <section class="pt-2 pb-12 sm:pt-6 sm:pb-14 text-center">
+            <p class="kicker mb-4">First-Party Editorial Dispatches</p>
             <h1 class="mb-6 optical-align">
-                Research Rescue Weekly
+                Research Rescue &amp; The Embodied Soul
             </h1>
-            <p class="text-xl text-neutral-700 leading-relaxed">
-                Get evidence-based insights from counseling, neuroscience, and cognitive science
-                delivered to your inbox. No jargon, just practical wisdom.
+            <p class="text-xl text-neutral-700 leading-relaxed max-w-2xl mx-auto font-sans">
+                Receive rigorous insights from counseling, neuroscience, and child development
+                translated into warm, practical wisdom for your home and clinical practice.
             </p>
         </section>
 
-        <!-- Benefits -->
+        <!-- Two Editorial Pillars / Benefits -->
         <section class="mb-12">
             <div class="grid gap-6 md:grid-cols-2">
-                <div class="p-6 bg-neutral-100 rounded-lg">
-                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Weekly Research Spotlights</h3>
-                    <p class="text-neutral-700">
-                        Deep-dives into the latest studies, translated into clear, actionable insights.
+                <div class="card-surface p-6 sm:p-8">
+                    <span class="category-badge bg-primary/10 text-primary mb-4">Daily Series</span>
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900 font-serif">
+                        The Embodied Soul &amp; Developing Brain
+                    </h3>
+                    <p class="text-neutral-700 font-sans text-base leading-relaxed">
+                        Daily research dispatches blending hard neuroscience (Barbara Oakley, Adele Diamond, Stephen Porges), Child-Centered Play Therapy, and the Christian humanism of C.S. Lewis.
                     </p>
                 </div>
 
-                <div class="p-6 bg-neutral-100 rounded-lg">
-                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Practical Applications</h3>
-                    <p class="text-neutral-700">
-                        Evidence-based techniques you can implement immediately in your life or practice.
+                <div class="card-surface p-6 sm:p-8">
+                    <span class="category-badge bg-secondary/25 text-primary mb-4">Weekly Reflection</span>
+                    <h3 class="mb-2 text-xl font-bold text-neutral-900 font-serif">
+                        Research Rescue Weekly
+                    </h3>
+                    <p class="text-neutral-700 font-sans text-base leading-relaxed">
+                        Deep-dives into peer-reviewed counseling and cognitive science studies, distilled into clear clinical and everyday takeaways without academic jargon.
                     </p>
                 </div>
 
-                <div class="p-6 bg-neutral-100 rounded-lg">
-                    <h3 class="mb-2 text-lg font-bold text-neutral-900">Expert Analysis</h3>
-                    <p class="text-neutral-700">
-                        Thoughtful interpretation of research findings and their real-world implications.
+                <div class="card-surface p-6 sm:p-8">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900 font-serif">
+                        Kitchen Table &amp; Playroom Scripts
+                    </h3>
+                    <p class="text-neutral-700 font-sans text-base leading-relaxed">
+                        Concrete co-regulation rhythms, ACT-informed reflections, and practical words you can use immediately with a tired child or an overwhelmed client.
                     </p>
                 </div>
 
-                <div class="p-6 bg-neutral-100 rounded-lg">
-                    <h3 class="mb-2 text-lg font-bold text-neutral-900">No Fluff</h3>
-                    <p class="text-neutral-700">
-                        Concise, valuable content that respects your time. Unsubscribe anytime.
+                <div class="card-surface p-6 sm:p-8">
+                    <h3 class="mb-2 text-lg font-bold text-neutral-900 font-serif">
+                        Primary Sources, Zero Noise
+                    </h3>
+                    <p class="text-neutral-700 font-sans text-base leading-relaxed">
+                        Every dispatch cites its primary peer-reviewed literature and is human-reviewed by Marcos Gutierrez, LAC. Unsubscribe with one click anytime.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- Newsletter Form -->
+        <!-- First-Party Newsletter Subscription Card (Concentric Radius: 20px outer, 10px inner controls) -->
         <section class="mb-12">
-            <div class="p-8 bg-primary/5 border-2 border-primary rounded-lg">
-                <h2 class="mb-6 text-2xl font-bold text-center text-primary">
-                    Subscribe to Research Rescue Weekly
-                </h2>
-
-                <!-- Kit (ConvertKit) form — native POST so it works even when
-                     privacy/ad blockers block Kit's client script. On submit the
-                     browser navigates to Kit, which confirms the subscription. -->
-                <form
-                    id="newsletter-form"
-                    class="max-w-md mx-auto space-y-4"
-                    action="https://app.kit.com/forms/8810669/subscriptions"
-                    method="POST"
+            <div class="p-6 sm:p-10 bg-white border border-neutral-200/90 rounded-[20px] shadow-sm">
+                <!-- Warm Confirmation State -->
+                <div
+                    id="subscribe-success"
+                    hidden
+                    role="status"
+                    aria-live="polite"
+                    class="on-dark rounded-[12px] bg-primary p-6 sm:p-8 text-left"
                 >
-                    <div>
-                        <label for="fields[first_name]" class="block mb-2 text-sm font-medium text-neutral-900">
-                            First Name
-                        </label>
-                        <input
-                            type="text"
-                            id="fields[first_name]"
-                            name="fields[first_name]"
-                            class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            placeholder="Your first name"
-                        />
-                    </div>
-
-                    <div>
-                        <label for="email_address" class="block mb-2 text-sm font-medium text-neutral-900">
-                            Email Address
-                        </label>
-                        <input
-                            type="email"
-                            id="email_address"
-                            name="email_address"
-                            required
-                            class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
-                            placeholder="your@email.com"
-                        />
-                    </div>
-
-                    <div>
-                        <label class="block mb-2 text-sm font-medium text-neutral-900">
-                            I'm interested in: (optional)
-                        </label>
-                        <div class="space-y-2">
-                            <label class="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    name="fields[interests][]"
-                                    value="Personal Growth & Development"
-                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
-                                />
-                                <span class="text-neutral-700">Personal Growth & Development</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    name="fields[interests][]"
-                                    value="Counseling & Therapy Insights"
-                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
-                                />
-                                <span class="text-neutral-700">Counseling & Therapy Insights</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input
-                                    type="checkbox"
-                                    name="fields[interests][]"
-                                    value="Neuroscience & Brain Health"
-                                    class="mr-2 w-4 h-4 text-primary border-neutral-300 rounded focus:ring-primary"
-                                />
-                                <span class="text-neutral-700">Neuroscience & Brain Health</span>
-                            </label>
+                    <div class="flex items-start gap-4">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/15 text-white">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-2xl font-bold text-white mb-2">
+                                You are subscribed to Florecer Mind.
+                            </h3>
+                            <p id="subscribe-success-message" class="text-base text-white/90 font-sans leading-relaxed mb-4">
+                                Check your inbox for your welcome essay. Your first dispatch is on its way right now.
+                            </p>
+                            <div class="flex flex-wrap gap-3 pt-2">
+                                <a href="/learning" class="btn btn-inverse btn-sm">
+                                    Explore The Embodied Soul Series
+                                </a>
+                                <a href="/blog" class="btn btn-outline-inverse btn-sm">
+                                    Browse Research Archive
+                                </a>
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <button
-                        type="submit"
-                        class="w-full btn btn-primary btn-lg inline-flex items-center justify-center gap-2"
+                <div id="newsletter-form-container">
+                    <div class="text-center max-w-lg mx-auto mb-8">
+                        <p class="kicker mb-2">Join the Readership</p>
+                        <h2 class="mb-3 text-2xl sm:text-3xl font-bold text-neutral-900 font-serif">
+                            Subscribe to Florecer Mind
+                        </h2>
+                        <p class="text-neutral-600 font-sans text-base leading-relaxed">
+                            Enter your email below to receive your welcome essay immediately in your inbox, followed by our research dispatches.
+                        </p>
+                    </div>
+
+                    <form
+                        id="newsletter-form"
+                        class="max-w-md mx-auto space-y-5 font-sans"
+                        novalidate
                     >
-                        <span>Subscribe Now</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                        </svg>
-                    </button>
+                        <div>
+                            <label for="newsletter-first-name" class="block mb-2 text-sm font-semibold text-neutral-900">
+                                First name <span class="font-normal text-neutral-500">(optional)</span>
+                            </label>
+                            <input
+                                type="text"
+                                id="newsletter-first-name"
+                                name="firstName"
+                                autocomplete="given-name"
+                                class="input-hig"
+                                placeholder="C.S. or Clara"
+                            />
+                        </div>
 
-                    <p class="text-xs text-center text-neutral-600">
-                        After you subscribe you'll see a confirmation page, then get a
-                        confirmation email to click. We respect your privacy — unsubscribe anytime.
-                    </p>
-                </form>
+                        <div>
+                            <label for="newsletter-email" class="block mb-2 text-sm font-semibold text-neutral-900">
+                                Email address <span class="text-primary" aria-hidden="true">*</span>
+                            </label>
+                            <input
+                                type="email"
+                                id="newsletter-email"
+                                name="email"
+                                required
+                                autocomplete="email"
+                                class="input-hig"
+                                placeholder="you@example.com"
+                            />
+                        </div>
+
+                        <!-- Inline Error Banner -->
+                        <div
+                            id="newsletter-error"
+                            hidden
+                            role="alert"
+                            aria-live="assertive"
+                            class="p-3.5 rounded-[10px] bg-red-50 border border-red-200 text-sm text-red-800"
+                        ></div>
+
+                        <button
+                            type="submit"
+                            id="newsletter-submit-btn"
+                            class="w-full btn btn-primary btn-lg"
+                        >
+                            <span id="newsletter-btn-label">Subscribe &amp; Receive Welcome Essay</span>
+                            <svg id="newsletter-btn-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                            </svg>
+                        </button>
+
+                        <p class="text-xs text-center text-neutral-500 leading-relaxed">
+                            Your welcome essay arrives immediately via our direct editorial delivery. We respect your privacy and never share your address. Unsubscribe anytime.
+                        </p>
+                    </form>
+                </div>
             </div>
         </section>
 
         <!-- What to Expect -->
-        <section class="mb-12 p-8 bg-neutral-100 rounded-lg">
-            <h2 class="mb-4 text-2xl font-bold text-primary">What to Expect</h2>
-            <div class="space-y-3 text-neutral-700">
-                <p class="flex items-start">
-                    <span class="font-bold text-primary mr-2">→</span>
-                    <span><strong>Weekly emails</strong> every Monday morning with the latest research spotlight</span>
+        <section class="mb-12 p-8 card-surface-muted">
+            <h2 class="mb-5 text-2xl font-bold text-primary font-serif">What You Will Receive</h2>
+            <div class="space-y-3.5 text-neutral-700 font-sans">
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-primary shrink-0">01</span>
+                    <span><strong>Immediate Welcome Essay:</strong> Sent directly to your inbox the moment you subscribe.</span>
                 </p>
-                <p class="flex items-start">
-                    <span class="font-bold text-primary mr-2">→</span>
-                    <span><strong>5-minute reads</strong> packed with actionable insights</span>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-primary shrink-0">02</span>
+                    <span><strong>The Embodied Soul &amp; Developing Brain Dispatches:</strong> Daily essays on executive function, working memory, vagal tone, and C.S. Lewis's vision of ordered affections.</span>
                 </p>
-                <p class="flex items-start">
-                    <span class="font-bold text-primary mr-2">→</span>
-                    <span><strong>Occasional bonus content</strong> including research roundups and practitioner resources</span>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-primary shrink-0">03</span>
+                    <span><strong>Weekly Clinical &amp; Research Spotlights:</strong> 5-minute syntheses of peer-reviewed studies in counseling, sleep, neuroplasticity, and resilience.</span>
                 </p>
-                <p class="flex items-start">
-                    <span class="font-bold text-primary mr-2">→</span>
-                    <span><strong>Zero spam</strong> - your inbox is sacred, and we treat it that way</span>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-primary shrink-0">04</span>
+                    <span><strong>Sacred Inbox Standard:</strong> Zero spam, zero ad trackers, and one-click unsubscribe in every footer.</span>
                 </p>
             </div>
         </section>
 
         <!-- Back to Site -->
         <div class="text-center">
-            <a href="/" class="text-primary font-medium hover:underline">
-                ← Back to Home
+            <a href="/" class="btn btn-ghost btn-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                </svg>
+                <span>Back to Home</span>
             </a>
         </div>
     </div>
 
     <script is:inline>
         (function () {
-            var success = document.getElementById('subscribe-success');
             var form = document.getElementById('newsletter-form');
+            var formContainer = document.getElementById('newsletter-form-container');
+            var successBox = document.getElementById('subscribe-success');
+            var successMsg = document.getElementById('subscribe-success-message');
+            var errorBox = document.getElementById('newsletter-error');
+            var submitBtn = document.getElementById('newsletter-submit-btn');
+            var btnLabel = document.getElementById('newsletter-btn-label');
 
-            function showSuccess() {
-                if (!success) return;
-                success.hidden = false;
-                // Hide the whole form section so the success message is the focus
-                var section = form && form.closest('section');
-                if (section) section.hidden = true;
-                success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            function showSuccess(customMessage) {
+                if (!successBox) return;
+                if (customMessage && successMsg) {
+                    successMsg.textContent = customMessage;
+                }
+                if (formContainer) formContainer.hidden = true;
+                successBox.hidden = false;
+                successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
-            // Case 1: Kit redirected back after a successful subscribe
+            function showError(msg) {
+                if (!errorBox) return;
+                errorBox.textContent = msg;
+                errorBox.hidden = false;
+            }
+
+            function clearError() {
+                if (!errorBox) return;
+                errorBox.textContent = '';
+                errorBox.hidden = true;
+            }
+
             if (new URLSearchParams(window.location.search).get('subscribed') === 'true') {
-                showSuccess();
+                showSuccess('You are subscribed to Florecer Mind. Check your inbox for your welcome essay.');
             }
 
-            // Case 2: progressive enhancement — subscribe without leaving the site.
-            // Submits the form to Kit in the background, then shows our own message.
-            // Falls back to a normal (navigating) submit if anything goes wrong.
-            if (form && window.fetch) {
+            if (form) {
                 form.addEventListener('submit', function (e) {
-                    if (!form.checkValidity()) return; // let native validation show
                     e.preventDefault();
-                    var btn = form.querySelector('button[type="submit"]');
-                    if (btn) { btn.disabled = true; btn.style.opacity = '0.7'; }
-                    fetch(form.action, {
+                    clearError();
+
+                    var emailInput = document.getElementById('newsletter-email');
+                    var firstNameInput = document.getElementById('newsletter-first-name');
+                    var email = emailInput ? emailInput.value.trim() : '';
+                    var firstName = firstNameInput ? firstNameInput.value.trim() : '';
+
+                    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                        showError('Please enter a valid email address.');
+                        if (emailInput) emailInput.focus();
+                        return;
+                    }
+
+                    if (submitBtn) submitBtn.disabled = true;
+                    if (btnLabel) btnLabel.textContent = 'Subscribing...';
+
+                    fetch('/api/subscribe', {
                         method: 'POST',
-                        body: new URLSearchParams(new FormData(form)),
-                        mode: 'no-cors'
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            email: email,
+                            firstName: firstName,
+                            source: 'newsletter-page'
+                        })
                     })
-                        .then(showSuccess)
-                        .catch(function () { form.submit(); });
+                        .then(function (res) {
+                            return res.json().catch(function () { return {}; }).then(function (data) {
+                                return { ok: res.ok, status: res.status, data: data };
+                            });
+                        })
+                        .then(function (result) {
+                            if (result.ok && result.data && result.data.ok !== false) {
+                                showSuccess('You are subscribed to Florecer Mind. Check your inbox for your welcome essay.');
+                            } else {
+                                var errText = (result.data && (result.data.error || result.data.message)) ||
+                                    'We could not complete your subscription right now. Please try again in a moment.';
+                                showError(errText);
+                                if (submitBtn) submitBtn.disabled = false;
+                                if (btnLabel) btnLabel.textContent = 'Subscribe & Receive Welcome Essay';
+                            }
+                        })
+                        .catch(function () {
+                            showError('Network error while connecting to our subscription service. Please check your connection and try again.');
+                            if (submitBtn) submitBtn.disabled = false;
+                            if (btnLabel) btnLabel.textContent = 'Subscribe & Receive Welcome Essay';
+                        });
                 });
             }
         })();

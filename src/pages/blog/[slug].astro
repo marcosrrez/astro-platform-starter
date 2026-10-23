@@ -152,7 +152,7 @@ const structuredData = {
                         <h3 class="mb-6 font-serif text-neutral-900">Further Reading</h3>
                         <div class="space-y-5 font-sans">
                             {entry.data.furtherReading.map((reading) => (
-                                <div class="p-5 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
+                                <div class="p-5 card-surface card-interactive">
                                     <a
                                         href={reading.url}
                                         target="_blank"
@@ -176,7 +176,7 @@ const structuredData = {
                         <h3 class="mb-6 font-serif text-neutral-900">Related Videos</h3>
                         <div class="space-y-4 font-sans">
                             {entry.data.relatedVideos.map((video) => (
-                                <div class="p-5 bg-neutral-50 rounded-lg border border-neutral-200 hover:border-primary transition-colors">
+                                <div class="p-5 card-surface card-interactive">
                                     <a
                                         href={video.url}
                                         target="_blank"
@@ -201,7 +201,7 @@ const structuredData = {
                     </div>
                 )}
 
-                <div class="mt-10 p-5 rounded-lg bg-neutral-50 border border-neutral-200">
+                <div class="mt-10 p-6 card-surface-muted">
                     <p class="text-sm text-neutral-700 leading-relaxed font-sans">
                         <strong class="text-neutral-900">How we verify.</strong> Every Florecer Mind
                         spotlight is researched and drafted with AI assistance, then reviewed by
@@ -233,13 +233,18 @@ const structuredData = {
                 <SocialShare title={entry.data.title} url={new URL(Astro.url.pathname, Astro.site).toString()} />
             </div>
 
-            <div class="flex flex-wrap gap-6 justify-between items-center">
-                <a href="/blog" class="font-medium inline-flex items-center group">
-                    <span class="mr-2 group-hover:-translate-x-1 transition-transform">←</span>
-                    Back to All Research
+            <div class="flex flex-wrap gap-4 justify-between items-center">
+                <a href="/blog" class="btn btn-ghost">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"></path>
+                    </svg>
+                    <span>Back to All Research</span>
                 </a>
                 <a href="/newsletter" class="btn btn-primary">
-                    Get the weekly spotlight
+                    <span>Get the weekly spotlight</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                    </svg>
                 </a>
             </div>
         </footer>
