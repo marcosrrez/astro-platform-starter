@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import SocialShare from '../../components/SocialShare.astro';
 import NewsletterCTA from '../../components/NewsletterCTA.astro';
+import InteractiveGlossary from '../../components/InteractiveGlossary.astro';
 
 export async function getStaticPaths() {
     const blogEntries = await getCollection('blog');
@@ -107,6 +108,9 @@ const structuredData = {
         <div class="prose prose-lg max-w-none">
             <Content />
         </div>
+
+        <!-- Interactive Click-to-Learn Vocabulary & Concept Lexicon -->
+        <InteractiveGlossary showFullGrid={entry.data.category === 'Learning & Child Development'} enableInlineHighlighting={true} />
 
         <!-- Newsletter CTA -->
         <NewsletterCTA />

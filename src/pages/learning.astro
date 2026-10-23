@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import InteractiveGlossary from '../components/InteractiveGlossary.astro';
+
+const title = "The Embodied Soul & The Developing Brain - Florecer Mind";
+const description = "A dedicated research series on the Science of Learning, Executive Function, Grit, and Child Development for parents and counselors, written in the spirit of C.S. Lewis.";
+
+const allPosts = await getCollection('blog');
+const learningPosts = allPosts
+    .filter((p) => p.data.category === 'Learning & Child Development' || p.data.tags.includes('learning-science'))
+    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+const readingTime = (body: string) =>
+    Math.max(1, Math.round(body.split(/\s+/).filter(Boolean).length / 200));
+
+const formatDate = (d: Date) =>
+    d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+---
+
+<Layout title={title} description={description}>
+    <div class="max-w-5xl mx-auto">
+        <!-- Hero Section -->
+        <section class="pt-2 pb-12 sm:pt-6 sm:pb-16 border-b border-neutral-200">
+            <p class="kicker mb-4">Special Series for Parents & Counselors</p>
+            <h1 class="mb-6 optical-align">
+                The Embodied Soul &amp; The Developing Brain
+            </h1>
+            <p class="max-w-3xl text-xl leading-relaxed text-neutral-700 font-sans mb-6">
+                Children are not biological machines to be optimized, nor are they disembodied spirits who can ignore a tired nervous system. This series brings together the science of learning (Barbara Oakley, Terrence Sejnowski), character and deliberate practice (Angela Duckworth, Anders Ericsson), interpersonal neurobiology (Adele Diamond, Stephen Porges), and Child-Centered Play Therapy (Garry Landreth), filtered through the lucid warmth and Christian humanism of C.S. Lewis.
+            </p>
+            <div class="grid gap-6 sm:grid-cols-3 pt-4 font-sans">
+                <div class="p-4 rounded-lg bg-white border border-neutral-200">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 01</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">Hard Neuroscience</div>
+                    <p class="text-sm text-neutral-600 leading-relaxed">
+                        Real brain mechanisms: prefrontal glucose, thalamic sensory gating, working memory slots, and synaptic homeostasis.
+                    </p>
+                </div>
+                <div class="p-4 rounded-lg bg-white border border-neutral-200">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 02</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">The C.S. Lewis Lens</div>
+                    <p class="text-sm text-neutral-600 leading-relaxed">
+                        Everyday metaphors and ordered affections ("The Chest") that honor the creaturely limits of a child's body and mind.
+                    </p>
+                </div>
+                <div class="p-4 rounded-lg bg-white border border-neutral-200">
+                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 03</div>
+                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1">Home &amp; Playroom</div>
+                    <p class="text-sm text-neutral-600 leading-relaxed">
+                        Concrete rhythms and scripts for fathers and mothers at the kitchen table, and for counselors in CCPT and parent consultations.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Essays in the Series -->
+        <section class="py-12 sm:py-16">
+            <div class="mb-8">
+                <p class="kicker mb-2">Deep Essays</p>
+                <h2 class="font-serif text-3xl text-neutral-900">
+                    Read the Series (With Interactive Word Definitions)
+                </h2>
+                <p class="text-neutral-600 font-sans mt-1">
+                    Inside every essay, click or tap any underlined scientific term to open its definition, C.S. Lewis illustration, and real-world example.
+                </p>
+            </div>
+
+            <div class="space-y-8">
+                {learningPosts.map((post, idx) => (
+                    <article class="p-6 sm:p-8 bg-white border border-neutral-200 rounded-xl hover:border-primary transition-colors shadow-xs">
+                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm font-sans">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full font-semibold">
+                                Essay {learningPosts.length - idx}
+                            </span>
+                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
+                                {formatDate(post.data.pubDate)}
+                            </time>
+                            <span class="text-neutral-400" aria-hidden="true">·</span>
+                            <span class="text-neutral-600">{readingTime(post.body)} min read</span>
+                            {post.data.sources && post.data.sources.length > 0 && (
+                                <>
+                                    <span class="text-neutral-400" aria-hidden="true">·</span>
+                                    <span class="text-neutral-600">{post.data.sources.length} peer-reviewed sources</span>
+                                </>
+                            )}
+                        </div>
+
+                        <h3 class="mb-3 font-serif text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">
+                            <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
+                                {post.data.title}
+                            </a>
+                        </h3>
+
+                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans text-base sm:text-lg">
+                            {post.data.description}
+                        </p>
+
+                        <a
+                            href={`/blog/${post.slug}`}
+                            class="inline-flex items-center font-sans font-semibold text-primary hover:underline"
+                        >
+                            Read Essay with Interactive Vocabulary →
+                        </a>
+                    </article>
+                ))}
+            </div>
+        </section>
+
+        <!-- Interactive Concept & Vocabulary Explorer -->
+        <InteractiveGlossary showFullGrid={true} enableInlineHighlighting={false} />
+    </div>
+</Layout>

@@ -6,7 +6,8 @@ const categories = [
     'Cognitive Science',
     'Counseling & Therapy',
     'Daily Practices',
-    'Mental Health'
+    'Mental Health',
+    'Learning & Child Development'
 ] as const;
 
 const blog = defineCollection({
@@ -16,6 +17,7 @@ const blog = defineCollection({
         description: z.string(),
         pubDate: z.date(),
         category: z.enum(categories),
+        series: z.string().optional(),
         tags: z.array(z.string()),
         author: z.string().optional(),
         image: z.string().optional(),
