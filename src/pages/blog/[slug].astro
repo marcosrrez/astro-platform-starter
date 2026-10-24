@@ -73,7 +73,7 @@ const structuredData = {
 >
     <article class="mx-auto max-w-[46rem]">
         <!-- Article Header -->
-        <header class="mb-10">
+        <header class="mb-6">
             <a href={`/blog?category=${encodeURIComponent(entry.data.category)}`} class="kicker">
                 {entry.data.category}
             </a>
@@ -87,7 +87,7 @@ const structuredData = {
             </p>
 
             <!-- Byline & meta -->
-            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 article-meta">
+            <div class="flex flex-wrap items-center gap-x-3 gap-y-1 article-meta pb-6 border-b border-neutral-200">
                 <span>By <span class="font-medium text-neutral-800">Florecer Mind</span></span>
                 <span aria-hidden="true">·</span>
                 <span>Reviewed by <span class="font-medium text-neutral-800">{reviewer}, {reviewerCredential}</span></span>
@@ -102,8 +102,6 @@ const structuredData = {
                     </>
                 )}
             </div>
-
-            <hr class="mt-8 border-neutral-200" />
         </header>
 
         <!-- Integrated Audio Player (Apple HIG / Cartesia Sonic Voice Narration) -->

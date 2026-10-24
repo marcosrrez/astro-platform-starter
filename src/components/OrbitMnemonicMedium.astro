@@ -14,35 +14,25 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
     <div
         id="orbit-article-controller"
         data-current-slug={currentSlug}
-        class="mb-10 p-5 sm:p-6 card-surface-muted font-sans"
+        class="mb-10 px-4 py-3 sm:px-5 sm:py-3.5 card-surface-muted font-sans"
     >
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-            <div class="space-y-1">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span class="category-badge bg-primary/10 text-primary">
-                        Mnemonic Medium
-                    </span>
-                    <span class="text-xs font-medium text-neutral-600">
-                        Inspired by <a href="https://andymatuschak.org/books/" target="_blank" rel="noopener noreferrer" class="underline hover:text-primary">Andy Matuschak &amp; Orbit</a>
-                    </span>
-                </div>
-                <p class="text-sm text-neutral-700 leading-relaxed">
-                    Passive reading creates an illusion of competence. This essay interleaves active retrieval prompts from this article and earlier essays directly into the text so what you read becomes durable, usable understanding.
-                </p>
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs sm:text-sm text-neutral-700">
+                <span class="category-badge bg-primary/10 text-primary">
+                    Mnemonic Medium
+                </span>
+                <span>
+                    Tap <span class="glossary-inline-term pointer-events-none">underlined terms</span> for C.S. Lewis word pictures &amp; definitions. Active recall checkpoints interleaved below.
+                </span>
             </div>
-            <div class="flex items-center gap-3 shrink-0">
-                <div class="text-right hidden sm:block">
-                    <div id="orbit-article-progress-label" class="text-xs font-semibold text-neutral-900">
-                        Interleaved Mode Active
-                    </div>
-                    <div id="orbit-article-global-stat" class="text-xs text-neutral-600">
-                        0 prompts in long-term orbit
-                    </div>
-                </div>
+            <div class="flex items-center gap-3 shrink-0 ml-auto">
+                <span id="orbit-article-global-stat" class="text-xs font-medium text-neutral-600 hidden md:inline">
+                    0 prompts in Orbit
+                </span>
                 <button
                     type="button"
                     id="orbit-toggle-checkpoints-btn"
-                    class="btn btn-secondary btn-sm"
+                    class="pill-filter bg-white text-neutral-800 hover:border-primary/40 gap-2"
                     aria-pressed="true"
                 >
                     <span id="orbit-toggle-dot" class="w-2 h-2 rounded-full bg-primary"></span>
@@ -131,7 +121,7 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
         </div>
 
         <!-- Active Orbit Deck Container -->
-        <div id="orbit-hub-card-mount" class="p-6 sm:p-8 md:p-10 card-surface relative"></div>
+        <div id="orbit-hub-card-mount" class="overflow-hidden card-surface shadow-sm border border-neutral-200/90 relative"></div>
     </section>
 )}
 
@@ -256,20 +246,71 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
             var isRevealed = false;
             var sessionCompletedCount = 0;
 
+            function isElementInViewport(el) {
+                var rect = el.getBoundingClientRect();
+                return (
+                    rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.bottom > 0
+                );
+            }
+
+            function handleKeydown(ev) {
+                // Ignore if user is typing in an external input or textarea
+                var tag = (ev.target && ev.target.tagName) || '';
+                if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+                if (!isElementInViewport(container)) return;
+
+                if (ev.key === ' ' && !isRevealed) {
+                    ev.preventDefault();
+                    isRevealed = true;
+                    renderCurrent();
+                } else if (isRevealed && ev.key === '1') {
+                    ev.preventDefault();
+                    handleForgot();
+                } else if (isRevealed && ev.key === '2') {
+                    ev.preventDefault();
+                    handleRemembered();
+                }
+            }
+
+            function handleForgot() {
+                var item = queue[currentIndex];
+                gradeCardSrs(item.id, false);
+                if (!item._retriedOnce) {
+                    var clone = Object.assign({}, item, { _retriedOnce: true });
+                    queue.push(clone);
+                }
+                currentIndex += 1;
+                isRevealed = false;
+                renderCurrent();
+                if (typeof onQueueComplete === 'function') onQueueComplete();
+            }
+
+            function handleRemembered() {
+                var item = queue[currentIndex];
+                gradeCardSrs(item.id, true);
+                sessionCompletedCount += 1;
+                currentIndex += 1;
+                isRevealed = false;
+                renderCurrent();
+                if (typeof onQueueComplete === 'function') onQueueComplete();
+            }
+
             function renderCurrent() {
                 if (currentIndex >= queue.length) {
                     container.innerHTML =
-                        '<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-2">' +
+                        '<div class="h-1.5 w-full bg-primary"></div>' +
+                        '<div class="p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">' +
                         '  <div class="flex items-start sm:items-center gap-3.5">' +
-                        '    <div class="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center shrink-0">' +
-                        '      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 13l4 4L19 7"></path></svg>' +
+                        '    <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center shrink-0 shadow-sm">' +
+                        '      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>' +
                         '    </div>' +
                         '    <div>' +
-                        '      <div class="font-serif font-bold text-lg text-neutral-900">Checkpoint Complete (' + sessionCompletedCount + ' recalled into Orbit)</div>' +
-                        '      <div class="text-sm text-neutral-600">Your spaced-repetition intervals are saved in this browser. Keep reading or review again anytime.</div>' +
+                        '      <div class="font-serif font-bold text-lg text-neutral-900">Review Complete (' + sessionCompletedCount + ' recalled into Orbit)</div>' +
+                        '      <div class="text-sm text-neutral-600">Your spaced-repetition intervals are saved. Keep reading or review again anytime.</div>' +
                         '    </div>' +
                         '  </div>' +
-                        '  <button type="button" data-orbit-restart class="btn btn-secondary btn-sm shrink-0">Practice Checkpoint Again</button>' +
+                        '  <button type="button" data-orbit-restart class="btn btn-secondary btn-sm shrink-0">Review Again</button>' +
                         '</div>';
 
                     var restartBtn = container.querySelector('[data-orbit-restart]');
@@ -288,95 +329,92 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                 var item = queue[currentIndex];
                 var badge = formatSrsBadge(item.id);
                 var isBridge = item.isInterleavedBridge || item.category === 'Cross-Essay Interleaving';
+                var accentClass = isBridge ? 'bg-amber-500' : 'bg-primary';
 
-                var bridgeBanner = isBridge
-                    ? '<div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100/90 text-amber-900 border border-amber-300/70">' +
-                      '  <span>Interleaved Bridge Prompt</span>' +
-                      '  <span aria-hidden="true">·</span>' +
-                      '  <span>From: ' + escapeHtml(item.essayTitle) + '</span>' +
+                var progressHtml = '';
+                if (queue.length <= 8) {
+                    progressHtml = '<div class="flex items-center gap-1" aria-hidden="true">' +
+                        queue
+                            .map(function (_, idx) {
+                                var cls = idx < currentIndex
+                                    ? (isBridge ? 'bg-amber-500 w-2.5 h-2.5' : 'bg-primary w-2.5 h-2.5')
+                                    : idx === currentIndex
+                                    ? (isBridge ? 'bg-amber-600 w-5 h-2.5' : 'bg-primary w-5 h-2.5')
+                                    : 'bg-neutral-300 w-2.5 h-2.5';
+                                return '<span class="inline-block rounded-full transition-all ' + cls + '"></span>';
+                            })
+                            .join('') +
+                        '</div>';
+                } else {
+                    var pct = Math.round(((currentIndex + 1) / queue.length) * 100);
+                    progressHtml =
+                        '<div class="w-16 sm:w-24 h-2 rounded-full bg-neutral-200 overflow-hidden" title="' + (currentIndex + 1) + ' of ' + queue.length + '">' +
+                        '  <div class="h-full ' + accentClass + ' transition-all duration-300 rounded-full" style="width: ' + pct + '%"></div>' +
+                        '</div>';
+                }
+
+                var anchorBlock = item.anchor
+                    ? '<div class="mt-4 pt-3.5 border-t border-neutral-200/70 text-sm text-neutral-700 leading-relaxed italic">' +
+                      '  <span class="font-semibold not-italic text-[11px] uppercase tracking-wider text-neutral-500 block mb-1">Narrative &amp; Clinical Anchor</span>' +
+                      '  <p class="m-0">' + escapeHtml(item.anchor) + '</p>' +
                       '</div>'
-                    : '<div class="mb-3 inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary">' +
-                      '  <span>' + escapeHtml(item.category) + '</span>' +
-                      '  <span aria-hidden="true">·</span>' +
-                      '  <span>' + escapeHtml(item.sectionLabel) + '</span>' +
-                      '</div>';
-
-                var dotsHtml = queue
-                    .map(function (_, idx) {
-                        var cls = idx < currentIndex
-                            ? 'bg-primary w-2.5 h-2.5'
-                            : idx === currentIndex
-                            ? 'bg-primary w-6 h-2.5'
-                            : 'bg-neutral-300 w-2.5 h-2.5';
-                        return '<span class="inline-block rounded-full transition-all ' + cls + '"></span>';
-                    })
-                    .join('');
+                    : '';
 
                 container.innerHTML =
-                    '<div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-4 border-b border-neutral-200/80">' +
-                    '  <div class="flex items-center gap-2">' +
-                    '    <span class="text-xs font-bold uppercase tracking-wider text-primary">' + escapeHtml(checkpointHeaderLabel) + '</span>' +
-                    '    <span class="text-neutral-300" aria-hidden="true">|</span>' +
-                    '    <span class="text-xs font-medium text-neutral-600">Prompt ' + (currentIndex + 1) + ' of ' + queue.length + '</span>' +
+                    '<div class="h-1.5 w-full ' + accentClass + '"></div>' +
+                    '<div class="p-6 sm:p-7">' +
+                    '  <div class="flex flex-wrap items-center justify-between gap-2 pb-4 mb-3 border-b border-neutral-100">' +
+                    '    <div class="flex items-center gap-2">' +
+                    '      <span class="text-xs font-bold uppercase tracking-wider ' + (isBridge ? 'text-amber-800' : 'text-primary') + '">' +
+                    '        ' + escapeHtml(isBridge ? 'Interleaved Bridge' : item.category) +
+                    '      </span>' +
+                    '      <span class="text-neutral-300" aria-hidden="true">·</span>' +
+                    '      <span class="text-xs text-neutral-500">Prompt ' + (currentIndex + 1) + ' of ' + queue.length + '</span>' +
+                    '    </div>' +
+                    '    <div class="flex items-center gap-2.5">' +
+                    '      <span class="px-2.5 py-0.5 rounded-full text-xs font-medium ' + badge.tone + '">' + escapeHtml(badge.text) + '</span>' +
+                    '      ' + progressHtml +
+                    '    </div>' +
                     '  </div>' +
-                    '  <div class="flex items-center gap-2.5">' +
-                    '    <span class="px-2.5 py-0.5 rounded-full text-xs font-medium ' + badge.tone + '">' + escapeHtml(badge.text) + '</span>' +
-                    '    <div class="flex items-center gap-1" aria-hidden="true">' + dotsHtml + '</div>' +
-                    '  </div>' +
-                    '</div>' +
-                    bridgeBanner +
-                    '<h4 class="font-serif text-xl sm:text-2xl font-bold text-neutral-900 leading-snug mb-4">' +
-                    escapeHtml(item.question) +
-                    '</h4>' +
+                    '  ' + (isBridge ? '<div class="text-xs text-neutral-500 mb-2 font-medium">From: ' + escapeHtml(item.essayTitle) + '</div>' : '') +
+                    '  <h4 class="font-serif text-xl sm:text-2xl font-bold text-neutral-900 leading-snug my-2">' +
+                    '    ' + escapeHtml(item.question) +
+                    '  </h4>' +
                     (!isRevealed
-                        ? '<div class="space-y-3">' +
-                          '  <input type="text" data-orbit-scratch placeholder="Optional: jot a 3-word hypothesis before revealing..." class="input-hig text-sm" />' +
-                          '  <div class="flex flex-wrap items-center justify-between gap-3 pt-1">' +
-                          '    <button type="button" data-orbit-reveal class="btn btn-primary">' +
-                          '      <span>Reveal Answer &amp; Narrative Anchor</span>' +
+                        ? '  <div class="pt-4 flex flex-wrap items-center justify-between gap-3">' +
+                          '    <button type="button" data-orbit-reveal class="btn btn-primary gap-2">' +
+                          '      <span>Show Answer</span>' +
+                          '      <kbd class="hidden sm:inline-block px-1.5 py-0.5 text-[11px] font-mono bg-white/20 rounded">Space</kbd>' +
                           '    </button>' +
-                          '    <button type="button" data-orbit-skip class="btn btn-ghost btn-sm text-neutral-600">' +
-                          '      <span>Skip Prompt</span>' +
+                          '    <button type="button" data-orbit-skip class="btn btn-ghost btn-sm text-neutral-500 hover:text-neutral-800">' +
+                          '      <span>Skip</span>' +
                           '    </button>' +
-                          '  </div>' +
-                          '</div>'
-                        : '<div class="mt-4 pt-4 border-t border-neutral-200/90 space-y-4 animate-fade-in">' +
-                          '  <div class="p-4 sm:p-5 rounded-[12px] bg-[#F7F4EE] border border-neutral-200/90">' +
-                          '    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Retrieval Answer</div>' +
-                          '    <p class="text-neutral-900 text-base leading-relaxed font-normal m-0">' + escapeHtml(item.answer) + '</p>' +
-                          '  </div>' +
-                          '  <div class="p-4 rounded-[12px] bg-white border border-neutral-200/80">' +
-                          '    <div class="text-xs font-bold uppercase tracking-wider text-neutral-600 mb-1">Narrative &amp; Clinical Anchor</div>' +
-                          '    <p class="text-neutral-700 text-sm leading-relaxed italic m-0">' + escapeHtml(item.anchor) + '</p>' +
-                          '  </div>' +
-                          '  <div class="pt-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">' +
-                          '    <span class="text-xs font-medium text-neutral-600">How Effortful Was Your Recall?</span>' +
-                          '    <div class="flex flex-wrap items-center gap-2.5">' +
-                          '      <button type="button" data-orbit-grade="retry" class="btn btn-secondary btn-sm">' +
-                          '        <span>Retry Soon (Fuzzy)</span>' +
-                          '      </button>' +
-                          '      <button type="button" data-orbit-grade="solid" class="btn btn-primary btn-sm">' +
-                          '        <span>Recalled Clearly (Solid)</span>' +
-                          '      </button>' +
+                          '  </div>'
+                        : '  <div class="mt-4 pt-4 border-t border-neutral-100 space-y-4 animate-fade-in">' +
+                          '    <div class="text-base sm:text-lg text-neutral-800 leading-relaxed font-normal m-0">' +
+                          '      ' + escapeHtml(item.answer) +
                           '    </div>' +
-                          '  </div>' +
-                          '</div>');
+                          '    ' + anchorBlock +
+                          '    <div class="pt-4 border-t border-neutral-200/80 flex flex-wrap items-center justify-between gap-3">' +
+                          '      <span class="text-xs font-medium text-neutral-500">Did you remember?</span>' +
+                          '      <div class="flex items-center gap-2.5">' +
+                          '        <button type="button" data-orbit-grade="forgot" class="btn btn-secondary btn-sm gap-1.5 text-neutral-800 hover:text-red-700 hover:border-red-300">' +
+                          '          <span>Forgot</span>' +
+                          '          <kbd class="hidden sm:inline-block px-1 py-0.5 text-[10px] font-mono bg-neutral-200/70 rounded">1</kbd>' +
+                          '        </button>' +
+                          '        <button type="button" data-orbit-grade="remembered" class="btn btn-primary btn-sm gap-1.5">' +
+                          '          <span>Remembered</span>' +
+                          '          <kbd class="hidden sm:inline-block px-1 py-0.5 text-[10px] font-mono bg-white/25 rounded">2</kbd>' +
+                          '        </button>' +
+                          '      </div>' +
+                          '    </div>' +
+                          '  </div>') +
+                    '</div>';
 
-                var scratchInput = container.querySelector('[data-orbit-scratch]');
                 var revealBtn = container.querySelector('[data-orbit-reveal]');
                 var skipBtn = container.querySelector('[data-orbit-skip]');
-                var retryBtn = container.querySelector('[data-orbit-grade="retry"]');
-                var solidBtn = container.querySelector('[data-orbit-grade="solid"]');
-
-                if (scratchInput) {
-                    scratchInput.addEventListener('keydown', function (ev) {
-                        if (ev.key === 'Enter') {
-                            ev.preventDefault();
-                            isRevealed = true;
-                            renderCurrent();
-                        }
-                    });
-                }
+                var forgotBtn = container.querySelector('[data-orbit-grade="forgot"]');
+                var rememberedBtn = container.querySelector('[data-orbit-grade="remembered"]');
 
                 if (revealBtn) {
                     revealBtn.addEventListener('click', function () {
@@ -393,32 +431,17 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                     });
                 }
 
-                if (retryBtn) {
-                    retryBtn.addEventListener('click', function () {
-                        gradeCardSrs(item.id, false);
-                        // Re-interleave at end of queue if not already retried twice
-                        if (!item._retriedOnce) {
-                            var clone = Object.assign({}, item, { _retriedOnce: true });
-                            queue.push(clone);
-                        }
-                        currentIndex += 1;
-                        isRevealed = false;
-                        renderCurrent();
-                        if (typeof onQueueComplete === 'function') onQueueComplete();
-                    });
+                if (forgotBtn) {
+                    forgotBtn.addEventListener('click', handleForgot);
                 }
 
-                if (solidBtn) {
-                    solidBtn.addEventListener('click', function () {
-                        gradeCardSrs(item.id, true);
-                        sessionCompletedCount += 1;
-                        currentIndex += 1;
-                        isRevealed = false;
-                        renderCurrent();
-                        if (typeof onQueueComplete === 'function') onQueueComplete();
-                    });
+                if (rememberedBtn) {
+                    rememberedBtn.addEventListener('click', handleRemembered);
                 }
             }
+
+            window.removeEventListener('keydown', handleKeydown);
+            window.addEventListener('keydown', handleKeydown);
 
             renderCurrent();
         }
@@ -476,7 +499,7 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                 // Inject Checkpoint 1 right before the 4th H2 (after the first half of the essay)
                 var targetH2 = h2Elements[Math.min(3, h2Elements.length - 1)];
                 var cp1 = document.createElement('aside');
-                cp1.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cp1.className = 'not-prose my-12 overflow-hidden card-surface font-sans shadow-sm border border-neutral-200/90';
                 cp1.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint 1');
                 targetH2.parentNode.insertBefore(cp1, targetH2);
                 mountCheckpointWidget(cp1, midPrompts, 'Orbit Checkpoint 01 • Mid-Essay Interleaving', updateArticleStats);
@@ -484,7 +507,7 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
 
                 // Inject Checkpoint 2 at the end of the prose
                 var cp2 = document.createElement('aside');
-                cp2.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cp2.className = 'not-prose my-12 overflow-hidden card-surface font-sans shadow-sm border border-neutral-200/90';
                 cp2.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint 2');
                 proseContainer.appendChild(cp2);
                 mountCheckpointWidget(cp2, endPrompts, 'Orbit Checkpoint 02 • Synthesis & Cross-Essay Recall', updateArticleStats);
@@ -496,7 +519,7 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                     combinedQueue.push(Object.assign({}, op, { isInterleavedBridge: true }));
                 });
                 var cpSingle = document.createElement('aside');
-                cpSingle.className = 'not-prose my-12 p-6 sm:p-8 card-surface border-l-4 border-l-primary font-sans';
+                cpSingle.className = 'not-prose my-12 overflow-hidden card-surface font-sans shadow-sm border border-neutral-200/90';
                 cpSingle.setAttribute('aria-label', 'In-Article Orbit Retrieval Checkpoint');
                 proseContainer.appendChild(cpSingle);
                 mountCheckpointWidget(cpSingle, combinedQueue, 'Orbit Checkpoint • Active Recall & Cross-Essay Interleaving', updateArticleStats);

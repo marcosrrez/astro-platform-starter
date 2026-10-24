@@ -11,7 +11,7 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
 
 {audioUrl && (
   <div 
-    class="audio-player-container my-8 rounded-2xl border border-neutral-200/90 bg-white/95 p-4 sm:p-5 shadow-sm backdrop-blur-md transition-all hover:border-neutral-300 dark:border-neutral-800 dark:bg-neutral-900/90"
+    class="audio-player-container mt-6 mb-3 card-surface p-4 sm:px-5 sm:py-4 font-sans"
     data-audio-player
     data-src={audioUrl}
     data-title={title}
@@ -19,14 +19,14 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
   >
     <audio class="sr-only" preload="metadata" src={audioUrl}></audio>
     
-    <div class="flex flex-col gap-3.5">
-      <!-- Top Row: Icon, Title & Status, Speed Pill -->
+    <div class="flex flex-col gap-3">
+      <!-- Top Row: Play Button, Kicker + Title, Tactile Controls -->
       <div class="flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3 min-w-0">
-          <!-- Play / Pause Main Button -->
+        <div class="flex items-center gap-3.5 min-w-0">
+          <!-- Play / Pause Main Button (44px+ Apple HIG circular control in Forest Green) -->
           <button
             type="button"
-            class="play-toggle-btn relative flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-neutral-900 text-white shadow-md transition-transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-neutral-400 focus:ring-offset-2 dark:bg-white dark:text-neutral-900"
+            class="play-toggle-btn relative flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-primary text-[#FAFAF9] shadow-xs transition-all hover:bg-[#244028] active:scale-[0.97]"
             aria-label={`Play narration for ${title}`}
             data-state="paused"
           >
@@ -43,29 +43,33 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
           <!-- Label & Animated Waveform -->
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <span class="text-xs font-semibold uppercase tracking-wider text-rose-700 dark:text-rose-400">
+              <span class="text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
                 Listen to Essay
               </span>
+              <span class="text-neutral-300" aria-hidden="true">·</span>
+              <span class="text-[11px] font-medium text-neutral-500">
+                Narrated Edition
+              </span>
               <!-- Waveform bars indicator -->
-              <div class="waveform-indicator flex items-end gap-0.5 h-3 opacity-40">
-                <span class="bar h-1 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
-                <span class="bar h-2 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
-                <span class="bar h-3 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
-                <span class="bar h-1.5 w-0.5 rounded-full bg-neutral-900 dark:bg-white transition-all"></span>
+              <div class="waveform-indicator flex items-end gap-0.5 h-3 opacity-40 ml-0.5">
+                <span class="bar h-1 w-0.5 rounded-full bg-primary transition-all"></span>
+                <span class="bar h-2 w-0.5 rounded-full bg-primary transition-all"></span>
+                <span class="bar h-3 w-0.5 rounded-full bg-primary transition-all"></span>
+                <span class="bar h-1.5 w-0.5 rounded-full bg-primary transition-all"></span>
               </div>
             </div>
-            <p class="truncate text-sm font-medium text-neutral-800 dark:text-neutral-200">
+            <p class="truncate text-sm font-medium text-neutral-900 m-0 mt-0.5">
               {title}
             </p>
           </div>
         </div>
 
-        <!-- Controls: 15s Rewind, Speed Button -->
+        <!-- Controls: 15s Rewind & Speed Pill (Apple HIG 44px touch targets) -->
         <div class="flex items-center gap-1.5 flex-shrink-0">
           <!-- Rewind 15s -->
           <button
             type="button"
-            class="rewind-btn flex h-8 w-8 items-center justify-center rounded-lg text-neutral-600 hover:bg-neutral-100 hover:text-neutral-900 focus:outline-none dark:text-neutral-400 dark:hover:bg-neutral-800 dark:hover:text-neutral-100"
+            class="rewind-btn inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[10px] text-neutral-600 hover:bg-neutral-100 hover:text-primary transition-colors active:scale-[0.97]"
             aria-label="Rewind 15 seconds"
             title="Rewind 15s"
           >
@@ -77,7 +81,7 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
           <!-- Speed Pill -->
           <button
             type="button"
-            class="speed-btn rounded-full border border-neutral-300 px-2.5 py-1 text-xs font-semibold text-neutral-700 transition hover:bg-neutral-100 focus:outline-none dark:border-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800"
+            class="speed-btn inline-flex min-h-[38px] items-center justify-center rounded-full border border-neutral-300/90 bg-[#FAFAF9] px-3 text-xs font-semibold text-neutral-800 transition-colors hover:border-primary/40 hover:text-primary active:scale-[0.97]"
             aria-label="Change playback speed"
           >
             1.0×
@@ -86,22 +90,20 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
       </div>
 
       <!-- Scrub Bar & Time Display -->
-      <div class="space-y-1">
-        <div class="group relative flex items-center">
+      <div class="flex items-center gap-3">
+        <span class="current-time text-[11px] font-mono text-neutral-500 w-8 text-right shrink-0">0:00</span>
+        <div class="group relative flex-1 flex items-center">
           <input
             type="range"
             min="0"
             max="100"
             value="0"
             step="0.1"
-            class="timeline-slider h-1.5 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-neutral-900 transition-all focus:outline-none dark:bg-neutral-800 dark:accent-white"
+            class="timeline-slider h-1.5 w-full cursor-pointer appearance-none rounded-full bg-neutral-200 accent-[#2F5233] transition-all focus:outline-none"
             aria-label="Audio scrubber"
           />
         </div>
-        <div class="flex items-center justify-between text-[11px] font-mono text-neutral-500 dark:text-neutral-400">
-          <span class="current-time">0:00</span>
-          <span class="duration-time">--:--</span>
-        </div>
+        <span class="duration-time text-[11px] font-mono text-neutral-500 w-9 shrink-0">--:--</span>
       </div>
     </div>
   </div>
@@ -114,9 +116,9 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
     height: 12px;
     width: 12px;
     border-radius: 9999px;
-    background: currentColor;
+    background: #2F5233;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .timeline-slider:hover::-webkit-slider-thumb {
     transform: scale(1.25);
@@ -125,10 +127,10 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
     height: 12px;
     width: 12px;
     border-radius: 9999px;
-    background: currentColor;
+    background: #2F5233;
     border: none;
     cursor: pointer;
-    transition: transform 0.1s ease;
+    transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1);
   }
   .timeline-slider:hover::-moz-range-thumb {
     transform: scale(1.25);
@@ -150,7 +152,7 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
 
   @keyframes wavePulse {
     0% { height: 3px; }
-    100% { height: 14px; }
+    100% { height: 12px; }
   }
 </style>
 
@@ -196,7 +198,7 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
             artist: author,
             album: 'Florecer Mind Audio Library',
             artwork: [
-              { src: '/favicon.svg', sizes: '512x512', type: 'image/svg+xml' },
+              { src: '/apple-touch-icon.png', sizes: '512x512', type: 'image/png' },
               { src: '/og-default.png', sizes: '1200x630', type: 'image/png' }
             ]
           });
@@ -240,7 +242,6 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
 
       // Play/Pause toggle
       playBtn.addEventListener('click', () => {
-        // Pause any other audio on the page
         document.querySelectorAll('audio').forEach(otherAudio => {
           if (otherAudio !== audio && !otherAudio.paused) {
             otherAudio.pause();
@@ -313,7 +314,6 @@ const { audioUrl, title, author = 'Florecer Mind' } = Astro.props;
     });
   }
 
-  // Initialize on load & Astro page transitions
   setupAudioPlayers();
   document.addEventListener('astro:page-load', setupAudioPlayers);
 </script>

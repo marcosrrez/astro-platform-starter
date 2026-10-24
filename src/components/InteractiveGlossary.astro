@@ -11,17 +11,6 @@ const { showFullGrid = true, enableInlineHighlighting = true } = Astro.props;
 const categories = [...new Set(GLOSSARY.map((item) => item.category))];
 ---
 
-{enableInlineHighlighting && (
-    <div class="my-6 p-4 rounded-lg bg-primary/5 border border-primary/20 flex items-start gap-3 font-sans text-sm text-neutral-700">
-        <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-        </svg>
-        <div>
-            <strong class="text-neutral-900">Interactive Study Mode:</strong> Scientific and philosophical terms underlined in this essay are interactive. Click or tap any underlined word to open its plain-English definition, a C.S. Lewis everyday illustration, and a practical parenting and counseling example.
-        </div>
-    </div>
-)}
-
 {showFullGrid && (
     <section class="mt-14 pt-10 border-t border-neutral-200 font-sans" id="interactive-glossary">
         <div class="mb-6">
