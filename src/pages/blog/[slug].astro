@@ -111,8 +111,43 @@ const structuredData = {
             audioUrl={entry.data.audioUrl || `/audio/${entry.slug}.mp3`}
         />
 
-        <!-- Andy Matuschak / Orbit Mnemonic Medium & In-Prose Interleaved Checkpoints -->
+        <!-- Slim Mnemonic Medium control bar -->
+        <div class="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-sans text-neutral-500 border-b border-neutral-200/60 pb-4">
+            <span class="text-neutral-400">✦</span>
+            <span>Interactive Essay: Tap <span class="underline decoration-dotted text-neutral-700">underlined terms</span> for definitions</span>
+            <span aria-hidden="true">·</span>
+            <button type="button" id="orbit-slim-toggle" class="flex items-center gap-1.5 text-neutral-600 hover:text-primary transition-colors">
+                <span class="w-1.5 h-1.5 rounded-full bg-primary inline-block" id="orbit-slim-dot"></span>
+                <span id="orbit-slim-label">Checkpoints: On</span>
+            </button>
+            <span aria-hidden="true">·</span>
+            <details class="inline relative">
+                <summary class="cursor-pointer list-none text-neutral-500 hover:text-primary transition-colors">How it works ⓘ</summary>
+                <div class="absolute z-10 mt-1 max-w-xs p-4 bg-white border border-neutral-200/80 rounded-xl shadow-lg text-xs text-neutral-600 leading-relaxed font-sans">
+                    This essay uses the <strong class="text-neutral-800">Mnemonic Medium</strong> (Andy Matuschak): underlined terms open vocabulary definitions, and spaced-repetition checkpoints are injected at section breaks. Your recall intervals are saved locally so concepts enter long-term memory.
+                </div>
+            </details>
+        </div>
+
+        <!-- Orbit component — JS injects checkpoints into prose; card UI is hidden -->
         <OrbitMnemonicMedium mode="article" currentSlug={entry.slug} />
+        <style>#orbit-article-controller { display: none !important; }</style>
+        <script is:inline>
+            document.addEventListener('DOMContentLoaded', function () {
+                var slimToggle = document.getElementById('orbit-slim-toggle');
+                var slimDot = document.getElementById('orbit-slim-dot');
+                var slimLabel = document.getElementById('orbit-slim-label');
+                var hiddenToggle = document.getElementById('orbit-toggle-checkpoints-btn');
+                if (!slimToggle || !hiddenToggle) return;
+                var on = true;
+                slimToggle.addEventListener('click', function () {
+                    on = !on;
+                    hiddenToggle.click();
+                    if (slimDot) slimDot.className = 'w-1.5 h-1.5 rounded-full inline-block ' + (on ? 'bg-primary' : 'bg-neutral-400');
+                    if (slimLabel) slimLabel.textContent = on ? 'Checkpoints: On' : 'Checkpoints: Off';
+                });
+            });
+        </script>
 
         <!-- Article Content -->
         <div class="prose prose-lg max-w-none">
@@ -376,5 +411,75 @@ const structuredData = {
 
         // Run on page load
         styleCheckmarks();
+
+        // Key Findings: convert full four-sided card to left-border callout
+        (function () {
+            var prose = document.querySelector('.prose');
+            if (!prose) return;
+            prose.querySelectorAll('h2, h3').forEach(function (heading) {
+                if (!/key findings/i.test(heading.textContent || '')) return;
+                var wrapper = document.createElement('div');
+                wrapper.className = 'my-8 pl-5 border-l-2 border-primary/70 space-y-2';
+                heading.parentNode.insertBefore(wrapper, heading);
+                wrapper.appendChild(heading);
+                var next = wrapper.nextSibling;
+                while (next && next.nodeName !== 'H2' && next.nodeName !== 'H3') {
+                    var toMove = next;
+                    next = next.nextSibling;
+                    wrapper.appendChild(toMove);
+                }
+            });
+        })();
+
+        // End-of-article 2-tab switcher for Practical Applications / For Counselors
+        (function () {
+            var prose = document.querySelector('.prose');
+            if (!prose) return;
+            var headings = Array.from(prose.querySelectorAll('h2, h3'));
+            var practicalH = headings.find(function (h) { return /practical applications|at home/i.test(h.textContent || ''); });
+            var counselorsH = headings.find(function (h) { return /for counselors/i.test(h.textContent || ''); });
+            if (!practicalH || !counselorsH) return;
+
+            function collectSection(startEl, stopEl) {
+                var nodes = [startEl];
+                var n = startEl.nextSibling;
+                while (n && n !== stopEl) { nodes.push(n); n = n.nextSibling; }
+                return nodes;
+            }
+
+            var practicalNodes = collectSection(practicalH, counselorsH);
+            var counselorNodes = collectSection(counselorsH, null);
+
+            var tabWrapper = document.createElement('div');
+            tabWrapper.className = 'not-prose my-12 font-sans';
+            tabWrapper.innerHTML =
+                '<div role="tablist" class="flex border-b border-neutral-200 mb-6 gap-4">' +
+                    '<button role="tab" id="slug-tab-practical" aria-selected="true" aria-controls="slug-panel-practical" class="pb-2.5 text-sm font-medium border-b-2 border-primary text-primary">For Parents &amp; Daily Life</button>' +
+                    '<button role="tab" id="slug-tab-counselors" aria-selected="false" aria-controls="slug-panel-counselors" class="pb-2.5 text-sm font-medium border-b-2 border-transparent text-neutral-500 hover:text-neutral-700">For Counselors</button>' +
+                '</div>' +
+                '<div id="slug-panel-practical" role="tabpanel" class="prose prose-lg max-w-none"></div>' +
+                '<div id="slug-panel-counselors" role="tabpanel" class="prose prose-lg max-w-none hidden"></div>';
+
+            practicalH.parentNode.insertBefore(tabWrapper, practicalH);
+            var pp = tabWrapper.querySelector('#slug-panel-practical');
+            var cp = tabWrapper.querySelector('#slug-panel-counselors');
+            practicalNodes.forEach(function (n) { pp.appendChild(n); });
+            counselorNodes.forEach(function (n) { cp.appendChild(n); });
+
+            function activateTab(id) {
+                var isPractical = id === 'slug-tab-practical';
+                var tabP = tabWrapper.querySelector('#slug-tab-practical');
+                var tabC = tabWrapper.querySelector('#slug-tab-counselors');
+                tabP.setAttribute('aria-selected', isPractical ? 'true' : 'false');
+                tabP.className = 'pb-2.5 text-sm font-medium border-b-2 ' + (isPractical ? 'border-primary text-primary' : 'border-transparent text-neutral-500 hover:text-neutral-700');
+                tabC.setAttribute('aria-selected', isPractical ? 'false' : 'true');
+                tabC.className = 'pb-2.5 text-sm font-medium border-b-2 ' + (!isPractical ? 'border-primary text-primary' : 'border-transparent text-neutral-500 hover:text-neutral-700');
+                pp.classList.toggle('hidden', !isPractical);
+                cp.classList.toggle('hidden', isPractical);
+            }
+
+            tabWrapper.querySelector('#slug-tab-practical').addEventListener('click', function () { activateTab('slug-tab-practical'); });
+            tabWrapper.querySelector('#slug-tab-counselors').addEventListener('click', function () { activateTab('slug-tab-counselors'); });
+        })();
     </script>
 </Layout>

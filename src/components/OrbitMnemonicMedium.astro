@@ -72,51 +72,38 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                 </p>
             </div>
 
-            <!-- Spaced Repetition Stats Strip -->
-            <div class="grid grid-cols-3 gap-3 sm:gap-4 shrink-0">
-                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
-                    <div id="orbit-stat-due" class="font-serif text-2xl sm:text-3xl font-bold text-primary">0</div>
-                    <div class="text-xs font-medium text-neutral-600 mt-0.5">Due Today</div>
+            <!-- Spaced Repetition Stats Bar -->
+            <div class="flex items-center gap-4 font-sans text-sm shrink-0 divide-x divide-neutral-200">
+                <div class="pr-4">
+                    <span id="orbit-stat-due" class="font-serif text-xl font-bold text-primary">0</span>
+                    <span class="ml-1 text-neutral-600">Due Today</span>
                 </div>
-                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
-                    <div id="orbit-stat-orbit" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">0</div>
-                    <div class="text-xs font-medium text-neutral-600 mt-0.5">In Orbit</div>
+                <div class="px-4">
+                    <span id="orbit-stat-orbit" class="font-serif text-xl font-bold text-neutral-900">0</span>
+                    <span class="ml-1 text-neutral-600">In Orbit</span>
                 </div>
-                <div class="p-3.5 sm:p-4 card-surface text-center min-w-[96px]">
-                    <div id="orbit-stat-mastered" class="font-serif text-2xl sm:text-3xl font-bold text-neutral-900">0</div>
-                    <div class="text-xs font-medium text-neutral-600 mt-0.5">14d+ Solid</div>
+                <div class="pl-4">
+                    <span id="orbit-stat-mastered" class="font-serif text-xl font-bold text-neutral-900">0</span>
+                    <span class="ml-1 text-neutral-600">Solid</span>
                 </div>
             </div>
         </div>
 
-        <!-- Interleaved Filter Pills -->
-        <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
-            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Orbit deck filter">
-                <button type="button" data-orbit-filter="interleaved" class="pill-filter pill-filter-active">
-                    Interleave All Essays (Recommended)
-                </button>
-                <button type="button" data-orbit-filter="due" class="pill-filter pill-filter-inactive">
-                    Due for Review Today
-                </button>
-                <button type="button" data-orbit-filter="creaturely-mind-at-four-oclock-restraint-collapse" class="pill-filter pill-filter-inactive">
-                    Essay 1: Restraint Collapse
-                </button>
-                <button type="button" data-orbit-filter="four-brick-juggler-wandering-lantern-barbara-oakley" class="pill-filter pill-filter-inactive">
-                    Essay 2: Working Memory
-                </button>
-                <button type="button" data-orbit-filter="grit-without-grimness-duckworth-cs-lewis-chest" class="pill-filter pill-filter-inactive">
-                    Essay 3: Grit &amp; The Chest
-                </button>
-                <button type="button" data-orbit-filter="clinical" class="pill-filter pill-filter-inactive">
-                    Clinical &amp; Brain Essays
-                </button>
-            </div>
-
-            <button type="button" id="orbit-hub-shuffle-btn" class="btn btn-ghost btn-sm">
+        <!-- Deck Selector + Shuffle -->
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <label for="orbit-deck-select" class="text-sm font-medium text-neutral-700 font-sans shrink-0">Deck:</label>
+            <select id="orbit-deck-select" data-orbit-filter-select class="font-sans text-sm border border-neutral-300 rounded-lg px-3 py-1.5 bg-white text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary">
+                <option value="interleaved">Interleave All Essays (Recommended)</option>
+                <option value="due">Due for Review Today</option>
+                <option value="creaturely-mind-at-four-oclock-restraint-collapse">Essay 1: Restraint Collapse</option>
+                <option value="four-brick-juggler-wandering-lantern-barbara-oakley">Essay 2: Working Memory</option>
+                <option value="grit-without-grimness-duckworth-cs-lewis-chest">Essay 3: Grit &amp; The Chest</option>
+                <option value="clinical">Clinical &amp; Brain Essays</option>
+            </select>
+            <button type="button" id="orbit-hub-shuffle-btn" class="btn btn-ghost btn-sm" title="Shuffle queue">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
                 </svg>
-                <span>Shuffle Interleaved Queue</span>
             </button>
         </div>
 
@@ -636,16 +623,13 @@ const serializedPrompts = JSON.stringify(ORBIT_PROMPTS);
                 updateHubStats();
             }
 
-            var filterButtons = document.querySelectorAll('[data-orbit-filter]');
-            filterButtons.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    activeFilter = btn.getAttribute('data-orbit-filter') || 'interleaved';
-                    filterButtons.forEach(function (b) {
-                        b.className = b === btn ? 'pill-filter pill-filter-active' : 'pill-filter pill-filter-inactive';
-                    });
+            var deckSelect = document.getElementById('orbit-deck-select');
+            if (deckSelect) {
+                deckSelect.addEventListener('change', function () {
+                    activeFilter = deckSelect.value || 'interleaved';
                     renderHubDeck(false);
                 });
-            });
+            }
 
             var shuffleBtn = document.getElementById('orbit-hub-shuffle-btn');
             if (shuffleBtn) {

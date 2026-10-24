@@ -30,36 +30,48 @@ const formatDate = (d: Date) =>
             <p class="max-w-3xl text-xl leading-relaxed text-neutral-700 font-sans mb-6">
                 Children are not biological machines to be optimized, nor are they disembodied spirits who can ignore a tired nervous system. This series brings together the science of learning (Barbara Oakley, Terrence Sejnowski), character and deliberate practice (Angela Duckworth, Anders Ericsson), interpersonal neurobiology (Adele Diamond, Stephen Porges), and Child-Centered Play Therapy (Garry Landreth), filtered through the lucid warmth and Christian humanism of C.S. Lewis.
             </p>
-            <div class="grid gap-6 sm:grid-cols-3 pt-4 font-sans">
-                <div class="p-6 card-surface">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 01</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">Hard Neuroscience</div>
-                    <p class="text-sm text-neutral-600 leading-relaxed">
-                        Real brain mechanisms: prefrontal glucose, thalamic sensory gating, working memory slots, and synaptic homeostasis.
-                    </p>
+            <details class="pt-4 font-sans group">
+                <summary class="cursor-pointer list-none flex items-center gap-2 text-sm font-semibold text-primary select-none w-fit">
+                    <span class="transition-transform group-open:rotate-90">▶</span>
+                    Three Pillars of This Series
+                </summary>
+                <div class="mt-4 grid gap-0 sm:grid-cols-3 sm:divide-x divide-neutral-200 border-t border-neutral-200 pt-4">
+                    <div class="pb-4 sm:pb-0 sm:pr-6">
+                        <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 01</div>
+                        <div class="font-serif font-semibold text-base text-neutral-900 mb-1">Hard Neuroscience</div>
+                        <p class="text-sm text-neutral-600 leading-relaxed">Real brain mechanisms: prefrontal glucose, thalamic sensory gating, working memory slots, and synaptic homeostasis.</p>
+                    </div>
+                    <div class="py-4 sm:py-0 sm:px-6 border-t sm:border-t-0 border-neutral-200">
+                        <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 02</div>
+                        <div class="font-serif font-semibold text-base text-neutral-900 mb-1">The C.S. Lewis Lens</div>
+                        <p class="text-sm text-neutral-600 leading-relaxed">Everyday metaphors and ordered affections ("The Chest") that honor the creaturely limits of a child's body and mind.</p>
+                    </div>
+                    <div class="pt-4 sm:pt-0 sm:pl-6 border-t sm:border-t-0 border-neutral-200">
+                        <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1">Pillar 03</div>
+                        <div class="font-serif font-semibold text-base text-neutral-900 mb-1">Home &amp; Playroom</div>
+                        <p class="text-sm text-neutral-600 leading-relaxed">Concrete rhythms and scripts for fathers and mothers at the kitchen table, and for counselors in CCPT and parent consultations.</p>
+                    </div>
                 </div>
-                <div class="p-6 card-surface">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 02</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">The C.S. Lewis Lens</div>
-                    <p class="text-sm text-neutral-600 leading-relaxed">
-                        Everyday metaphors and ordered affections ("The Chest") that honor the creaturely limits of a child's body and mind.
-                    </p>
-                </div>
-                <div class="p-6 card-surface">
-                    <div class="text-xs font-bold uppercase tracking-wider text-primary mb-1.5">Pillar 03</div>
-                    <div class="font-serif font-bold text-lg text-neutral-900 mb-1.5">Home &amp; Playroom</div>
-                    <p class="text-sm text-neutral-600 leading-relaxed">
-                        Concrete rhythms and scripts for fathers and mothers at the kitchen table, and for counselors in CCPT and parent consultations.
-                    </p>
-                </div>
-            </div>
+            </details>
         </section>
 
-        <!-- Andy Matuschak / Orbit Interleaved Practice Studio -->
-        <OrbitMnemonicMedium mode="hub" />
+        <!-- Sticky Segmented Tab Bar -->
+        <div id="learning-tab-bar" class="sticky top-0 z-20 bg-[var(--color-paper,#faf8f4)] border-b border-neutral-200 py-3">
+            <div class="flex gap-1 font-sans">
+                <button type="button" data-tab="essays" class="learning-tab learning-tab-active px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
+                    Deep Essays ({learningPosts.length})
+                </button>
+                <button type="button" data-tab="practice" class="learning-tab learning-tab-inactive px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
+                    Orbit Practice
+                </button>
+                <button type="button" data-tab="lexicon" class="learning-tab learning-tab-inactive px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
+                    Concept Lexicon
+                </button>
+            </div>
+        </div>
 
-        <!-- Essays in the Series -->
-        <section class="py-12 sm:py-16">
+        <!-- Tab 1: Deep Essays -->
+        <section id="tab-essays" class="py-12 sm:py-16">
             <div class="mb-8">
                 <p class="kicker mb-2">Deep Essays</p>
                 <h2 class="font-serif text-3xl text-neutral-900">
@@ -70,51 +82,89 @@ const formatDate = (d: Date) =>
                 </p>
             </div>
 
-            <div class="space-y-8">
+            <div class="divide-y divide-neutral-200">
                 {learningPosts.map((post, idx) => (
-                    <article class="p-6 sm:p-8 card-surface card-interactive">
-                        <div class="mb-4 flex flex-wrap items-center gap-3 text-sm font-sans">
+                    <article class="py-8 first:pt-0">
+                        <div class="mb-3 flex flex-wrap items-center gap-2 text-sm font-sans article-meta">
                             <span class="category-badge bg-primary/10 text-primary">
                                 Essay {learningPosts.length - idx}
                             </span>
-                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
-                                {formatDate(post.data.pubDate)}
-                            </time>
-                            <span class="text-neutral-400" aria-hidden="true">·</span>
-                            <span class="text-neutral-600">{readingTime(post.body)} min read</span>
+                            <span aria-hidden="true">·</span>
+                            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+                            <span aria-hidden="true">·</span>
+                            <span>{readingTime(post.body)} min read</span>
                             {post.data.sources && post.data.sources.length > 0 && (
                                 <>
-                                    <span class="text-neutral-400" aria-hidden="true">·</span>
-                                    <span class="text-neutral-600">{post.data.sources.length} peer-reviewed sources</span>
+                                    <span aria-hidden="true">·</span>
+                                    <span>{post.data.sources.length} peer-reviewed sources</span>
                                 </>
                             )}
                         </div>
-
-                        <h3 class="mb-3 font-serif text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">
+                        <h3 class="mb-2 font-serif text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">
                             <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
                                 {post.data.title}
                             </a>
                         </h3>
-
-                        <p class="mb-6 text-neutral-700 leading-relaxed font-sans text-base sm:text-lg">
+                        <p class="mb-3 text-neutral-700 leading-relaxed font-sans text-base sm:text-lg">
                             {post.data.description}
                         </p>
-
-                        <a
-                            href={`/blog/${post.slug}`}
-                            class="btn btn-secondary btn-sm"
-                        >
-                            <span>Read Essay with Interactive Vocabulary</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                            </svg>
+                        <a href={`/blog/${post.slug}`} class="font-medium font-sans inline-flex items-center group text-sm">
+                            Read essay with interactive vocabulary
+                            <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                         </a>
                     </article>
                 ))}
             </div>
         </section>
 
-        <!-- Interactive Concept & Vocabulary Explorer -->
-        <InteractiveGlossary showFullGrid={true} enableInlineHighlighting={false} />
+        <!-- Tab 2: Orbit Practice -->
+        <section id="tab-practice" class="py-12 sm:py-16 hidden">
+            <OrbitMnemonicMedium mode="hub" />
+        </section>
+
+        <!-- Tab 3: Concept Lexicon -->
+        <section id="tab-lexicon" class="py-12 sm:py-16 hidden">
+            <InteractiveGlossary showFullGrid={true} enableInlineHighlighting={false} />
+        </section>
+
+        <style>
+            .learning-tab-active { background-color: var(--color-primary, #2d5a27); color: white; }
+            .learning-tab-inactive { color: var(--color-neutral-700, #374151); }
+            .learning-tab-inactive:hover { background-color: var(--color-neutral-100, #f3f4f6); }
+        </style>
+
+        <script is:inline>
+            (function () {
+                var tabs = ['essays', 'practice', 'lexicon'];
+
+                function getActiveTab() {
+                    var params = new URLSearchParams(window.location.search);
+                    var tab = params.get('tab');
+                    return tabs.includes(tab) ? tab : 'essays';
+                }
+
+                function switchTab(tab) {
+                    tabs.forEach(function (t) {
+                        var section = document.getElementById('tab-' + t);
+                        var btn = document.querySelector('[data-tab="' + t + '"]');
+                        if (section) section.classList.toggle('hidden', t !== tab);
+                        if (btn) {
+                            btn.className = btn.className
+                                .replace(/learning-tab-(active|inactive)/g, '')
+                                .trim() + ' ' + (t === tab ? 'learning-tab-active' : 'learning-tab-inactive');
+                        }
+                    });
+                    var url = new URL(window.location.href);
+                    if (tab === 'essays') { url.searchParams.delete('tab'); } else { url.searchParams.set('tab', tab); }
+                    history.replaceState(null, '', url.toString());
+                }
+
+                document.querySelectorAll('[data-tab]').forEach(function (btn) {
+                    btn.addEventListener('click', function () { switchTab(btn.getAttribute('data-tab')); });
+                });
+
+                switchTab(getActiveTab());
+            })();
+        </script>
     </div>
 </Layout>

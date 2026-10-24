@@ -58,172 +58,94 @@ const otherTags = allTags.filter(tag =>
             Each spotlight transforms complex studies into accessible, actionable wisdom.
         </p>
 
-        <!-- Filters Section -->
-        <div class="mb-12 p-6 sm:p-8 card-surface-muted">
-            <h2 class="mb-4 text-xl font-bold text-neutral-900">Filter by:</h2>
-
-            <!-- Categories -->
-            <div class="mb-6">
-                <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">Categories</h3>
-                <div class="flex flex-wrap gap-2">
-                    <a
-                        href="/blog"
-                        class={`pill-filter ${
-                            !selectedCategory
-                                ? 'bg-primary text-white border-primary'
-                                : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
-                        }`}
-                    >
-                        All
+        <!-- Filter Bar -->
+        <div class="mb-8 flex flex-wrap items-center gap-3 border-b border-neutral-200 pb-5">
+            <!-- Category strip -->
+            <div class="flex flex-wrap gap-2 flex-1 min-w-0 overflow-x-auto">
+                <a href="/blog" class={`pill-filter whitespace-nowrap ${!selectedCategory && !selectedTag ? 'bg-primary text-white border-primary' : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'}`}>
+                    All
+                </a>
+                {categories.map((category) => (
+                    <a href={`/blog?category=${encodeURIComponent(category)}`} class={`pill-filter whitespace-nowrap ${selectedCategory === category ? 'bg-primary text-white border-primary' : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'}`}>
+                        {category}
                     </a>
-                    {categories.map((category) => (
-                        <a
-                            href={`/blog?category=${encodeURIComponent(category)}`}
-                            class={`pill-filter ${
-                                selectedCategory === category
-                                    ? 'bg-primary text-white border-primary'
-                                    : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
-                            }`}
-                        >
-                            {category}
+                ))}
+            </div>
+            <!-- Topic dropdown -->
+            <div class="relative shrink-0 font-sans" id="topic-filter-wrapper">
+                <button type="button" id="topic-filter-btn" class={`pill-filter gap-1.5 ${selectedTag ? 'bg-primary text-white border-primary' : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'}`}>
+                    {selectedTag ? `#${selectedTag}` : 'Filter by Topic'}
+                    <span class="text-xs">▾</span>
+                </button>
+                <div id="topic-filter-dropdown" class="hidden absolute right-0 mt-1 z-10 min-w-[200px] bg-white border border-neutral-200/80 rounded-xl shadow-lg py-1 font-sans text-sm max-h-60 overflow-y-auto">
+                    {selectedTag && <a href="/blog" class="block px-4 py-2 text-neutral-500 hover:bg-neutral-50">Clear filter</a>}
+                    {[...audienceTags, ...topicTags].map((tag) => (
+                        <a href={`/blog?tag=${encodeURIComponent(tag)}`} class={`block px-4 py-2 hover:bg-neutral-50 ${selectedTag === tag ? 'text-primary font-medium' : 'text-neutral-700'}`}>
+                            #{tag}
                         </a>
                     ))}
                 </div>
             </div>
-
-            <!-- Audience Tags -->
-            {audienceTags.length > 0 && (
-                <div class="mb-6">
-                    <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">For You</h3>
-                    <div class="flex flex-wrap gap-2">
-                        {audienceTags.map((tag) => (
-                            <a
-                                href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                class={`pill-filter ${
-                                    selectedTag === tag
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
-                                }`}
-                            >
-                                #{tag}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            <!-- Topic Tags -->
-            {topicTags.length > 0 && (
-                <div>
-                    <h3 class="mb-3 text-xs font-bold text-neutral-600 uppercase tracking-wider font-sans">Topics</h3>
-                    <div class="flex flex-wrap gap-2">
-                        {topicTags.map((tag) => (
-                            <a
-                                href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                class={`pill-filter ${
-                                    selectedTag === tag
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'bg-white text-neutral-700 hover:border-primary/40 hover:text-primary'
-                                }`}
-                            >
-                                #{tag}
-                            </a>
-                        ))}
-                    </div>
-                </div>
-            )}
-
-            {/* Clear Filters */}
             {(selectedCategory || selectedTag) && (
-                <div class="mt-5 pt-4 border-t border-neutral-200/80">
-                    <a
-                        href="/blog"
-                        class="btn btn-ghost btn-sm"
-                    >
-                        <span>Clear all filters</span>
-                    </a>
-                </div>
+                <a href="/blog" class="text-xs text-neutral-500 hover:text-neutral-800 font-sans shrink-0">Clear ×</a>
             )}
         </div>
+        <script is:inline>
+            var btn = document.getElementById('topic-filter-btn');
+            var dd = document.getElementById('topic-filter-dropdown');
+            if (btn && dd) {
+                btn.addEventListener('click', function(e) { e.stopPropagation(); dd.classList.toggle('hidden'); });
+                document.addEventListener('click', function() { dd.classList.add('hidden'); });
+            }
+        </script>
 
-        <!-- Active Filter Display -->
+        <!-- Result count when filtered -->
         {(selectedCategory || selectedTag) && (
-            <div class="mb-6 p-4 rounded-[12px] bg-primary/10 border border-primary/20">
-                <p class="text-neutral-900 font-sans text-sm font-medium">
-                    Showing {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
-                    {selectedCategory && ` in ${selectedCategory}`}
-                    {selectedTag && ` tagged with #${selectedTag}`}
-                </p>
-            </div>
+            <p class="mb-6 text-sm text-neutral-500 font-sans">
+                {filteredPosts.length} article{filteredPosts.length !== 1 ? 's' : ''}
+                {selectedCategory && ` in ${selectedCategory}`}
+                {selectedTag && ` tagged #${selectedTag}`}
+            </p>
         )}
 
-        <!-- Blog Posts Grid -->
+        <!-- Article Feed -->
         {filteredPosts.length > 0 ? (
-            <div class="space-y-8">
+            <div class="divide-y divide-neutral-200">
                 {filteredPosts.map((post) => (
-                    <article class="p-6 sm:p-8 card-surface card-interactive">
-                        <div class="mb-3 flex flex-wrap items-center gap-3 text-sm font-sans">
-                            <a
-                                href={`/blog?category=${encodeURIComponent(post.data.category)}`}
-                                class="category-badge bg-primary/10 text-primary hover:bg-primary hover:text-white"
-                            >
+                    <article class="py-8 first:pt-0">
+                        <div class="mb-3 flex flex-wrap items-center gap-2 text-xs font-sans article-meta">
+                            <a href={`/blog?category=${encodeURIComponent(post.data.category)}`} class="category-badge bg-primary/10 text-primary hover:bg-primary hover:text-white">
                                 {post.data.category}
                             </a>
-                            <time datetime={post.data.pubDate.toISOString()} class="text-neutral-600">
-                                {post.data.pubDate.toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
+                            <span aria-hidden="true">·</span>
+                            <span>{readingTime(post.body)} min read</span>
+                            <span aria-hidden="true">·</span>
+                            <time datetime={post.data.pubDate.toISOString()}>
+                                {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
                             </time>
-                            <span class="text-neutral-400" aria-hidden="true">·</span>
-                            <span class="text-neutral-600">{readingTime(post.body)} min read</span>
+                            {post.data.sources && post.data.sources.length > 0 && (
+                                <><span aria-hidden="true">·</span><span>{post.data.sources.length} sources</span></>
+                            )}
                         </div>
-
-                        <h2 class="mb-3 text-2xl sm:text-3xl font-bold text-neutral-900">
+                        <h2 class="mb-2 font-serif text-2xl sm:text-3xl font-bold text-neutral-900 leading-tight">
                             <a href={`/blog/${post.slug}`} class="hover:text-primary transition-colors">
                                 {post.data.title}
                             </a>
                         </h2>
-
-                        <p class="mb-5 text-neutral-700 leading-relaxed font-sans">
+                        <p class="mb-3 text-neutral-700 leading-relaxed font-sans line-clamp-2">
                             {post.data.description}
                         </p>
-
-                        {/* Tags */}
-                        {post.data.tags && post.data.tags.length > 0 && (
-                            <div class="mb-5 flex flex-wrap gap-2">
-                                {post.data.tags.map((tag) => (
-                                    <a
-                                        href={`/blog?tag=${encodeURIComponent(tag)}`}
-                                        class="tag bg-neutral-100 text-neutral-700 hover:bg-primary hover:text-white"
-                                    >
-                                        #{tag}
-                                    </a>
-                                ))}
-                            </div>
-                        )}
-
-                        <a
-                            href={`/blog/${post.slug}`}
-                            class="btn btn-secondary btn-sm"
-                        >
-                            <span>Read Full Research Spotlight</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                            </svg>
+                        <a href={`/blog/${post.slug}`} class="font-medium font-sans inline-flex items-center group text-sm">
+                            Read spotlight
+                            <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
                         </a>
                     </article>
                 ))}
             </div>
         ) : (
-            <div class="p-8 text-center card-surface">
-                <p class="text-lg text-neutral-700 mb-4">
-                    No articles found with the selected filters.
-                </p>
-                <a href="/blog" class="btn btn-secondary">
-                    Clear filters and view all articles
-                </a>
+            <div class="py-8 text-center border-t border-neutral-200">
+                <p class="text-neutral-700 font-sans mb-4">No articles found with the selected filters.</p>
+                <a href="/blog" class="btn btn-secondary">Clear filters</a>
             </div>
         )}
 

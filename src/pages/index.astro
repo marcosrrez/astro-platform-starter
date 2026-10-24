@@ -76,25 +76,26 @@ const structuredData = {
                 </div>
             </div>
 
-            <!-- Credibility panel -->
-            <aside class="border-t-2 border-primary pt-6">
-                <p class="kicker mb-5">The Florecer standard</p>
-                <dl class="grid grid-cols-3 gap-4 lg:grid-cols-1 lg:gap-5">
-                    <div>
-                        <dt class="font-serif text-3xl text-primary leading-none">{allPosts.length}</dt>
-                        <dd class="mt-1 text-sm text-neutral-600 font-sans">research spotlights, each tied to primary sources</dd>
-                    </div>
-                    <div>
-                        <dt class="font-serif text-3xl text-primary leading-none">{totalSources}+</dt>
-                        <dd class="mt-1 text-sm text-neutral-600 font-sans">peer-reviewed studies cited across the archive</dd>
-                    </div>
-                    <div>
-                        <dt class="font-serif text-3xl text-primary leading-none">100%</dt>
-                        <dd class="mt-1 text-sm text-neutral-600 font-sans">human-reviewed before anything is published</dd>
-                    </div>
-                </dl>
-            </aside>
         </div>
+
+        <!-- Trust bar -->
+        <aside class="mt-10 border-t border-neutral-200 pt-6">
+            <p class="kicker mb-4">The Florecer standard</p>
+            <dl class="flex flex-col gap-4 sm:flex-row sm:gap-0 sm:divide-x sm:divide-neutral-200">
+                <div class="sm:pr-8">
+                    <dt class="font-serif text-3xl text-primary leading-none">{allPosts.length}</dt>
+                    <dd class="mt-1 text-sm text-neutral-600 font-sans">research spotlights, each tied to primary sources</dd>
+                </div>
+                <div class="sm:px-8">
+                    <dt class="font-serif text-3xl text-primary leading-none">{totalSources}+</dt>
+                    <dd class="mt-1 text-sm text-neutral-600 font-sans">peer-reviewed studies cited across the archive</dd>
+                </div>
+                <div class="sm:pl-8">
+                    <dt class="font-serif text-3xl text-primary leading-none">100%</dt>
+                    <dd class="mt-1 text-sm text-neutral-600 font-sans">human-reviewed before anything is published</dd>
+                </div>
+            </dl>
+        </aside>
     </section>
 
     <!-- What we do -->
@@ -183,22 +184,31 @@ const structuredData = {
                                     <a href={`/blog?category=${encodeURIComponent(post.data.category)}`} class="kicker">{post.data.category}</a>
                                     <span aria-hidden="true">·</span>
                                     <span>{readingTime(post.body)} min read</span>
+                                    <span aria-hidden="true">·</span>
+                                    <span>{formatDate(post.data.pubDate)}</span>
+                                    {post.data.sources && post.data.sources.length > 0 && (
+                                        <><span aria-hidden="true">·</span><span>{post.data.sources.length} sources</span></>
+                                    )}
                                 </div>
                                 <h3 class="mb-2 font-serif text-xl">
                                     <a href={`/blog/${post.slug}`} class="text-neutral-900 hover:text-primary transition-colors">
                                         {post.data.title}
                                     </a>
                                 </h3>
-                                <p class="text-neutral-700 leading-relaxed font-sans">
+                                <p class="mb-3 text-neutral-700 leading-relaxed font-sans">
                                     {post.data.description}
                                 </p>
+                                <a href={`/blog/${post.slug}`} class="font-medium font-sans inline-flex items-center group text-sm">
+                                    Read spotlight
+                                    <span class="ml-1 group-hover:translate-x-1 transition-transform">→</span>
+                                </a>
                             </article>
                         ))}
                     </div>
                 )}
             </div>
         ) : (
-            <div class="p-8 text-center card-surface">
+            <div class="py-8 text-center border-t border-neutral-200">
                 <p class="text-neutral-700 font-sans">New research spotlights coming soon.</p>
             </div>
         )}
